@@ -19,7 +19,7 @@ class CreateGroupsTable extends Migration
             $table->string('course');
             $table->string('leader');
             $table->string('phone');
-            $table->integer('facult_id');
+            $table->integer('faculty_id');
             $table->timestamps();
         });
     }

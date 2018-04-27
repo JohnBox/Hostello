@@ -16,7 +16,7 @@ use App\Models\Pay;
 
 class HomeController extends Controller
 {
-    function __construct()
+    public function __construct()
     {
         $this->middleware('auth');
         if (!User::all()->count()) {
@@ -25,15 +25,15 @@ class HomeController extends Controller
         }
     }
 
-    function index()
+    public function getIndex()
     {
         $pays = $pays = DB::table('pays')->select(DB::raw('SUM(live_price) as live_price,
-                                                         SUM(gas_price) as gas_price,
-                                                         SUM(elec_price) as elec_price,
-                                                         SUM(water_price) as water_price,
-                                                         SUM(total) as total,
-                                                         SUM(paid) as paid,
-                                                         date'))->groupBy('date')->get();
+     SUM(gas_price) as gas_price,
+     SUM(elec_price) as elec_price,
+     SUM(water_price) as water_price,
+     SUM(total) as total,
+     SUM(paid) as paid,
+     date'))->groupBy('date')->get();
         return view('home', [
             'violations' => Violation::all()->take(10),
             'livers' => Liver::all()->take(10),

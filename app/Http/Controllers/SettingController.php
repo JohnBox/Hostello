@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Hash;
 
 use App\Models\Hostel;
 use App\Models\User;
@@ -22,12 +23,12 @@ class SettingController extends Controller
         }
     }
 
-    public function index()
+    public function getIndex()
     {
         return view('setting.index', [
             'hostels' => Hostel::all(),
             'users' => User::all(),
-            'rooms' => Room::all(),
+            'rooms' => Room::orderBy('number', 'asc')->get(),
             'faculties' => Faculty::all(),
             'groups' => Group::all(),
         ]);
@@ -111,7 +112,7 @@ class SettingController extends Controller
 
     public function getCreateFaculty()
     {
-        return view('setting.create-facult');
+        return view('setting.create-faculty');
     }
 
     public function postCreateFaculty(Request $req)
@@ -126,20 +127,20 @@ class SettingController extends Controller
 
     public function getEditFaculty($id)
     {
-        return view('setting.edit-facult', ['facult' => Faculty::find($id)]);
+        return view('setting.edit-faculty', ['faculty' => Faculty::find($id)]);
     }
 
-    public function postEditFacult(Request $req)
+    public function postEditFaculty(Request $req)
     {
-        $facult = Faculty::find($req->input('id'));
-        $facult->name = $req->input('name');
-        $facult->short_name = $req->input('short_name');
-        $facult->years = $req->input('years');
-        $facult->save();
+        $faculty = Faculty::find($req->input('id'));
+        $faculty->name = $req->input('name');
+        $faculty->short_name = $req->input('short_name');
+        $faculty->years = $req->input('years');
+        $faculty->save();
         return Redirect::to('/settings');
     }
 
-    public function getDeleteFacult($id)
+    public function getDeleteFaculty($id)
     {
         Faculty::destroy($id);
         return Redirect::to('/settings');
@@ -152,11 +153,11 @@ class SettingController extends Controller
     public function postCreateGroup(Request $req)
     {
         Group::create([
-            'number' => (int)$req->input('number')<10?'0'.$req->input('number'):$req->input('number'),
+            'number' => $req->input('number'),
             'course' => $req->input('course'),
             'leader' => $req->input('leader'),
             'phone' => $req->input('phone'),
-            'facult_id' => $req->input('facult')
+            'faculty_id' => $req->input('faculty')
         ]);
         return Redirect::to('/settings');
     }
@@ -167,10 +168,10 @@ class SettingController extends Controller
     public function postEditGroup(Request $req)
     {
         $group = Group::find($req->input('id'));
-        $group->number =(int)$req->input('number')<10?'0'.$req->input('number'):$req->input('number');
+        $group->number = $req->input('number');
         $group->course = $req->input('course');
         $group->leader = $req->input('leader');
-        $group->facult_id = $req->input('facult');
+        $group->faculty_id = $req->input('faculty');
         $group->save();
         return Redirect::to('/settings');
     }

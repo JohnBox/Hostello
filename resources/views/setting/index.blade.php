@@ -107,7 +107,7 @@
         <div class="panel panel-default">
           <div class="panel-heading">Факультети</div>
           <div class="panel-body">
-            <a type="button" class="btn btn-sm btn-default" href="{{ url('settings/create-facult') }}">Створити новий</a>
+            <a type="button" class="btn btn-sm btn-default" href="{{ url('settings/create-faculty') }}">Створити новий</a>
             <br/>
             <br/>
             <table class="table table-striped">
@@ -118,13 +118,13 @@
                 <th></th>
                 <th></th>
               </tr>
-              @foreach($faculties as $facult)
+              @foreach($faculties as $faculty)
                 <tr>
-                  <td>{{ $facult->name }}</td>
-                  <td>{{ $facult->short_name }}</td>
-                  <td>{{ $facult->years }}</td>
-                  <td><a href="{{ url('settings/edit-facult') }}/{{ $facult->id }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
-                  <td><a href="{{ url('settings/delete-facult') }}/{{ $facult->id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+                  <td>{{ $faculty->name }}</td>
+                  <td>{{ $faculty->short_name }}</td>
+                  <td>{{ $faculty->years }}</td>
+                  <td><a href="{{ url('settings/edit-faculty') }}/{{ $faculty->id }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+                  <td><a href="{{ url('settings/delete-faculty') }}/{{ $faculty->id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
               @endforeach
             </table>
@@ -148,7 +148,7 @@
               </tr>
               @foreach($groups as $group)
                 <tr>
-                  <td>{{ $group->facult->short_name }}</td>
+                  <td>{{ $group->faculty->short_name }}</td>
                   <td>{{ $group->course }}</td>
                   <td>{{ $group->number }}</td>
                   <td>{{ $group->leader }}</td>

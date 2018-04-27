@@ -11,7 +11,7 @@ use App\Models\Liver;
 
 class ViolationController extends Controller
 {
-    public function index()
+    public function getIndex()
     {
         $violations = Violation::all();
         foreach ($violations as &$v)
@@ -21,7 +21,7 @@ class ViolationController extends Controller
         return view('violation.index', ['violations' => $violations]);
     }
 
-    public function create()
+    public function getCreate()
     {
         return view('violation.create',['livers' => Liver::all()]);
     }
@@ -44,7 +44,7 @@ class ViolationController extends Controller
         }
         return Redirect::to('/violations');
     }
-    public function edit($id)
+    public function getEdit($id)
     {
         $v = Violation::find($id);
         $v->date = implode('.', array_reverse(explode('-',$v->date)));
@@ -63,12 +63,12 @@ class ViolationController extends Controller
         $violation->save();
         return Redirect::to('/violations');
     }
-    public function delete($id)
+    public function getDelete($id)
     {
         Violation::destroy($id);
         return Redirect::to('/violations');
     }
-    public function paid($id)
+    public function getPaid($id)
     {
         $v = Violation::find($id);
         $l = Liver::find($v->liver_id);

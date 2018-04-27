@@ -8,10 +8,10 @@
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <input type="hidden" name="id" value="{{ $group->id }}"/>
           <div class="form-group">
-            <label for="facult">Факультет</label>
-            <select class="form-control" id="facult" name="facult">
-              @foreach($faculties as $facult)
-                <option value="{{ $facult->id }}" @if($group->facult_id == $facult->id) selected @endif>{{ $facult->name }}</option>
+            <label for="faculty">Факультет</label>
+            <select class="form-control" id="faculty" name="faculty">
+              @foreach($faculties as $faculty)
+                <option value="{{ $faculty->id }}" @if($group->facult_id == $faculty->id) selected @endif>{{ $faculty->name }}</option>
               @endforeach
             </select>
           </div>

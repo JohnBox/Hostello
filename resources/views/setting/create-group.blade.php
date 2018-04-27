@@ -7,10 +7,10 @@
         <form method="POST" action="{{ url('settings/create-group') }}">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <div class="form-group">
-            <label for="facult">Факультет</label>
-            <select class="form-control" id="facult" name="facult">
-              @foreach($faculties as $facult)
-                <option value="{{ $facult->id }}">{{ $facult->name }}</option>
+            <label for="faculty">Факультет</label>
+            <select class="form-control" id="faculty" name="faculty">
+              @foreach($faculties as $faculty)
+                <option value="{{ $faculty->id }}">{{ $faculty->name }}</option>
               @endforeach
             </select>
           </div>

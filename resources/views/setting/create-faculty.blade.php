@@ -4,20 +4,19 @@
   <div class="panel panel-default">
     <div class="panel-heading">Факультет</div>
     <div class="panel-body">
-        <form method="POST" action="{{ url('settings/edit-facult') }}">
+        <form method="POST" action="{{ url('settings/create-faculty') }}">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
-          <input type="hidden" name="id" value="{{ $facult->id }}"/>
           <div class="form-group">
             <label for="name">Назва</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{ $facult->name }}">
+            <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
           </div>
           <div class="form-group">
             <label for="short_name">Коротка назва</label>
-            <input type="text" class="form-control" id="short_name" name="short_name" value="{{ $facult->short_name }}">
+            <input type="text" class="form-control" id="short_name" name="short_name" value="{{ old('short_name') }}">
           </div>
           <div class="form-group">
             <label for="years">Тривалість навчання</label>
-            <input type="text" class="form-control" id="years" name="years" value="{{ $facult->years }}">
+            <input type="text" class="form-control" id="years" name="years" value="{{ old('years') }}">
           </div>
           <button type="submit" class="btn btn-default">Зберегти</button>
         </form>
