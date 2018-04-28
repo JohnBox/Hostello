@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
-    protected $fillable = ['number', 'liver_max', 'block', 'area', 'sex', 'hostel_id'];
+    protected $fillable = ['number', 'liver_max', 'block', 'area', 'hostel_id'];
     public $timestamps = false;
 
     function hostel()

@@ -31,7 +31,7 @@
 
             <td>
               @if($liver->student)
-                {{ $liver->group->facult->short_name }}-{{ $liver->group->course }}{{ $liver->group->number }}</td>
+                {{ $liver->group->number }}</td>
             @else
               -
             @endif

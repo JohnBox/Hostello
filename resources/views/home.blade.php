@@ -88,7 +88,7 @@
             <td>@if($liver->sex) Ч @else Ж @endif</td>
             <td>
               @if($liver->student)
-                {{ $liver->group->facult->short_name }}-{{ $liver->group->course }}{{ $liver->group->number }}
+                {{ $liver->group->number }}
               @else
                 -
               @endif

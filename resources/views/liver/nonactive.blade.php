@@ -38,7 +38,7 @@
               <td><input type="checkbox" @if($liver->student) checked @endif style="cursor: text" onclick="return false;"/></td>
               <td>
                 @if($liver->student)
-                  {{ $liver->group->facult->short_name }}-{{ $liver->group->course }}{{ $liver->group->number }}
+                  {{ $liver->group->number }}
                 @else
                   -
                 @endif

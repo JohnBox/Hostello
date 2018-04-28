@@ -51,11 +51,11 @@
           <div id="st">
             <div class="form-group col-md-6">
               <label for="facult">Факультет</label>
-              <p class="form-control-static">{{ $liver->group->facult->name }}</p>
+              <p class="form-control-static">{{ $liver->group->faculty->name }}</p>
             </div>
             <div class="form-group col-md-6">
               <label for="group">Група</label>
-              <p class="form-control-static">{{ $liver->group->facult->short_name }}-{{ $liver->group->course }}{{ $liver->group->number }}</p>
+              <p class="form-control-static">{{ $liver->group->number }}</p>
             </div>
           </div>
           @endif

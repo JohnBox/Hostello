@@ -19,16 +19,16 @@
         </div>
         <div class="form-group col-md-12">
           <label for="elec_price">Елекроенергія</label><br/>
-          @for ($i=0;$i<$bc;$i++)
-          <label for="elec_price_{{$i}}">Блок {{ $i+1 }}</label>
-          <input type="number" class="form-control cp" id="elec_price" name="elec_price_{{$i}}">
+          @for ($block=1; $block<=$blocks; $block++)
+          <label for="elec_price_{{$block}}">Блок {{ $block }}</label>
+          <input type="number" class="form-control cp" id="elec_price" name="elec_price_{{$block}}">
           @endfor
         </div>
         <div class="form-group col-md-12">
           <label for="water_price">Водопостачання</label><br/>
-          @for ($i=0;$i<$bc;$i++)
-            <label for="water_price_{{$i}}">Блок {{ $i+1 }}</label>
-            <input type="number" class="form-control cp" id="water_price" name="water_price_{{$i}}">
+          @for ($block=1; $block<=$blocks; $block++)
+            <label for="water_price_{{$block}}">Блок {{ $block }}</label>
+            <input type="number" class="form-control cp" id="water_price" name="water_price_{{$block}}">
           @endfor
         </div>
         <div class="form-group col-md-12">

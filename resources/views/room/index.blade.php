@@ -18,7 +18,7 @@
                   @foreach($room->livers as $l)
                     {{ $l->last_name }} {{ $l->first_name }} {{ $l->parent_name }}
                     @if($l->student)
-                      {{ $l->group->facult->short_name }}-{{ $l->group->course }}{{ $l->group->number }}
+                     {{ $l->group->number }}
                     @endif
                     <br/>
                   @endforeach

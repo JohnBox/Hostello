@@ -148,11 +148,8 @@ class LiverController extends Controller
         $liver = Liver::find($req->input('id'));
         $room = Room::find($req->input('room'));
         $liver->room_id = $room->id;
-        if (!$liver->active)
-        {
-            $liver->live_in = date('Y-m-d');
-            $liver->active = true;
-        }
+        $liver->live_in = date('Y-m-d');
+        $liver->active = true;
         $liver->save();
         $room->livers()->save($liver);
         return Redirect::to('/livers');

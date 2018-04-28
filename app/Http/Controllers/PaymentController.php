@@ -21,45 +21,40 @@ class PaymentController extends Controller
 
     public function getIndex()
     {
-        $bc = Room::all()->groupBy('block')->count();
+        $blocksCount = Room::all()->groupBy('block')->count();
         $pays = DB::table('pays')->select(DB::raw('SUM(live_price) as live_price,
-     SUM(gas_price) as gas_price,
-     SUM(elec_price) as elec_price,
-     SUM(water_price) as water_price,
-     SUM(total) as total,
-     SUM(paid) as paid,
-     date'))->groupBy('date')->get();
-        return view('payment.index',['pays' => $pays, 'bc' => $bc]);
+                                                                 SUM(gas_price) as gas_price,
+                                                                 SUM(elec_price) as elec_price,
+                                                                 SUM(water_price) as water_price,
+                                                                 SUM(total) as total,
+                                                                 SUM(paid) as paid,
+                                                                date'))->groupBy('date')->get();
+        return view('payment.index',['pays' => $pays, 'blocks' => $blocksCount]);
     }
+    private function blockLiversCount($block) {
+        return Room::where('block', '=', $block)->sum('liver_max');
+    }
+
     public function postCreate(Request $req)
     {
-        $blc = [];
-        $bc = Room::all()->groupBy('block')->count();
-        for ($i=0;$i<$bc;$i++) {
-            $blc[]=0;
-        }
-        for ($i=0;$i<$bc;$i++) {
-            $block = Room::where('block', '=', $i)->get();
-            foreach ($block as $room) {
-                $blc[$i] += $room->livers->count();
-            }
-        }
-        $h = Hostel::find(Auth::user()->hostel->id);
-        foreach (Liver::all() as &$l) {
-            $p = Pay::create([
-                'liver_id' => $l->id,
-                'date' => date("Y-m-d", strtotime($req->input('date'))),
+        $hostelArea = $req->user()->hostel->area;
+        $livers = Liver::all();
+        foreach ($livers as &$liver) {
+            $blockLiversCount = $this->blockLiversCount($liver->room->block);
+            $gasPrice = $req->input('gas_price')/$hostelArea*$liver->room->area;
+            $elecPrice = $req->input('elec_price_'.$liver->room->block) / $blockLiversCount;
+            $waterPrice = $req->input('water_price_'.$liver->room->block) / $blockLiversCount;
+            $pay = Pay::create([
+                'liver_id' => $liver->id,
+                'date' => date('Y-m-d'),
                 'live_price' => $req->input('live_price'),
-                'gas_price' => ($req->input('gas_price')/$h->area)*$l->room->area,
-//                'elec_price' => ($req->input('elec_price_'.$l->room->block/($blc[$l->room->block]))),
-//                'water_price' => ($req->input('water_price_'.$l->room->block/($blc[$l->room->block]))),
-                'total' =>
-                    ($req->input('gas_price')/$h->area)*$l->room->area
-//                    ($req->input('elec_price_'.$l->room->block)/$blc[$l->room->block])+
-//                    ($req->input('water_price_'.$l->room->block)/$blc[$l->room->block])
+                'gas_price' => $gasPrice,
+                'elec_price' => $elecPrice,
+                'water_price' => $waterPrice,
+                'total' => $gasPrice + $elecPrice + $waterPrice
             ]);
-            $l->balance -= $p->total;
-            $l->save();
+            $liver->balance -= $pay->total;
+            $liver->save();
 
         }
         return Redirect::to('/payments');
@@ -71,12 +66,12 @@ class PaymentController extends Controller
     }
     public function getPaid($id)
     {
-        $p = Pay::find($id);
-        $l = Liver::find($p->liver->id);
-        $l->balance += $p->total;
-        $l->save();
-        $p->paid = $p->total;
-        $p->save();
-        return Redirect::to('/payments/livers/'.$p->date);
+        $pay = Pay::find($id);
+        $liver = Liver::find($pay->liver->id);
+        $liver->balance += $pay->total;
+        $liver->save();
+        $pay->paid = $pay->total;
+        $pay->save();
+        return Redirect::to('/payments/livers/'.$pay->date);
     }
 }
