@@ -32,8 +32,8 @@ Route::get('rooms/settle/{id}', 'RoomController@getSettle');
 
 Route::get('payments', 'PaymentController@getIndex');
 Route::post('payments/create', 'PaymentController@postCreate');
-Route::get('payments/livers', 'PaymentController@getLivers');
-Route::get('payments/paid', 'PaymentController@getPaid');
+Route::get('payments/livers/{date}', 'PaymentController@getLivers');
+Route::get('payments/paid/{id}', 'PaymentController@getPaid');
 
 Route::get('reports', 'ReportController@getIndex');
 

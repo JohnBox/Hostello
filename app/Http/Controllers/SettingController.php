@@ -189,7 +189,7 @@ class SettingController extends Controller
                 'number' => $i,
                 'liver_count' => 0,
                 'liver_max' => $req->input('liver_max'),
-                'block' => 0,
+                'block' => 1,
                 'area' => $req->input('area'),
                 'hostel_id' => $req->user()->hostel->id
             ]);

@@ -19,10 +19,10 @@ class CreatePaysTable extends Migration
             $table->date('date');
             $table->float('live_price');
             $table->float('gas_price');
-            $table->float('elec_price');
-            $table->float('water_price');
+            $table->float('elec_price')->nullable();
+            $table->float('water_price')->nullable();
             $table->float('total');
-            $table->float('paid');
+            $table->float('paid')->default(0.0);
         });
     }
 

@@ -14,6 +14,11 @@ use App\Models\Hostel;
 
 class PaymentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function getIndex()
     {
         $bc = Room::all()->groupBy('block')->count();
@@ -39,19 +44,19 @@ class PaymentController extends Controller
                 $blc[$i] += $room->livers->count();
             }
         }
-        $h = Hostel::find(Auth::user()->hostel_id);
+        $h = Hostel::find(Auth::user()->hostel->id);
         foreach (Liver::all() as &$l) {
             $p = Pay::create([
                 'liver_id' => $l->id,
                 'date' => date("Y-m-d", strtotime($req->input('date'))),
                 'live_price' => $req->input('live_price'),
                 'gas_price' => ($req->input('gas_price')/$h->area)*$l->room->area,
-                'elec_price' => ($req->input('elec_price_'.($l->room->block-1))/($blc[$l->room->block-1])),
-                'water_price' => ($req->input('water_price_'.($l->room->block-1))/($blc[$l->room->block-1])),
+//                'elec_price' => ($req->input('elec_price_'.$l->room->block/($blc[$l->room->block]))),
+//                'water_price' => ($req->input('water_price_'.$l->room->block/($blc[$l->room->block]))),
                 'total' =>
-                    ($req->input('gas_price')/$h->area)*$l->room->area+
-                    ($req->input('elec_price_'.$l->room->block)/$blc[$l->room->block])+
-                    ($req->input('water_price_'.$l->room->block)/$blc[$l->room->block])
+                    ($req->input('gas_price')/$h->area)*$l->room->area
+//                    ($req->input('elec_price_'.$l->room->block)/$blc[$l->room->block])+
+//                    ($req->input('water_price_'.$l->room->block)/$blc[$l->room->block])
             ]);
             $l->balance -= $p->total;
             $l->save();
