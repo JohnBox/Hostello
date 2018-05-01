@@ -9,9 +9,14 @@ use App\Models\Room;
 
 class RoomController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function getIndex()
     {
-        $rooms = Room::where('hostel_id', '=', Auth::user()->hostel->id)->get();
+        $rooms = Room::all();
         foreach ($rooms as &$r)
         {
             foreach ($r->livers as &$l) {

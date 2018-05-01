@@ -21,11 +21,11 @@ class UserSeeder extends Seeder
             'password' => Hash::make('admin123'),
             'hostel_id' => Hostel::all()->first()->id
         ]);
-        User::create([
-            'name' => 'admin2',
-            'email' => 'admin2@gmail.com',
-            'password' => Hash::make('admin123'),
-            'hostel_id' => Hostel::all()->last()->id
-        ]);
+//        User::create([
+//            'name' => 'admin2',
+//            'email' => 'admin2@gmail.com',
+//            'password' => Hash::make('admin123'),
+//            'hostel_id' => Hostel::all()->last()->id
+//        ]);
     }
 }

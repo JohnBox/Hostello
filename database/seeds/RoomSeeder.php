@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Block;
 use App\Models\Room;
-use App\Models\Hostel;
 
 class RoomSeeder extends Seeder
 {
@@ -14,16 +14,17 @@ class RoomSeeder extends Seeder
      */
     public function run()
     {
-        $n = 25;
-        for ($i=1; $i<=$n; $i++)
-        {
-            Room::create([
-                'number' => $i ,
-                'liver_max' => 4,
-                'block' => ceil($i/5),
-                'area' => 40,
-                'hostel_id' => Hostel::all()->first()->id
-            ]);
+        $ROOM_COUNT = 5;
+        $blocks = Block::all();
+        foreach ($blocks as $block) {
+            for ($number=1; $number<=$ROOM_COUNT; $number++) {
+                Room::create([
+                    'number' => $number ,
+                    'liver_max' => 4,
+                    'area' => 40,
+                    'block_id' => $block->id,
+                ]);
+            }
         }
     }
 }
