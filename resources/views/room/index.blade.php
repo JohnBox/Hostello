@@ -4,30 +4,45 @@
   <div class="panel panel-default">
     <div class="panel-heading">Кімнати</div>
     <div class="panel-body">
-      <div id="room_container">
-        <ul>
-        @foreach($rooms as $room)
-            <li>
-              <a class='normal' href="{{ url('/rooms/show') }}/{{ $room->id }}">
-                <span class="number">{{ $room->number }}<br/>
-                  <span class="count">{{ $room->livers->count() }}/{{ $room->liver_max }}</span>
-                </span>
-              </a>
-              <div class='info'>
-                <h3>
-                  @foreach($room->livers as $l)
-                    {{ $l->last_name }} {{ $l->first_name }} {{ $l->parent_name }}
-                    @if($l->student)
-                     {{ $l->group->number }}
-                    @endif
-                    <br/>
-                  @endforeach
-                </h3>
-              </div>
-            </li>
+      <ul class="nav nav-tabs">
+        @foreach($floors as $floor)
+          @if ($current == $floor)
+            <li role="presentation" class="active"><a href="{{ route('rooms.floor', ['id' => $floor->id]) }}/">Поверх {{$floor->number}}</a></li>
+          @else
+            <li role="presentation"><a href="{{ route('rooms.floor', ['id' => $floor->id]) }}/">Поверх {{$floor->number}}</a></li>
+          @endif
         @endforeach
-        </ul>
+      </ul>
+      @foreach($blocks as $block)
+        <div class="block">
+          <h3 class="text-left">Блок {{ $block->number }}</h3>
+          <div class="room_container">
+            <ul>
+              @foreach($rooms[$block->id] as $room)
+              <li>
+                <a class='normal' href="{{ url('/rooms/show') }}/{{ $room->id }}">
+                  <span class="number">{{ $room->number }}<br/>
+                    <span class="count">{{ $room->livers()->count() }}/{{ $room->liver_max }}</span>
+                  </span>
+                </a>
+                <div class='info'>
+                  <h3>
+                    @foreach($room->livers as $l)
+                      {{ $l->last_name }} {{ $l->first_name }} {{ $l->parent_name }}
+                      @if($l->student)
+                        {{ $l->group->number }}
+                      @endif
+                      <br/>
+                    @endforeach
+                  </h3>
+                </div>
+              </li>
+              @endforeach
+            </ul>
+          </div>
         </div>
+        <hr>
+        @endforeach
       </div>
     </div>
   </div>
@@ -35,7 +50,9 @@
 
 @section('script')
   <script>
-    var room_container = document.getElementById('room_container');
+    var room_containers = document.getElementsByClassName('room_container');
+    [].forEach.call(room_containers, function (room_container) {
+
     var nodes  = room_container.querySelectorAll('li'),
         _nodes = [].slice.call(nodes, 0);
     var getDirection = function (e, obj) {
@@ -93,6 +110,8 @@
       el.addEventListener('mouseout', function (ev) {
         addClass( ev, this, 'out' );
       }, false);
+    });
+
     });
   </script>
 @endsection

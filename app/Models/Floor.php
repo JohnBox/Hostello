@@ -13,4 +13,9 @@ class Floor extends Model
     {
         return $this->belongsTo('App\Models\Hostel');
     }
+
+    function blocks()
+    {
+        return $this->hasMany('App\Models\Block');
+    }
 }

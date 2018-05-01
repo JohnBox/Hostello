@@ -14,7 +14,7 @@ class FloorSeeder extends Seeder
      */
     public function run()
     {
-        $FLOOR_COUNT = 9; // love magic
+        $FLOOR_COUNT = 10; // love magic
         $hostels = Hostel::all();
         foreach ($hostels as $hostel) {
             for ($number=1; $number<=$FLOOR_COUNT; $number++) {

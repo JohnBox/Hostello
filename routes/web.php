@@ -27,6 +27,7 @@ Route::get('livers/money/{id}', 'LiverController@getMoney');
 Route::post('livers/money', 'LiverController@postMoney');
 
 Route::get('rooms', 'RoomController@getIndex');
+Route::get('rooms/floor/{id}', 'RoomController@getFloor')->name('rooms.floor');
 Route::get('rooms/show/{id}', 'RoomController@getShow');
 Route::get('rooms/settle/{id}', 'RoomController@getSettle');
 

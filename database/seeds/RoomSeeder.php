@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Floor;
 use App\Models\Block;
 use App\Models\Room;
 

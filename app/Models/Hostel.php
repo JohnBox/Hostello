@@ -14,8 +14,8 @@ class Hostel extends Model
         return $this->hasMany('App\Models\User');
     }
 
-    function rooms()
+    function floors()
     {
-        return $this->hasMany('App\Models\Room');
+        return $this->hasMany('App\Models\Floor');
     }
 }
