@@ -6,11 +6,6 @@ use App\Models\Faculty;
 
 class FacultySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         Faculty::create([

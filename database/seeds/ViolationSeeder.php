@@ -7,11 +7,6 @@ use App\Models\Liver;
 
 class ViolationSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         $livers = Liver::all();

@@ -8,11 +8,6 @@ use App\Models\Room;
 
 class LiverSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         $group = Group::all()->first();
