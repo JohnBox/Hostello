@@ -3,14 +3,6 @@
   font-weight: 300;
 }
 
-.block > h3 {
-  margin: 20px;
-}
-
-.block:hover > h3 {
-  margin: 17px;
-  font-size: 32px;
-}
 .room_container {
   margin: 0;
   padding: 0;
@@ -24,7 +16,6 @@
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 100%;
-  /* you can ignore this ones */
 }
 
 .room_container:hover {

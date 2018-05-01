@@ -27,10 +27,19 @@ class RoomController extends Controller
     public function getIndex()
     {
         $floors = Auth::user()->hostel->floors;
-        $curruntFloor = $floors[0];
-        $rooms = Room::all();
-
-        return view('room.index', ['rooms' => $rooms, 'floors' => $floors, 'current' => $curruntFloor]);
+        $curruntFloor = count($floors) ? $floors[0] : null;
+        $floor = Floor::find($curruntFloor->id);
+        $blocks = Block::where('floor_id', '=', $floor->id)->get();
+        $rooms = [];
+        foreach ($blocks as $block) {
+            $rooms[$block->id] = Room::where('block_id', '=', $block->id)->get();
+        }
+        return view('room.index', [
+            'rooms' => $rooms,
+            'floors' => $floors,
+            'blocks' => $blocks,
+            'current' => $curruntFloor
+        ]);
     }
 
     public function getFloor($id)

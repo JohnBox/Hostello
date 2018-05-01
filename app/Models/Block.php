@@ -13,4 +13,9 @@ class Block extends Model
     {
         return $this->belongsTo('App\Models\Floor');
     }
+
+    function rooms()
+    {
+        return$this->hasMany('App\Models\Room');
+    }
 }

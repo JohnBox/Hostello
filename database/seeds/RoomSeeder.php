@@ -5,7 +5,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Floor;
 use App\Models\Room;
 
-const ROOM_PER_BLOCK = 5;
+const ROOM_PER_BLOCK = 10;
 
 class RoomSeeder extends Seeder
 {
@@ -16,7 +16,7 @@ class RoomSeeder extends Seeder
             foreach ($floor->blocks as $block) {
                 for ($number = ROOM_PER_BLOCK * ($block->number-1) + 1; $number <= ROOM_PER_BLOCK * $block->number; $number++) {
                     Room::create([
-                        'number' => sprintf('%d0%d', $floor->id, $number),
+                        'number' => $floor->id * 100 + $number,
                         'liver_max' => 4,
                         'area' => 40,
                         'block_id' => $block->id,
