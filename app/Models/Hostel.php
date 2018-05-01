@@ -9,9 +9,9 @@ class Hostel extends Model
     protected $fillable = ['name', 'address', 'phone', 'area'];
     public $timestamps = false;
 
-    function users()
+    function watchmen()
     {
-        return $this->hasMany('App\Models\User');
+        return $this->hasMany('App\Models\Watchman');
     }
 
     function floors()

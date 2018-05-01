@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 @section('nav')
+  {{--TODO: refactor tempales--}}
   <div class="navbar-header">
-    <a class="navbar-brand" href="{{ url('/') }}">{{ Auth::user()->hostel->name  }}</a>
+    <a class="navbar-brand" href="{{ url('/') }}">{{ Auth::user()->watchman->hostel->name }}</a>
   </div>
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">

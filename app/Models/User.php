@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'hostel_id'
+        'name', 'email', 'password'
     ];
 
     /**
@@ -32,5 +32,10 @@ class User extends Authenticatable
     function hostel()
     {
         return $this->belongsTo('App\Models\Hostel');
+    }
+
+    function watchman()
+    {
+        return $this->hasOne('App\Models\Watchman');
     }
 }
