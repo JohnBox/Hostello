@@ -17,29 +17,16 @@ class CreateLiversTable extends Migration
             $table->increments('id');
             $table->string('last_name');
             $table->string('first_name');
-            $table->string('parent_name');
-            $table->date('birth');
-            $table->boolean('sex');
+            $table->string('second_name');
+            $table->date('birth_date');
+            $table->boolean('gender');
             $table->boolean('student');
-            $table->integer('group_id');
-            $table->string('country')->nullable();
-            $table->string('canton')->nullable();
-            $table->string('city')->nullable();
-            $table->string('street')->nullable();
-            $table->string('house')->nullable();
-            $table->string('apart')->nullable();
-            $table->string('series')->nullable();
-            $table->string('number')->nullable();
-            $table->string('which')->nullable();
-            $table->string('when')->nullable();
-            $table->string('tel1')->nullable();
-            $table->string('tel2')->nullable();
-            $table->string('tel3')->nullable();
-            $table->integer('room_id')->nullable();
             $table->float('balance');
-            $table->boolean('active')->default(true);
-            $table->date('live_in')->nullable();
-            $table->date('live_out')->nullable();
+            $table->date('injected')->nullable();
+            $table->date('ejected')->nullable();
+            $table->integer('room_id')->nullable();
+            $table->integer('group_id');
+            $table->integer('user_id');
         });
     }
 

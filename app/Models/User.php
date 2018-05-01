@@ -38,4 +38,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\Watchman');
     }
+
+    function liver()
+    {
+        return $this->hasOne('App\Models\Liver');
+    }
 }

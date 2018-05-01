@@ -83,6 +83,8 @@ Route::get('settings/delete-room/{id}', 'SettingController@getDeleteRoom');
 
 Route::get('', 'HomeController@getIndex');
 
+Route::get('profile', 'ProfileController@getIndex')->name('profile');
+
 Route::get('logout', 'Auth\LoginController@logout');
 
 
