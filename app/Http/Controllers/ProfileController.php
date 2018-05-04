@@ -16,4 +16,15 @@ class ProfileController extends Controller
         $profile = $request->user()->profile;
         return view('profile.index', ['profile' => $profile]);
     }
+
+    function rooms(Request $request)
+    {
+        return redirect()->route('rooms.index');
+    }
+
+    function payments(Request $request)
+    {
+        $profile = $request->user()->profile;
+        return view('profile.payments', ['profile' => $profile ]);
+    }
 }

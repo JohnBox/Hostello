@@ -26,7 +26,7 @@ Route::get('livers/remove/{id}', 'LiverController@getRemove');
 Route::get('livers/money/{id}', 'LiverController@getMoney');
 Route::post('livers/money', 'LiverController@postMoney');
 
-Route::get('rooms', 'RoomController@getIndex');
+Route::get('rooms', 'RoomController@getIndex')->name('rooms.index');
 Route::get('rooms/floor/{id}', 'RoomController@getFloor')->name('rooms.floor');
 Route::get('rooms/show/{id}', 'RoomController@getShow');
 Route::get('rooms/settle/{id}', 'RoomController@getSettle');
@@ -83,7 +83,14 @@ Route::get('settings/delete-room/{id}', 'SettingController@getDeleteRoom');
 
 Route::get('', 'HomeController@getIndex')->name('home');
 
-Route::get('liver', 'ProfileController@index')->name('liver');
+Route::get('liver/profile', 'ProfileController@index')->name('liver.profile');
+Route::get('liver/rooms', 'ProfileController@rooms')->name('liver.rooms');
+Route::get('liver/payments', 'ProfileController@payments')->name('liver.payments');
+Route::get('liver/violations', 'ProfileController@violations')->name('liver.violations');
+Route::get('liver/injections', 'ProfileController@injections')->name('liver.injections');
+Route::get('liver/ejections', 'ProfileController@ejections')->name('liver.ejections');
+
+
 Route::get('watchman', 'WatchmanController@index')->name('watchman');
 Route::get('admin', 'AdminController@index')->name('admin');
 

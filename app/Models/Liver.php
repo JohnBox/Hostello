@@ -8,7 +8,7 @@ class Liver extends Model
 {
     protected $fillable = [
         'last_name', 'first_name', 'second_name',
-        'birth_date', 'gender', 'student', 'phone',
+        'birth_date', 'gender', 'student', 'doc_number', 'phone',
         'balance', 'injected', 'ejected',
         'room_id',
         'group_id',

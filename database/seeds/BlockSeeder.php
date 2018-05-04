@@ -5,7 +5,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Floor;
 use App\Models\Block;
 
-const BLOCK_PER_FLOOR = 2;
+const BLOCK_PER_FLOOR = 1;
 
 class BlockSeeder extends Seeder
 {

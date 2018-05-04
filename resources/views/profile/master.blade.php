@@ -4,13 +4,15 @@
   <div class="navbar-header">
     <a class="navbar-brand" href="{{ url('/') }}">{{ Auth::user()->profile->hostel->name}}</a>
   </div>
+
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="row">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="{{ route('liver') }}">Профіль</a></li>
-      <li class=""><a href="{{ route('liver') }}">Виплати</a></li>
-      <li class=""><a href="{{ route('liver') }}">Порушення</a></li>
-      <li class=""><a href="{{ route('liver') }}">Заселення</a></li>
-      <li class=""><a href="{{ route('liver') }}">Виселення</a></li>
+      <li class="active"><a href="{{ route('liver.profile') }}">Профіль</a></li>
+      <li class=""><a href="{{ route('liver.payments') }}">Нарахування</a></li>
+      <li class=""><a href="{{ route('liver.violations') }}">Порушення</a></li>
+      <li class=""><a href="{{ route('liver.injections') }}">Заселення</a></li>
+      <li class=""><a href="{{ route('liver.ejections') }}">Виселення</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       @if (Auth::guest())
@@ -25,6 +27,9 @@
       @endif
     </ul>
   </div>
+  </div>
+
+
 @endsection
 
 @section('content')

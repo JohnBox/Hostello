@@ -17,7 +17,7 @@ class LiverSeeder extends Seeder
         $rooms = Room::all();
         $count = $rooms->count();
         foreach ($rooms as $room) {
-            for ($i=1; $i<=$room->liver_max; $i++) {
+            do {
                 $hostel = $room->block->floor->hostel;
 //                TODO: refactor with eloquent relationship methods
                 $phone = '+380991111111';
@@ -29,8 +29,10 @@ class LiverSeeder extends Seeder
                     'birth_date' => date('Y-m-d'),
                     'gender' => (bool)rand(0, 1),
                     'student' => true,
+                    'doc_number' => 'KB1231212',
                     'group_id' => $group->id,
                     'room_id' => $room->id,
+                    'phone' => '0991111111',
                     'balance' => 0,
                     'injected' => date('Y-m-d'),
                     'hostel_id' => $hostel->id,
@@ -42,7 +44,7 @@ class LiverSeeder extends Seeder
                 ]);
                 $liver->user()->save($user);
                 $n++;
-            }
+            } while (0);
         }
 
     }

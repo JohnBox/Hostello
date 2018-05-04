@@ -22,6 +22,8 @@ class CreateLiversTable extends Migration
             $table->boolean('gender');
             $table->boolean('student');
             $table->float('balance');
+            $table->string('doc_number');
+            $table->string('phone');
             $table->date('injected')->nullable();
             $table->date('ejected')->nullable();
             $table->integer('room_id')->nullable();

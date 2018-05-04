@@ -30,20 +30,17 @@ class HomeController extends Controller
 
     function getIndex()
     {
-        $user = Auth::user();
-//        ob_start();
-//        var_dump(get_class($user->profile));
-//        return ob_get_clean();
-        if (!$user->profile) {
+        $profile = Auth::user()->profile;
+        if (!$profile) {
             return redirect()->route('admin');
         }
         else {
-            $class = get_class($user->profile);
+            $class = get_class($profile);
             if ($class == 'App\Models\Watchman') {
                 return redirect()->route('watchman');
             }
             else {
-                return redirect()->route('liver');
+                return redirect()->route('liver.profile');
             }
         }
     }
