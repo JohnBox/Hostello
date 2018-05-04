@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLiversTable extends Migration
+class CreateWatchmenTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,14 @@ class CreateLiversTable extends Migration
      */
     public function up()
     {
-        Schema::create('livers', function (Blueprint $table) {
+        Schema::create('watchmen', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('last_name');
             $table->string('first_name');
+            $table->string('last_name');
             $table->string('second_name');
-            $table->date('birth_date');
-            $table->boolean('gender');
-            $table->boolean('student');
-            $table->float('balance');
-            $table->date('injected')->nullable();
-            $table->date('ejected')->nullable();
-            $table->integer('room_id')->nullable();
-            $table->integer('group_id');
+            $table->string('phone');
             $table->integer('user_id');
+            $table->integer('hostel_id');
         });
     }
 
@@ -37,6 +31,6 @@ class CreateLiversTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('livers');
+        Schema::dropIfExists('watchmen');
     }
 }

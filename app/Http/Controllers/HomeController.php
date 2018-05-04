@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 
@@ -12,6 +13,7 @@ use App\Models\Hostel;
 use App\Models\Violation;
 use App\Models\Liver;
 use App\Models\Pay;
+use Illuminate\Support\Facades\Redirect;
 
 
 class HomeController extends Controller
@@ -25,7 +27,19 @@ class HomeController extends Controller
         }
     }
 
-    public function getIndex()
+    function getIndex()
+    {
+        $user = Auth::user();
+        if ($user->liver) {
+            return redirect()->route('liver');
+        } elseif ($user->watchman) {
+            return redirect()->route('watchman');
+        } else {
+            return redirect()->route('admin');
+        }
+    }
+
+    public function getLast()
     {
         $pays = $pays = DB::table('pays')->select(DB::raw('SUM(live_price) as live_price,
      SUM(gas_price) as gas_price,

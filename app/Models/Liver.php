@@ -7,17 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Liver extends Model
 {
     protected $fillable = [
-        'last_name', 'first_name', 'parent_name',
-        'birth', 'sex',
-        'student', 'group_id',
-        'country', 'canton', 'city', 'street', 'house', 'apart',
-        'series', 'number', 'which', 'when',
-        'tel1', 'tel2', 'tel3',
-        'room_id', 'balance',
-        'active',
-        'live_in', 'live_out'
+        'last_name', 'first_name', 'second_name',
+        'birth_date', 'gender', 'student', 'phone',
+        'balance', 'injected', 'ejected',
+        'room_id',
+        'group_id',
+        'user_id'
     ];
     public $timestamps = false;
+
+    function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 
     function group()
     {
