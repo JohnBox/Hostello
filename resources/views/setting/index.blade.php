@@ -60,20 +60,23 @@
           <div class="panel-body">
             @if(count($rooms) == 0)
               <h3>Створення кімнат</h3>
-              <form class="form-inline" method="POST" action="{{ url('settings/create-rooms') }}">
+              <form class="form" method="POST" action="{{ url('settings/create-rooms') }}">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
-                  <label for="room_count">Кількість кімнат</label>
+                  <label for="block_count">Кількість блоків на поверсі</label>
+                  <input type="text" class="form-control" id="block_count" name="block_count" value="{{ old('block_count') }}">
+                </div>
+                <div class="form-group">
+                  <label for="room_count">Кількість кімнат у блоці</label>
                   <input type="text" class="form-control" id="room_count" name="room_count" value="{{ old('room_count') }}">
                 </div>
                 <br/>
-                <h5>Стандартні налаштування</h5>
                 <div class="form-group">
-                  <label for="liver_max">Кількість проживаючих</label>
+                  <label for="liver_max">Кількість проживаючих у кімнаті</label>
                   <input type="text" class="form-control" id="liver_max" name="liver_max" value="{{ old('liver_max') }}">
                 </div>
                 <div class="form-group">
-                  <label for="area">Площа</label>
+                  <label for="area">Площа кімнати</label>
                   <input type="text" class="form-control" id="area" name="area" value="{{ old('area') }}">
                 </div>
                 <br/>
@@ -84,8 +87,9 @@
               <table class="table table-striped">
                 <tr>
                   <th>Номер</th>
-                  <th>Кількість проживаючих</th>
                   <th>Блок</th>
+                  <th>Поверх</th>
+                  <th>Кількість проживаючих</th>
                   <th>Площа</th>
                   <th></th>
                   <th></th>
@@ -93,8 +97,9 @@
                 @foreach($rooms as $room)
                   <tr>
                     <td>{{ $room->number }}</td>
+                    <td>{{ $room->block->number }}</td>
+                    <td>{{ $room->block->floor->number }}</td>
                     <td>{{ $room->liver_max }}</td>
-                    <td>{{ $room->block }}</td>
                     <td>{{ $room->area }}</td>
                     <td><a href="{{ url('settings/edit-room') }}/{{ $room->id }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
                     <td><a href="{{ url('settings/delete-room') }}/{{ $room->id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>

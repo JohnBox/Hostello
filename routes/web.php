@@ -27,6 +27,7 @@ Route::get('livers/money/{id}', 'LiverController@getMoney');
 Route::post('livers/money', 'LiverController@postMoney');
 
 Route::get('rooms', 'RoomController@getIndex');
+Route::get('rooms/floor/{id}', 'RoomController@getFloor')->name('rooms.floor');
 Route::get('rooms/show/{id}', 'RoomController@getShow');
 Route::get('rooms/settle/{id}', 'RoomController@getSettle');
 
@@ -80,7 +81,11 @@ Route::get('settings/delete-room/{id}', 'SettingController@getDeleteRoom');
 
 
 
-Route::get('', 'HomeController@getIndex');
+Route::get('', 'HomeController@getIndex')->name('home');
+
+Route::get('liver', 'ProfileController@getIndex')->name('liver');
+Route::get('watchman', 'WatchmanController@getIndex')->name('watchman');
+Route::get('admin', 'AdminController@getIndex')->name('admin');
 
 Route::get('logout', 'Auth\LoginController@logout');
 

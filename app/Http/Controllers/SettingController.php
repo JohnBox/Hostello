@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 
 use App\Models\Hostel;
-use App\Models\User;
+use App\Models\Floor;
+use App\Models\Block;
 use App\Models\Room;
+use App\Models\User;
 use App\Models\Group;
 use App\Models\Faculty;
 
@@ -182,23 +184,50 @@ class SettingController extends Controller
     }
     public function postCreateRooms(Request $req)
     {
-        $room_count = $req->input('room_count');
-        for ($i=1;$i<=$room_count;$i++)
-        {
-            Room::create([
-                'number' => $i,
-                'liver_count' => 0,
-                'liver_max' => $req->input('liver_max'),
-                'block' => 1,
-                'area' => $req->input('area'),
-                'hostel_id' => $req->user()->hostel->id
-            ]);
+        $hostel = Auth::user()->hostel;
+        $floorCount = $hostel->floors()->count();
+        $blockCount = $req->input('block_count');
+        $roomCount = $req->input('room_count');
+        if (!$floorCount) {
+            for ($number = 1; $number <= $floorCount; $number++) {
+                Floor::create([
+                    'number' => $number,
+                    'hostel_id' => $hostel->id
+                ]);
+            }
+        }
+        $floors = Floor::all();
+        foreach ($floors as $floor) {
+            for ($number = 1; $number <= $blockCount; $number++) {
+                Block::create([
+                    'number' => $number,
+                    'floor_id' => $floor->id
+                ]);
+            }
+        }
+        foreach ($floors as $floor) {
+            foreach ($floor->blocks as $block) {
+                for ($number = $roomCount * ($block->number-1) + 1; $number <= $roomCount * $block->number; $number++) {
+                    Room::create([
+                        'number' => $floor->number * 100 + $number,
+                        'liver_max' => 4,
+                        'area' => 40,
+                        'block_id' => $block->id,
+                    ]);
+                }
+            }
         }
         return Redirect::to('/settings');
     }
     public function getDeleteRooms()
     {
-        Room::truncate();
+        $hostel = Auth::user()->hostel;
+        foreach ($hostel->floors as $floor) {
+            foreach ($floor->blocks as $block) {
+                $block->rooms()->delete();
+            }
+            $floor->blocks()->delete();
+        }
         return Redirect::to('/settings');
     }
     public function getEditRoom($id)

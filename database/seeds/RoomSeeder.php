@@ -2,28 +2,27 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Floor;
 use App\Models\Room;
-use App\Models\Hostel;
+
+const ROOM_PER_BLOCK = 10;
 
 class RoomSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        $n = 25;
-        for ($i=1; $i<=$n; $i++)
-        {
-            Room::create([
-                'number' => $i ,
-                'liver_max' => 4,
-                'block' => ceil($i/5),
-                'area' => 40,
-                'hostel_id' => Hostel::all()->first()->id
-            ]);
+        $floors = Floor::all();
+        foreach ($floors as $floor) {
+            foreach ($floor->blocks as $block) {
+                for ($number = ROOM_PER_BLOCK * ($block->number-1) + 1; $number <= ROOM_PER_BLOCK * $block->number; $number++) {
+                    Room::create([
+                        'number' => $floor->id * 100 + $number,
+                        'liver_max' => 4,
+                        'area' => 40,
+                        'block_id' => $block->id,
+                    ]);
+                }
+            }
         }
     }
 }

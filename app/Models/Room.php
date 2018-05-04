@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
-    protected $fillable = ['number', 'liver_max', 'block', 'area', 'hostel_id'];
+    protected $fillable = ['number', 'liver_max', 'area', 'block_id'];
     public $timestamps = false;
 
-    function hostel()
+    function block()
     {
-        return $this->belongsTo('App\Models\Hostel');
+        return $this->belongsTo('App\Models\Block');
     }
 
     function livers()
