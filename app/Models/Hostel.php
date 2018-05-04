@@ -14,6 +14,11 @@ class Hostel extends Model
         return $this->hasMany('App\Models\Watchman');
     }
 
+    function livers()
+    {
+        return $this->hasMany('App\Models\Liver');
+    }
+
     function floors()
     {
         return $this->hasMany('App\Models\Floor');

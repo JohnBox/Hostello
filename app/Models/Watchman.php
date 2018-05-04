@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Watchman extends Model
 {
-    protected $fillable = ['first_name', 'last_name', 'second_name', 'phone', 'hostel_id', 'user_id'];
+    protected $fillable = ['first_name', 'last_name', 'second_name', 'phone', 'hostel_id'];
     public $timestamps = false;
 
     function hostel()
@@ -16,6 +16,6 @@ class Watchman extends Model
 
     function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->morphOne('App\Models\User', 'profile');
     }
 }

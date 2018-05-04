@@ -29,18 +29,8 @@ class User extends Authenticatable
 
     public $timestamps = false;
 
-    function hostel()
+    function profile()
     {
-        return $this->belongsTo('App\Models\Hostel');
-    }
-
-    function watchman()
-    {
-        return $this->hasOne('App\Models\Watchman');
-    }
-
-    function liver()
-    {
-        return $this->hasOne('App\Models\Liver');
+        return $this->morphTo();
     }
 }

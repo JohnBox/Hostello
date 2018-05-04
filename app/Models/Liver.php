@@ -12,13 +12,18 @@ class Liver extends Model
         'balance', 'injected', 'ejected',
         'room_id',
         'group_id',
-        'user_id'
+        'hostel_id',
     ];
     public $timestamps = false;
 
     function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->morphOne('App\Models\User', 'profile');
+    }
+
+    function hostel()
+    {
+        return $this->belongsTo('App\Models\Hostel');
     }
 
     function group()

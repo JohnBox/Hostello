@@ -19,7 +19,6 @@ class CreateWatchmenTable extends Migration
             $table->string('last_name');
             $table->string('second_name');
             $table->string('phone');
-            $table->integer('user_id');
             $table->integer('hostel_id');
         });
     }

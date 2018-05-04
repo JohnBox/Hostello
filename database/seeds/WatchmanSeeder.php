@@ -11,22 +11,25 @@ class WatchmanSeeder extends Seeder
 {
     public function run()
     {
+        $n = 0;
         $hostels = Hostel::all();
         foreach ($hostels as $hostel) {
-            $phone = '+380634857813';
-            $user = User::create([
-                'name' => $phone,
-                'email' => $phone . '@gmail.com',
-                'password' => Hash::make($phone),
-            ]);
-            Watchman::create([
+            $phone = '+380661111111';
+
+            $watchman = Watchman::create([
                 'first_name' => 'Lol',
                 'last_name' => 'Kek',
                 'second_name' => 'Chebyrek',
                 'phone' => $phone,
                 'hostel_id' => $hostel->id,
-                'user_id' => $user->id
             ]);
+            $user = User::create([
+                'name' => 'watchman' . (($n == 0) ? '' : $n),
+                'email' => 'watchman' . (($n == 0) ? '' : $n) . '@gmail.com',
+                'password' => Hash::make('watchman'),
+            ]);
+            $watchman->user()->save($user);
+            $n++;
         }
     }
 }

@@ -11,9 +11,9 @@ class ProfileController extends Controller
         $this->middleware('auth');
     }
 
-    function getIndex(Request $request)
+    function index(Request $request)
     {
-        $profile = $request->user()->liver;
+        $profile = $request->user()->profile;
         return view('profile.index', ['profile' => $profile]);
     }
 }

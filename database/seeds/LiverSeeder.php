@@ -12,19 +12,17 @@ class LiverSeeder extends Seeder
 {
     public function run()
     {
+        $n = 0;
         $group = Group::all()->first();
         $rooms = Room::all();
         $count = $rooms->count();
         foreach ($rooms as $room) {
             for ($i=1; $i<=$room->liver_max; $i++) {
+                $hostel = $room->block->floor->hostel;
 //                TODO: refactor with eloquent relationship methods
-                $phone = $room->id . '2345' . $i;
-                $user = User::create([
-                    'name' => $phone,
-                    'email' => $phone . '@gmail.com',
-                    'password' => Hash::make($phone)
-                ]);
-                Liver::create([
+                $phone = '+380991111111';
+
+                $liver = Liver::create([
                     'last_name' => rand(1, $count),
                     'first_name' => rand(1, $count),
                     'second_name' => rand(1, $count),
@@ -35,8 +33,15 @@ class LiverSeeder extends Seeder
                     'room_id' => $room->id,
                     'balance' => 0,
                     'injected' => date('Y-m-d'),
-                    'user_id' => $user->id
+                    'hostel_id' => $hostel->id,
                 ]);
+                $user = User::create([
+                    'name' => 'liver' . (($n == 0) ? '' : $n),
+                    'email' => 'liver' . (($n == 0) ? '' : $n) . '@gmail.com',
+                    'password' => Hash::make('liver')
+                ]);
+                $liver->user()->save($user);
+                $n++;
             }
         }
 

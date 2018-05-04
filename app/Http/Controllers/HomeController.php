@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Watchman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -30,12 +31,20 @@ class HomeController extends Controller
     function getIndex()
     {
         $user = Auth::user();
-        if ($user->liver) {
-            return redirect()->route('liver');
-        } elseif ($user->watchman) {
-            return redirect()->route('watchman');
-        } else {
+//        ob_start();
+//        var_dump(get_class($user->profile));
+//        return ob_get_clean();
+        if (!$user->profile) {
             return redirect()->route('admin');
+        }
+        else {
+            $class = get_class($user->profile);
+            if ($class == 'App\Models\Watchman') {
+                return redirect()->route('watchman');
+            }
+            else {
+                return redirect()->route('liver');
+            }
         }
     }
 

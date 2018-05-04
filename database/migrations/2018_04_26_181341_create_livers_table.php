@@ -26,7 +26,7 @@ class CreateLiversTable extends Migration
             $table->date('ejected')->nullable();
             $table->integer('room_id')->nullable();
             $table->integer('group_id');
-            $table->integer('user_id');
+            $table->integer('hostel_id');
         });
     }
 
