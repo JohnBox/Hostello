@@ -81,9 +81,11 @@ Route::get('settings/delete-room/{id}', 'SettingController@getDeleteRoom');
 
 
 
-Route::get('', 'HomeController@getIndex');
+Route::get('', 'HomeController@getIndex')->name('home');
 
-Route::get('profile', 'ProfileController@getIndex')->name('profile');
+Route::get('liver', 'ProfileController@getIndex')->name('liver');
+Route::get('watchman', 'WatchmanController@getIndex')->name('watchman');
+Route::get('admin', 'AdminController@getIndex')->name('admin');
 
 Route::get('logout', 'Auth\LoginController@logout');
 

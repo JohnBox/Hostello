@@ -31,7 +31,11 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         if ($user->liver) {
-            return redirect()->route('profile');
+            return redirect()->route('liver');
+        } elseif ($user->watchman) {
+            return redirect()->route('watchman');
+        } else {
+            return redirect()->route('admin');
         }
     }
 
