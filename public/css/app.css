@@ -3,6 +3,11 @@
   font-weight: 300;
 }
 
+.form-group.required .control-label:after {
+  content:"*";
+  color:red;
+}
+
 .room_container {
   margin: 0;
   padding: 0;

@@ -17,7 +17,6 @@ class CreateFacultiesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('short_name');
-            $table->integer('years_of_study');
             $table->integer('university_id');
         });
     }

@@ -79,7 +79,13 @@ Route::post('settings/edit-room', 'SettingController@postEditRoom');
 Route::get('settings/delete-room/{id}', 'SettingController@getDeleteRoom');
 
 
+Route::resource('universities', 'UniversityController');
 
+Route::resource('faculties', 'FacultyController');
+
+Route::resource('specialties', 'SpecialtyController');
+
+Route::resource('groups', 'GroupController');
 
 Route::get('', 'HomeController@getIndex')->name('home');
 

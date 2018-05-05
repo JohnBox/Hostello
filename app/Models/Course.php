@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
-    protected $fillable = ['number', 'faculty_id'];
+    protected $fillable = ['number', 'specialty_id'];
     public $timestamps = false;
 
-    function faculty()
+    function specialty()
     {
-        return $this->belongsTo('App\Models\Faculty');
+        return $this->belongsTo('App\Models\Specialty');
     }
 
     function groups()

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-use App\Models\Faculty;
+use App\Models\Specialty;
 use App\Models\Course;
 
 class CourseSeeder extends Seeder
@@ -14,12 +14,12 @@ class CourseSeeder extends Seeder
      */
     public function run()
     {
-        $faculties = Faculty::all();
-        foreach ($faculties as $faculty) {
-            for ($number = 1; $number <= $faculty->years_of_study; $number++) {
+        $specialties = Specialty::all();
+        foreach ($specialties as $specialty) {
+            for ($number = 1; $number <= $specialty->years_of_study; $number++) {
                 Course::create([
                     'number' => $number,
-                    'faculty_id' => $faculty->id
+                    'specialty_id' => $specialty->id
                 ]);
             }
         }
