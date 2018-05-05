@@ -14,11 +14,5 @@ class HostelSeeder extends Seeder
             'phone' => '12345',
             'area' => 1000
         ]);
-//        Hostel::create([
-//            'name' => 'Гуртожиток 2',
-//            'address' => 'Кавказька 13',
-//            'phone' => '54321',
-//            'area' => 500
-//        ]);
     }
 }
