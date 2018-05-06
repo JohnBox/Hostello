@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Injection;
 use Illuminate\Http\Request;
+
+use App\Models\Injection;
 
 class InjectionController extends Controller
 {
@@ -15,7 +16,6 @@ class InjectionController extends Controller
 
     public function create()
     {
-        return view('injection.create');
     }
 
     public function store(Request $request)

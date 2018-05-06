@@ -4,9 +4,9 @@ use Illuminate\Database\Seeder;
 
 use App\Models\Watchman;
 use App\Models\Room;
-use App\Models\Injection;
+use App\Models\Ejection;
 
-class InjectionSeeder extends Seeder
+class EjectionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,7 +19,7 @@ class InjectionSeeder extends Seeder
         $rooms = Room::all();
         foreach ($rooms as $room) {
             foreach ($room->livers as $liver) {
-                Injection::create([
+                Ejection::create([
                     'date' => date('Y-m-d'),
                     'liver_id' => $liver->id,
                     'room_id' => $room->id,

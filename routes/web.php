@@ -93,6 +93,8 @@ Route::resource('watchmen', 'WatchmanController');
 
 Route::resource('injections', 'InjectionController');
 
+Route::resource('ejections', 'EjectionController');
+
 
 
 
