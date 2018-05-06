@@ -19,25 +19,23 @@ class PaymentController extends Controller
         $this->middleware('auth');
     }
 
-    public function getIndex()
+    public function index()
     {
-        $blocksCount = Room::all()->groupBy('block')->count();
-        $pays = DB::table('pays')->select(DB::raw('SUM(live_price) as live_price,
-                                                                 SUM(gas_price) as gas_price,
-                                                                 SUM(elec_price) as elec_price,
-                                                                 SUM(water_price) as water_price,
-                                                                 SUM(total) as total,
-                                                                 SUM(paid) as paid,
-                                                                date'))->groupBy('date')->get();
-        return view('payment.index',['pays' => $pays, 'blocks' => $blocksCount]);
+        $pays = Pay::all();
+        return view('payment.index',['pays' => $pays]);
+    }
+
+    public function create()
+    {
+        return view('payment.create', ['blocks' => 5]);
     }
     private function blockLiversCount($block) {
         return Room::where('block', '=', $block)->sum('liver_max');
     }
 
-    public function postCreate(Request $req)
+    public function store(Request $req)
     {
-        $hostelArea = $req->user()->hostel->area;
+        $hostelArea = $req->user()->profile->hostel->area;
         $livers = Liver::all();
         foreach ($livers as &$liver) {
             $blockLiversCount = $this->blockLiversCount($liver->room->block);
@@ -57,7 +55,7 @@ class PaymentController extends Controller
             $liver->save();
 
         }
-        return Redirect::to('/payments');
+        return redirect()->route('payments.index');
     }
     public function getLivers($date)
     {

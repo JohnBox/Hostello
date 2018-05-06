@@ -8,7 +8,7 @@
     <ul class="nav navbar-nav">
       <li class="active"><a href="{{ url('/livers') }}">Проживаючі</a></li>
       <li><a href="{{ url('/violations') }}">Порушення</a></li>
-      <li><a href="{{ url('/payments') }}">Нарахування</a></li>
+      <li><a href="{{ route('payments.index') }}">Нарахування</a></li>
       <li><a href="{{ route('injections.index') }}">Заселення</a></li>
       <li><a href="{{ route('ejections.index') }}">Виселення</a></li>
       <li><a href="{{ route('universities.index') }}">Університет</a></li>

@@ -8,9 +8,9 @@
     <ul class="nav navbar-nav">
       <li><a href="{{ url('/livers') }}">Проживаючі</a></li>
       <li><a href="{{ url('/violations') }}">Порушення</a></li>
-      <li><a href="{{ url('/payments') }}">Нарахування</a></li>
-      <li><a href="{{ url('/reports') }}">Заселення</a></li>
-      <li><a href="{{ url('/reports') }}">Виселення</a></li>
+      <li><a href="{{ route('payments.index') }}">Нарахування</a></li>
+      <li><a href="{{ route('injections.index') }}">Заселення</a></li>
+      <li><a href="{{ route('ejections.index') }}">Виселення</a></li>
       <li class="active"><a href="{{ route('universities.index') }}">Університет</a></li>
       <li><a href="{{ route('hostels.index') }}">Гуртожитки</a></li>
     </ul>

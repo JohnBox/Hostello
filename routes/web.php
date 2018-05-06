@@ -31,12 +31,10 @@ Route::get('rooms/floor/{id}', 'RoomController@getFloor')->name('rooms.floor');
 Route::get('rooms/show/{id}', 'RoomController@getShow');
 Route::get('rooms/settle/{id}', 'RoomController@getSettle');
 
-Route::get('payments', 'PaymentController@getIndex');
-Route::post('payments/create', 'PaymentController@postCreate');
-Route::get('payments/livers/{date}', 'PaymentController@getLivers');
-Route::get('payments/paid/{id}', 'PaymentController@getPaid');
-
-Route::get('reports', 'ReportController@getIndex');
+//Route::get('payments', 'PaymentController@getIndex');
+//Route::post('payments/create', 'PaymentController@postCreate');
+//Route::get('payments/livers/{date}', 'PaymentController@getLivers');
+//Route::get('payments/paid/{id}', 'PaymentController@getPaid');
 
 Route::get('violations', 'ViolationController@getIndex');
 Route::get('violations/create', 'ViolationController@getCreate');
@@ -94,6 +92,8 @@ Route::resource('watchmen', 'WatchmanController');
 Route::resource('injections', 'InjectionController');
 
 Route::resource('ejections', 'EjectionController');
+
+Route::resource('payments', 'PaymentController');
 
 
 
