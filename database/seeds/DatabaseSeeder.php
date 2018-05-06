@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
          $this->call(LiverSeeder::class);
          $this->call(ViolationSeeder::class);
          $this->call(PaySeeder::class);
+         $this->call(InjectionSeeder::class);
     }
 }

@@ -6,10 +6,10 @@
   </div>
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="{{ url('/livers') }}">Проживаючі</a></li>
+      <li><a href="{{ url('/livers') }}">Проживаючі</a></li>
       <li><a href="{{ url('/violations') }}">Порушення</a></li>
       <li><a href="{{ url('/payments') }}">Нарахування</a></li>
-      <li><a href="{{ route('injections.index') }}">Заселення</a></li>
+      <li class="active"><a href="{{ route('injections.index') }}">Заселення</a></li>
       <li><a href="{{ url('/reports') }}">Виселення</a></li>
       <li><a href="{{ route('universities.index') }}">Університет</a></li>
       <li><a href="{{ route('hostels.index') }}">Гуртожитки</a></li>

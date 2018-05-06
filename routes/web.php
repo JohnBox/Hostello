@@ -91,6 +91,10 @@ Route::resource('hostels', 'HostelController');
 
 Route::resource('watchmen', 'WatchmanController');
 
+Route::resource('injections', 'InjectionController');
+
+
+
 
 
 Route::get('', 'HomeController@getIndex')->name('home');

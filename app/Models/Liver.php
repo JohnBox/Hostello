@@ -61,4 +61,8 @@ class Liver extends Model
         return $query->where('active','=',false)->get();
     }
 
+    function full_name()
+    {
+        return $this->last_name . ' ' . $this->first_name . ' ' . $this->second_name;
+    }
 }
