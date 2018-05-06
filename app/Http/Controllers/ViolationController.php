@@ -11,71 +11,50 @@ use App\Models\Liver;
 
 class ViolationController extends Controller
 {
-    public function getIndex()
+    public function index()
     {
         $violations = Violation::all();
-        foreach ($violations as &$v)
-        {
-            $v->date = implode('.', array_reverse(explode('-',$v->date)));
-        }
         return view('violation.index', ['violations' => $violations]);
     }
 
-    public function getCreate()
+    public function create()
     {
-        return view('violation.create',['livers' => Liver::all()]);
+        return view('violation.create', ['livers' => Liver::all()]);
     }
-    public function postCreate(Request $req)
+    public function store(Request $request)
     {
-        $count = count($req->input('livers'));
-        $penalty = (float)$req->input('penalty')/$count;
-        foreach ($req->input('livers') as $l)
+        $count = count($request->input('livers'));
+        $penalty = (float)$request->input('penalty')/$count;
+        foreach ($request->input('livers') as $l)
         {
             $liver = Liver::find($l);
             $liver->balance -= $penalty;
             $liver->save();
             Violation::create([
                 'liver_id' => $liver->id,
-                'description' => $req->input('description'),
-                'date' => date("Y-m-d", strtotime($req->input('date'))),
+                'description' => $request->input('description'),
+                'date' => date("Y-m-d", strtotime($request->input('date'))),
                 'penalty' => $penalty,
                 'paid' => false
             ]);
         }
-        return Redirect::to('/violations');
+        return redirect()->route('violations.index');
     }
-    public function getEdit($id)
+    public function edit(Violation $violation)
     {
-        $v = Violation::find($id);
-        $v->date = implode('.', array_reverse(explode('-',$v->date)));
-        return view('violation.edit', ['violation' => $v]);
+        return view('violation.edit', ['violation' => $violation]);
     }
-    public function postEdit(Request $req)
+    public function update(Request $request, Violation $violation)
     {
-        $violation = Violation::find($req->input('id'));
-        $liver = Liver::find($violation->liver->id);
-        $liver->balance += ($violation->penalty-$req->input('penalty'));
-        $liver->save();
-        $violation->liver_id = $liver->id;
-        $violation->description = $req->input('description');
-        $violation->date = date("Y-m-d", strtotime($req->input('date')));
-        $violation->penalty = $req->input('penalty');
+        $violation->description = $request->input('description');
+        $violation->date = date("Y-m-d", strtotime($request->input('date')));
+        $violation->penalty = $request->input('penalty');
         $violation->save();
-        return Redirect::to('/violations');
+        return redirect()->route('violations.index');
     }
-    public function getDelete($id)
+    public function destroy(Violation $violation)
     {
-        Violation::destroy($id);
-        return Redirect::to('/violations');
-    }
-    public function getPaid($id)
-    {
-        $v = Violation::find($id);
-        $l = Liver::find($v->liver_id);
-        $l->balance += $v->penalty;
-        $l->save();
-        $v->paid = true;
-        $v->save();
-        return Redirect::to('/violations');
+        $violation->delete();
+        return redirect()->route('violations.index');
     }
 }

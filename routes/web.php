@@ -36,13 +36,13 @@ Route::get('rooms/settle/{id}', 'RoomController@getSettle');
 //Route::get('payments/livers/{date}', 'PaymentController@getLivers');
 //Route::get('payments/paid/{id}', 'PaymentController@getPaid');
 
-Route::get('violations', 'ViolationController@getIndex');
-Route::get('violations/create', 'ViolationController@getCreate');
-Route::post('violations/create', 'ViolationController@postCreate');
-Route::get('violations/edit/{id}', 'ViolationController@getEdit');
-Route::post('violations/edit', 'ViolationController@postEdit');
-Route::get('violations/delete/{id}', 'ViolationController@getDelete');
-Route::get('violations/paid/{id}', 'ViolationController@getPaid');
+//Route::get('violations', 'ViolationController@getIndex');
+//Route::get('violations/create', 'ViolationController@getCreate');
+//Route::post('violations/create', 'ViolationController@postCreate');
+//Route::get('violations/edit/{id}', 'ViolationController@getEdit');
+//Route::post('violations/edit', 'ViolationController@postEdit');
+//Route::get('violations/delete/{id}', 'ViolationController@getDelete');
+//Route::get('violations/paid/{id}', 'ViolationController@getPaid');
 
 Route::get('settings', 'SettingController@getIndex');
 
@@ -94,6 +94,8 @@ Route::resource('injections', 'InjectionController');
 Route::resource('ejections', 'EjectionController');
 
 Route::resource('payments', 'PaymentController');
+
+Route::resource('violations', 'ViolationController');
 
 
 

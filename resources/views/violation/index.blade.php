@@ -17,25 +17,29 @@
           <th></th>
           <th></th>
         </tr>
-        @foreach($violations as $v)
+        @foreach($violations as $violation)
           <tr>
             <td>
-              <a href="{{ url('/livers/show') }}/{{ $v->liver->id }}">
-                {{ $v->liver->last_name}} {{ $v->liver->first_name}} {{ $v->liver->parent_name}}
+              <a href="{{ url('/livers/show') }}">
+                {{ $violation->liver->full_name()}}
               </a>
             </td>
-            <td>{{ $v->description }}</td>
-            <td>{{ $v->date }}</td>
-            <td>{{ $v->penalty }}</td>
+            <td>{{ $violation->description }}</td>
+            <td>{{ $violation->date }}</td>
+            <td>{{ $violation->penalty }}</td>
             <td>
-              @if($v->paid)
+              @if($violation->paid)
                 <input type="checkbox" checked onclick="return false;"/>
               @else
-                <a class="btn btn-xs btn-default" href="{{ url('/violations/paid') }}/{{ $v->id }}">Сплатити</a>
+                <input type="checkbox"onclick="return false;"/>
               @endif
             </td>
-            <td><a href="{{ url('/violations/edit') }}/{{ $v->id }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
-            <td><a href="{{ url('/violations/delete') }}/{{ $v->id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+            <td><a href="{{ route('violations.edit', ['violation' => $violation]) }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+            <td>
+              {{ Form::open([ 'method'  => 'delete', 'route' => [ 'violations.destroy', $violation] ]) }}
+              {{ Form::submit('X', ['class' => 'btn btn-danger']) }}
+              {{ Form::close() }}
+            </td>
           </tr>
         @endforeach
       </table>

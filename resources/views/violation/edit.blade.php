@@ -9,13 +9,14 @@
       </ol>
     </div>
     <div class="panel-body">
-      <form method="POST" action="{{ url('/violations/edit') }}">
+      <form method="POST" action="{{ route('violations.update', ['violation' => $violation]) }}">
+        @method('PUT')
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <input type="hidden" name="id" value="{{ $violation->id }}">
         <div class="form-group col-md-12">
           <label for="livers">Прізвище Ім’я По батькові</label>
           <p class="form-control-static" id="livers">
-            {{ $violation->liver->last_name }} {{ $violation->liver->first_name }} {{ $violation->liver->parent_name }}
+            {{ $violation->liver->full_name() }}
           </p>
         </div>
         <div class="form-group col-md-12">

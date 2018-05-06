@@ -4,18 +4,18 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <ol class="breadcrumb">
-        <li><a href="{{ url('/violations') }}">Порушення</a></li>
+        <li><a href="{{ route('violations.index') }}">Порушення</a></li>
         <li class="active">Створення</li>
       </ol>
     </div>
     <div class="panel-body">
-      <form method="POST" action="{{ url('/violations/create') }}">
+      <form method="POST" action="{{ route('violations.store')}}">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group col-md-12">
           <label for="livers">Прізвище</label>
           <select class="form-control" name="livers[]" id="livers" multiple>
             @foreach($livers as $l)
-              <option value="{{ $l->id }}">{{ $l->last_name }} {{ $l->first_name }} {{ $l->parent_name }}</option>
+              <option value="{{ $l->id }}">{{ $l->full_name() }}</option>
             @endforeach
           </select>
         </div>
