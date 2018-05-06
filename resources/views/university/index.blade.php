@@ -51,6 +51,7 @@
           </th>
             @foreach($faculties as $faculty)
               <tr>
+                <td></td>
                 <td>{{$faculty->name}}</td>
                 <td><a href="{{ route('faculties.edit', ['$faculty' => $faculty]) }}">E</a></td>
                 <td>

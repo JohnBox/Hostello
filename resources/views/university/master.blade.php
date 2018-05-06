@@ -12,7 +12,7 @@
       <li><a href="{{ url('/reports') }}">Заселення</a></li>
       <li><a href="{{ url('/reports') }}">Виселення</a></li>
       <li class="active"><a href="{{ route('universities.index') }}">Університет</a></li>
-      <li><a href="{{ url('/settings') }}">Гуртожитки</a></li>
+      <li><a href="{{ route('hostels.index') }}">Гуртожитки</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">

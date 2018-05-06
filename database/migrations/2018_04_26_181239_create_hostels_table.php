@@ -19,6 +19,7 @@ class CreateHostelsTable extends Migration
             $table->string('address');
             $table->string('phone');
             $table->float('area');
+            $table->string('merchant');
         });
     }
 

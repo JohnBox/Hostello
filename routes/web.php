@@ -87,6 +87,12 @@ Route::resource('specialties', 'SpecialtyController');
 
 Route::resource('groups', 'GroupController');
 
+Route::resource('hostels', 'HostelController');
+
+Route::resource('watchmen', 'WatchmanController');
+
+
+
 Route::get('', 'HomeController@getIndex')->name('home');
 
 Route::get('liver/profile', 'ProfileController@index')->name('liver.profile');
@@ -97,7 +103,6 @@ Route::get('liver/injections', 'ProfileController@injections')->name('liver.inje
 Route::get('liver/ejections', 'ProfileController@ejections')->name('liver.ejections');
 
 
-Route::get('watchman', 'WatchmanController@index')->name('watchman');
 Route::get('admin', 'AdminController@index')->name('admin');
 
 Route::get('logout', 'Auth\LoginController@logout');

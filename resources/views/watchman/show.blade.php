@@ -1,4 +1,4 @@
-@extends('profile.master')
+@extends('watchman.master')
 
 @section('content')
   <div class="panel panel-default" style="overflow: hidden;">
