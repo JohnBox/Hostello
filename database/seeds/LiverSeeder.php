@@ -28,14 +28,14 @@ class LiverSeeder extends Seeder
                     'second_name' => rand(1, $count),
                     'birth_date' => date('Y-m-d'),
                     'gender' => (bool)rand(0, 1),
-                    'student' => true,
+                    'is_student' => true,
                     'doc_number' => 'KB1231212',
                     'group_id' => $group->id,
                     'room_id' => $room->id,
                     'phone' => '0991111111',
                     'balance' => 0,
-                    'injected' => date('Y-m-d'),
                     'hostel_id' => $hostel->id,
+                    'is_active' => true,
                 ]);
                 $user = User::create([
                     'name' => 'liver' . (($n == 0) ? '' : $n),

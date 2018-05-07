@@ -2,16 +2,17 @@
 
 @section('nav')
   <div class="navbar-header">
-    <a class="navbar-brand" href="{{ url('/') }}">{{ Auth::user()->watchman->hostel->name }}</a>
+    <a class="navbar-brand" href="{{ url('/') }}">Адміністрування</a>
   </div>
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="{{ url('/livers') }}">Проживаючі</a></li>
-      <li><a href="{{ url('/rooms') }}">Кімнати</a></li>
+      <li class="active"><a href="{{ route('livers.index') }}">Проживаючі</a></li>
       <li><a href="{{ url('/violations') }}">Порушення</a></li>
-      <li><a href="{{ url('/payments') }}">Виплати</a></li>
-      <li><a href="{{ url('/reports') }}">Звіти</a></li>
-      <li><a href="{{ url('/settings') }}">Налаштування</a></li>
+      <li><a href="{{ route('payments.index') }}">Нарахування</a></li>
+      <li><a href="{{ route('injections.index') }}">Заселення</a></li>
+      <li><a href="{{ route('ejections.index') }}">Виселення</a></li>
+      <li><a href="{{ route('universities.index') }}">Університет</a></li>
+      <li><a href="{{ route('hostels.index') }}">Гуртожитки</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       @if (Auth::guest())

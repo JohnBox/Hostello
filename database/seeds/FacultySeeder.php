@@ -10,20 +10,10 @@ class FacultySeeder extends Seeder
     public function run()
     {
         $university = University::first();
-        Faculty::create([
-            'name' => 'Розробка програмного забезпечення',
-            'short_name' => 'РПЗ',
-            'university_id' => $university->id
-        ]);
-        Faculty::create([
-            'name' => 'Менеджмент',
-            'short_name' => 'МНД',
-            'university_id' => $university->id
-        ]);
-        Faculty::create([
-            'name' => 'Хімічне програмування',
-            'short_name' => 'ХІП',
-            'university_id' => $university->id
+        $university->faculties()->saveMany([
+            new Faculty(['name' => 'Розробка програмного забезпечення']),
+            new Faculty(['name' => 'Менеджмент']),
+            new Faculty(['name' => 'Хімічне програмування'])
         ]);
     }
 }

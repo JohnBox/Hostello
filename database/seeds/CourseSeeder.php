@@ -14,14 +14,12 @@ class CourseSeeder extends Seeder
      */
     public function run()
     {
-        $specialties = Specialty::all();
-        foreach ($specialties as $specialty) {
-            for ($number = 1; $number <= $specialty->years_of_study; $number++) {
-                Course::create([
-                    'number' => $number,
-                    'specialty_id' => $specialty->id
-                ]);
+        foreach (Specialty::all() as $specialty) {
+            $courses = [];
+            foreach (range(1, $specialty->years_of_study) as $number) {
+                $courses[] = new Course(['number' => $number]);
             }
+            $specialty->courses()->saveMany($courses);
         }
     }
 }

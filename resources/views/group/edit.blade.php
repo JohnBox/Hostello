@@ -12,7 +12,7 @@
             <div class="col-md-10">
               <select name="specialty_id" id="specialty_id" class="form-control">
                 @foreach($specialties as $specialty)
-                  <option value="{{ $specialty->id }}">{{ $specialty->name }}</option>
+                  <option value="{{ $specialty->id }}" @if($group->course->specialty == $specialty) selected @endif>{{ $specialty->name }}</option>
                 @endforeach
               </select>
             </div>
@@ -21,9 +21,10 @@
             <label class="control-label col-md-2" for="course_id">Курс</label>
             <div class="col-md-10">
               <select name="course_id" id="course_id" class="form-control">
+                <option value="-">-</option>
                 @foreach($specialties as $specialty)
                   @foreach($specialty->courses as $course)
-                    <option specialty_id="{{ $specialty->id }}" value="{{ $course->id }}">{{ $course->number}}</option>
+                    <option specialty_id="{{ $specialty->id }}" value="{{ $course->id }}" @if($group->course->id == $course->id) selected @endif>{{ $course->number}}</option>
                   @endforeach
                 @endforeach
               </select>
@@ -65,6 +66,7 @@
               let courseId = $('#course_id');
               courseId.find('option[specialty_id!="' + specialtyId + '"]').hide();
               courseId.find('option[specialty_id="' + specialtyId + '"]').show();
+              courseId.val('-');
           });
       });
   </script>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Faculty;
 use App\Models\Specialty;
+use App\Models\Course;
 
 class SpecialtyController extends Controller
 {
@@ -23,7 +24,15 @@ class SpecialtyController extends Controller
     public function store(Request $request)
     {
         $input = $request->only(['name', 'years_of_study', 'faculty_id']);
-        Specialty::create($input);
+        $specialty = Specialty::create($input);
+        $courses = [];
+        foreach (range(1, $specialty->years_of_study) as $number)
+        {
+            $courses[] = new Course(['number' => $number]);
+        }
+        $specialty->courses()->saveMany($courses);
+
+
         return redirect()->route('universities.index');
     }
 
@@ -34,7 +43,8 @@ class SpecialtyController extends Controller
 
     public function edit(Specialty $specialty)
     {
-        return view('specialty.edit', ['specialty' => $specialty]);
+        $faculties = Faculty::all();
+        return view('specialty.edit', ['specialty' => $specialty, 'faculties' => $faculties]);
     }
 
     public function update(Request $request, Specialty $specialty)

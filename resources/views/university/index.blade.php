@@ -6,7 +6,8 @@
     <div class="panel-body">
       @unless($university)
         <div class="alert alert-danger" role="alert">Університет не налаштовано.</div>
-      @endunless
+        <a class="btn btn-default" href="{{ route('universities.create') }}" role="button">Налаштувати</a>
+      @else
         <hr>
         <h4>Університет</h4>
         <hr>
@@ -37,6 +38,7 @@
           </div>
           <a class="btn btn-default" href="{{ route('universities.edit', ['university' => $university]) }}" role="button">Редагувати</a>
         </div>
+
         <hr>
         <h4>Факультети</h4>
         <hr>
@@ -71,6 +73,8 @@
         <table class="table table-striped table-hover">
           <th>
           <td>Назва</td>
+          <td>Факультет</td>
+          <td>Кількість курсів</td>
           <td>X</td>
           <td>X</td>
           </th>
@@ -78,6 +82,8 @@
             <tr>
               <td></td>
               <td>{{ $specialty->name }}</td>
+              <td>{{ $specialty->faculty->short_name() }}</td>
+              <td>{{ $specialty->years_of_study }}</td>
               <td><a href="{{ route('specialties.edit', ['specialty' => $specialty]) }}">E</a></td>
               <td>
                 {{ Form::open([ 'method'  => 'delete', 'route' => [ 'specialties.destroy', $specialty ] ]) }}
@@ -112,6 +118,7 @@
             </tr>
           @endforeach
         </table>
+      @endunless
       </div>
     </div>
 @endsection

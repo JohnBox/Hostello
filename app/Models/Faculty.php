@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Faculty extends Model
 {
-    protected $fillable = ['name', 'short_name', 'university_id'];
+    protected $fillable = ['name', 'university_id'];
     public $timestamps = false;
 
     function university()
@@ -17,5 +17,10 @@ class Faculty extends Model
     function specialties()
     {
         return $this->hasMany('App\Models\Specialty');
+    }
+
+    function short_name()
+    {
+        return implode('', array_map(function ($x) { return mb_substr(mb_strtoupper($x), 0, 1); }, explode(' ', $this->name)));
     }
 }

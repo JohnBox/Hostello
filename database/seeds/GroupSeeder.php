@@ -14,17 +14,15 @@ class GroupSeeder extends Seeder
         $courses = Course::all();
         foreach ($courses as $course)
         {
-            for ($year=1; $year <= $course->specialty->years_of_study; $year++)
-            {
-                Group::create([
-                    'name' => $course->specialty->short_name() . '-' . $course->number . '1',
+            $groups = [];
+            foreach (range(1, GROUP_PER_COURSE) as $number) {
+                $groups[] = new Group([
+                    'name' => Group::generateName($course, $number),
                     'leader' => 'Скубак',
                     'phone' => '12345',
-                    'course_id' => $course->id,
                 ]);
             }
-
+            $course->groups()->saveMany($groups);
         }
-
     }
 }

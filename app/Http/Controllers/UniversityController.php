@@ -31,9 +31,10 @@ class UniversityController extends Controller
         ]);
     }
 
-    function edit(University $university)
+    function create()
     {
-        return view('university.edit', ['university' => $university]);
+        $university = University::first();
+        return view('university.create', ['university' => $university]);
     }
 
     function store(Request $request)
@@ -42,12 +43,25 @@ class UniversityController extends Controller
         $university = University::first();
         if (!$university) {
             University::create($input);
-        } else {
-            $university->fill($input);
-            $university->save();
         }
         return redirect()->route('universities.index');
     }
+
+    function edit(University $university)
+    {
+        return view('university.edit', ['university' => $university]);
+    }
+
+    function update(Request $request, University $university)
+    {
+        $input = $request->only(['name', 'address', 'phone', 'merchant']);
+        $university->fill($input);
+        $university->save();
+        return redirect()->route('universities.index');
+
+    }
+
+
 
 
 

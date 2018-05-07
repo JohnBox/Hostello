@@ -7,6 +7,16 @@
         <form class="form-horizontal" method="POST" action="{{ route('specialties.update', ['specialty' => $specialty]) }}">
           @method('PUT')
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
+          <div class="form-group required">
+            <label class="control-label col-md-2" for="faculty_id">Факультет</label>
+            <div class="col-md-10">
+              <select name="faculty_id" id="faculty_id" class="form-control">
+                @foreach($faculties as $faculty)
+                  <option value="{{ $faculty->id }}" @if($faculty == $specialty->faculty) selected @endif >{{ $faculty->name }}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
             <div class="form-group required">
               <label class="control-label col-md-2" for="name">Назва</label>
               <div class="col-md-10">

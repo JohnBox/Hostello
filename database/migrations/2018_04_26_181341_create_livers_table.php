@@ -20,14 +20,13 @@ class CreateLiversTable extends Migration
             $table->string('second_name');
             $table->date('birth_date');
             $table->boolean('gender');
-            $table->boolean('student');
+            $table->boolean('is_student');
             $table->integer('group_id')->nullable();
-            $table->float('balance');
+            $table->float('balance')->default(0.0);
             $table->string('doc_number');
             $table->string('phone');
-            $table->date('injected')->nullable();
-            $table->date('ejected')->nullable();
             $table->integer('room_id')->nullable();
+            $table->boolean('is_active')->nullable();
             $table->integer('hostel_id');
         });
     }

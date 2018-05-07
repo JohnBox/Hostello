@@ -4,13 +4,13 @@
   <div class="panel panel-default">
     <div class="panel-heading">Створення</div>
       <div class="panel-body">
-        <form class="form-horizontal" method="POST" action="{{ route('groups.store') }}">
+        <form id="create_group" class="form-horizontal" method="POST" action="{{ route('groups.store') }}">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <div class="form-group required">
             <label class="control-label col-md-2" for="specialty_id">Спеціальність</label>
             <div class="col-md-10">
               <select name="specialty_id" id="specialty_id" class="form-control">
-                <option value="0">-</option>
+                <option value="-">-</option>
                 @foreach($specialties as $specialty)
                   <option value="{{ $specialty->id }}">{{ $specialty->name }}</option>
                 @endforeach
@@ -21,7 +21,7 @@
             <label class="control-label col-md-2" for="course_id">Курс</label>
             <div class="col-md-10">
               <select name="course_id" id="course_id" class="form-control" disabled>
-                <option value="0">-</option>
+                <option value="-">-</option>
                 @foreach($specialties as $specialty)
                   @foreach($specialty->courses as $course)
                     <option specialty_id="{{ $specialty->id }}" value="{{ $course->id }}">{{ $course->number}}</option>
@@ -65,7 +65,12 @@
             courseId.prop('disabled', !specialtyId);
             courseId.find('option[specialty_id!="' + specialtyId + '"]').hide();
             courseId.find('option[specialty_id="' + specialtyId + '"]').show();
+            courseId.val('-');
         });
+        $('#create_group').submit(function (e) {
+            if ($('#course_id').val() === '-')
+              e.preventDefault();
+        })
     });
   </script>
 @endsection

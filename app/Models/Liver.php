@@ -8,11 +8,8 @@ class Liver extends Model
 {
     protected $fillable = [
         'last_name', 'first_name', 'second_name',
-        'birth_date', 'gender', 'student', 'doc_number', 'phone',
-        'balance', 'injected', 'ejected',
-        'room_id',
-        'group_id',
-        'hostel_id',
+        'birth_date', 'gender', 'is_student', 'doc_number', 'phone',
+        'balance', 'room_id', 'group_id', 'hostel_id', 'is_active'
     ];
     public $timestamps = false;
 
@@ -48,17 +45,17 @@ class Liver extends Model
 
     function scopeActive($query)
     {
-        return $query->where('active','=',true)->get();
+        return $query->where('is_active','=',true)->get();
     }
 
     function scopeNonactive($query)
     {
-        return $query->where('active','=',null)->get();
+        return $query->where('is_active','=',null)->get();
     }
 
     function scopeRemoved($query)
     {
-        return $query->where('active','=',false)->get();
+        return $query->where('is_active','=',false)->get();
     }
 
     function full_name()

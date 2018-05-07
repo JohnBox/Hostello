@@ -6,11 +6,13 @@
   </div>
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
-      <li><a href="{{ url('/livers') }}">Проживаючі</a></li>
-      <li><a href="{{ url('/violations') }}">Порушення</a></li>
-      <li><a href="{{ route('payments.index') }}">Нарахування</a></li>
-      <li><a href="{{ route('injections.index') }}">Заселення</a></li>
-      <li><a href="{{ route('ejections.index') }}">Виселення</a></li>
+      @if($university)
+        <li><a href="{{ route('livers.index') }}">Проживаючі</a></li>
+        <li><a href="{{ route('violations.index') }}">Порушення</a></li>
+        <li><a href="{{ route('payments.index') }}">Нарахування</a></li>
+        <li><a href="{{ route('injections.index') }}">Заселення</a></li>
+        <li><a href="{{ route('ejections.index') }}">Виселення</a></li>
+      @endunless
       <li><a href="{{ route('universities.index') }}">Університет</a></li>
       <li class="active"><a href="{{ route('hostels.index') }}">Гуртожитки</a></li>
     </ul>

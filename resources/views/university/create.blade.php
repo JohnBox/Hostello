@@ -1,31 +1,33 @@
-@extends('specialty.master')
+@extends('university.master')
 
 @section('content')
   <div class="panel panel-default">
-    <div class="panel-heading">Створення</div>
+    <div class="panel-heading">Налаштування</div>
       <div class="panel-body">
-        <form class="form-horizontal" method="POST" action="{{ route('specialties.store') }}">
+        <form class="form-horizontal" method="POST" action="{{ route('universities.store') }}">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <div class="form-group required">
-            <label class="control-label col-md-2" for="faculty_id">Факультет</label>
+            <label class="control-label col-md-2" for="name">Назва закладу</label>
             <div class="col-md-10">
-              <select name="faculty_id" id="faculty_id" class="form-control">
-                @foreach($faculties as $faculty)
-                  <option value="{{ $faculty->id }}">{{ $faculty->name }}</option>
-                @endforeach
-              </select>
+              <input type="text" class="form-control" id="name" name="name" required>
             </div>
           </div>
-            <div class="form-group required">
-              <label class="control-label col-md-2" for="name">Назва</label>
-              <div class="col-md-10">
-                <input type="text" class="form-control" id="name" name="name" required>
-              </div>
-            </div>
           <div class="form-group required">
-            <label class="control-label col-md-2" for="years_of_study">Роки навчання</label>
+            <label class="control-label col-md-2" for="address">Адреса</label>
             <div class="col-md-10">
-              <input type="text" class="form-control" id="years_of_study" name="years_of_study" required>
+              <input type="text" class="form-control" id="address" name="address" required>
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="control-label col-md-2" for="phone">Телефон</label>
+            <div class="col-md-10">
+              <input type="text" class="form-control" id="phone" name="phone" required>
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="control-label col-md-2" for="merchant">Мерчант акаунт</label>
+            <div class="col-md-10">
+              <input type="text" class="form-control" id="merchant" name="merchant" required>
             </div>
           </div>
           <button type="submit" class="btn btn-default">Зберегти</button>

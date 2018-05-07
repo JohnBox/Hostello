@@ -24,8 +24,7 @@ class HostelController extends Controller
 
     public function create()
     {
-        $university = University::first();
-        return view('hostel.create', ['university' => $university]);
+        return view('hostel.create');
     }
 
     public function store(Request $request)

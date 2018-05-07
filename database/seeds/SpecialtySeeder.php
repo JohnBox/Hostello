@@ -14,12 +14,10 @@ class SpecialtySeeder extends Seeder
      */
     public function run()
     {
-        $faculties = Faculty::all();
-        foreach ($faculties as $faculty) {
-            Specialty::create([
-                'name' => 'special',
-                'years_of_study' => 4,
-                'faculty_id' => $faculty->id
+        foreach (Faculty::all() as $faculty) {
+            $faculty->specialties()->saveMany([
+                new Specialty(['name' => $faculty->short_name() . ' Спецільність 1', 'years_of_study' => 4]),
+                new Specialty(['name' => $faculty->short_name() . ' Спецільність 2', 'years_of_study' => 3])
             ]);
         }
     }

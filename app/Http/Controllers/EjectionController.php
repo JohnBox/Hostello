@@ -16,12 +16,12 @@ class EjectionController extends Controller
 
     public function create()
     {
-        //
+
     }
 
     public function store(Request $request)
     {
-        //
+
     }
 
     public function show(Ejection $ejection)

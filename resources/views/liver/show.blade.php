@@ -9,12 +9,6 @@
       </ol>
     </div>
     <div class="panel-body">
-      <ul id="tabs" class="nav nav-tabs">
-        <li role="presentation" class="active"><a class="0">Обовязкові дані</a></li>
-        <li role="presentation"><a class="1">Адреса проживання</a></li>
-        <li role="presentation"><a class="2">Паспортні дані</a></li>
-        <li role="presentation"><a class="3">Контакти</a></li>
-      </ul>
       <form class="show" onsubmit="return false;">
         <br/>
         <div class="t">
@@ -121,7 +115,6 @@
         <div class="form-group col-md-12">
           <a href="{{ url('/livers/settle') }}/{{ $liver->id }}" id="settle" class="btn btn-default">Переселити</a>
           <a href="{{ url('/livers/remove') }}/{{ $liver->id }}" id="remove" class="btn btn-default" style="color: #f66">Виселити</a>
-          <a href="{{ url('/livers/money') }}/{{ $liver->id }}" id="remove" class="btn btn-default">Поповнити рахунок</a>
         </div>
       </form>
     </div>

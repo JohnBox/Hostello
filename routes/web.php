@@ -44,37 +44,37 @@ Route::get('rooms/settle/{id}', 'RoomController@getSettle');
 //Route::get('violations/delete/{id}', 'ViolationController@getDelete');
 //Route::get('violations/paid/{id}', 'ViolationController@getPaid');
 
-Route::get('settings', 'SettingController@getIndex');
-
-Route::get('settings/create-hostel', 'SettingController@getCreateHostel');
-Route::post('settings/create-hostel', 'SettingController@postCreateHostel');
-Route::get('settings/edit-hostel/{id}', 'SettingController@getEditHostel');
-Route::post('settings/edit-hostel', 'SettingController@postEditHostel');
-Route::get('settings/delete-hostel/{id}', 'SettingController@getDeleteHostel');
-
-Route::get('settings/create-user', 'SettingController@getCreateUser');
-Route::post('settings/create-user', 'SettingController@postCreateUser');
-Route::get('settings/edit-user/{id}', 'SettingController@getEditUser');
-Route::post('settings/edit-user', 'SettingController@postEditUser');
-Route::get('settings/delete-user/{id}', 'SettingController@getDeleteUser');
-
-Route::get('settings/create-faculty', 'SettingController@getCreateFaculty');
-Route::post('settings/create-faculty', 'SettingController@postCreateFaculty');
-Route::get('settings/edit-faculty/{id}', 'SettingController@getEditFaculty');
-Route::post('settings/edit-faculty', 'SettingController@postEditFaculty');
-Route::get('settings/delete-faculty/{id}', 'SettingController@getDeleteFaculty');
-
-Route::get('settings/create-group', 'SettingController@getCreateGroup');
-Route::post('settings/create-group', 'SettingController@postCreateGroup');
-Route::get('settings/edit-group/{id}', 'SettingController@getEditGroup');
-Route::post('settings/edit-group', 'SettingController@postEditGroup');
-Route::get('settings/delete-group/{id}', 'SettingController@getDeleteGroup');
-
-Route::post('settings/create-rooms', 'SettingController@postCreateRooms');
-Route::get('settings/delete-rooms', 'SettingController@getDeleteRooms');
-Route::get('settings/edit-room/{id}', 'SettingController@getEditRoom');
-Route::post('settings/edit-room', 'SettingController@postEditRoom');
-Route::get('settings/delete-room/{id}', 'SettingController@getDeleteRoom');
+//Route::get('settings', 'SettingController@getIndex');
+//
+//Route::get('settings/create-hostel', 'SettingController@getCreateHostel');
+//Route::post('settings/create-hostel', 'SettingController@postCreateHostel');
+//Route::get('settings/edit-hostel/{id}', 'SettingController@getEditHostel');
+//Route::post('settings/edit-hostel', 'SettingController@postEditHostel');
+//Route::get('settings/delete-hostel/{id}', 'SettingController@getDeleteHostel');
+//
+//Route::get('settings/create-user', 'SettingController@getCreateUser');
+//Route::post('settings/create-user', 'SettingController@postCreateUser');
+//Route::get('settings/edit-user/{id}', 'SettingController@getEditUser');
+//Route::post('settings/edit-user', 'SettingController@postEditUser');
+//Route::get('settings/delete-user/{id}', 'SettingController@getDeleteUser');
+//
+//Route::get('settings/create-faculty', 'SettingController@getCreateFaculty');
+//Route::post('settings/create-faculty', 'SettingController@postCreateFaculty');
+//Route::get('settings/edit-faculty/{id}', 'SettingController@getEditFaculty');
+//Route::post('settings/edit-faculty', 'SettingController@postEditFaculty');
+//Route::get('settings/delete-faculty/{id}', 'SettingController@getDeleteFaculty');
+//
+//Route::get('settings/create-group', 'SettingController@getCreateGroup');
+//Route::post('settings/create-group', 'SettingController@postCreateGroup');
+//Route::get('settings/edit-group/{id}', 'SettingController@getEditGroup');
+//Route::post('settings/edit-group', 'SettingController@postEditGroup');
+//Route::get('settings/delete-group/{id}', 'SettingController@getDeleteGroup');
+//
+//Route::post('settings/create-rooms', 'SettingController@postCreateRooms');
+//Route::get('settings/delete-rooms', 'SettingController@getDeleteRooms');
+//Route::get('settings/edit-room/{id}', 'SettingController@getEditRoom');
+//Route::post('settings/edit-room', 'SettingController@postEditRoom');
+//Route::get('settings/delete-room/{id}', 'SettingController@getDeleteRoom');
 
 
 Route::resource('universities', 'UniversityController');
@@ -97,21 +97,17 @@ Route::resource('payments', 'PaymentController');
 
 Route::resource('violations', 'ViolationController');
 
+Route::resource('livers', 'LiverController');
 
+Route::get('', 'HomeController@index')->name('home');
 
+//Route::get('liver/profile', 'ProfileController@index');
+//Route::get('liver/rooms', 'ProfileController@rooms');
+//Route::get('liver/payments', 'ProfileController@payments');
+//Route::get('liver/violations', 'ProfileController@violations');
+//Route::get('liver/injections', 'ProfileController@injections');
+//Route::get('liver/ejections', 'ProfileController@ejections');
 
-
-Route::get('', 'HomeController@getIndex')->name('home');
-
-Route::get('liver/profile', 'ProfileController@index')->name('liver.profile');
-Route::get('liver/rooms', 'ProfileController@rooms')->name('liver.rooms');
-Route::get('liver/payments', 'ProfileController@payments')->name('liver.payments');
-Route::get('liver/violations', 'ProfileController@violations')->name('liver.violations');
-Route::get('liver/injections', 'ProfileController@injections')->name('liver.injections');
-Route::get('liver/ejections', 'ProfileController@ejections')->name('liver.ejections');
-
-
-Route::get('admin', 'AdminController@index')->name('admin');
 
 Route::get('logout', 'Auth\LoginController@logout');
 

@@ -21,6 +21,6 @@ class Specialty extends Model
 
     function short_name()
     {
-        return 'ПД';
+        return implode('', array_map(function ($x) { return mb_substr(mb_strtoupper($x), 0, 1); }, explode(' ', $this->name)));
     }
 }

@@ -6,15 +6,12 @@
     <div class="panel-body">
       @unless($university)
         <div class="alert alert-danger" role="alert">Університет не налаштовано.</div>
-      @endunless
+        <a class="btn btn-default" href="{{ route('universities.create') }}" role="button">Налаштувати</a>
+      @else
         <hr>
         <h4>Гуртожитки</h4>
         <hr>
-        @if($university)
-          <a class="btn btn-default" href="{{ route('hostels.create') }}" role="button">Створити новий</a>
-        @else
-          <a class="btn btn-default disabled" href="{{ route('hostels.create') }}" role="button">Створити новий</a>
-        @endif
+        <a class="btn btn-default" href="{{ route('hostels.create') }}" role="button">Створити новий</a>
         <br>
         <br>
         <table class="table table-striped table-hover">
@@ -43,11 +40,7 @@
         <hr>
         <h4>Коменданти</h4>
         <hr>
-        @if($university)
-          <a class="btn btn-default" href="{{ route('watchmen.create') }}" role="button">Створити новий</a>
-        @else
-          <a class="btn btn-default disabled" href="{{ route('watchmen.create') }}" role="button">Створити новий</a>
-        @endif
+        <a class="btn btn-default" href="{{ route('watchmen.create') }}" role="button">Створити новий</a>
         <br>
         <br>
         <table class="table table-striped table-hover">
@@ -71,6 +64,7 @@
             </tr>
           @endforeach
         </table>
+        @endunless
       </div>
     </div>
 @endsection
