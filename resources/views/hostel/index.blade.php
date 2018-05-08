@@ -25,7 +25,7 @@
             @foreach($hostels as $hostel)
               <tr>
                 <td></td>
-                <td>{{$hostel->name}}</td>
+                <td><a href="{{ route('hostels.show', ['hostel' => $hostel]) }}">{{$hostel->name}}</a></td>
                 <td>{{$hostel->address}}</td>
                 <td>{{$hostel->phone}}</td>
                 <td><a href="{{ route('hostels.edit', ['hostel' => $hostel]) }}">E</a></td>
@@ -46,6 +46,7 @@
         <table class="table table-striped table-hover">
           <th>
           <td>Імя</td>
+          <td>Гуртожиток</td>
           <td>Телефон</td>
           <td></td>
           <td></td>
@@ -53,8 +54,9 @@
           @foreach($watchmen as $watchman)
             <tr>
               <td></td>
-              <td>{{ $watchman->first_name }}</td>
-              <td>{{ $watchman->phone}}</td>
+              <td>{{ $watchman->short_full_name() }}</td>
+              <td>{{ $watchman->hostel->name }}</td>
+              <td>{{ $watchman->phone }}</td>
               <td><a href="{{ route('watchmen.edit', ['watchman' => $watchman]) }}">E</a></td>
               <td>
                 {{ Form::open([ 'method'  => 'delete', 'route' => [ 'watchmen.destroy', $watchman] ]) }}

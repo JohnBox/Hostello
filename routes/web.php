@@ -26,10 +26,10 @@ Route::get('livers/remove/{id}', 'LiverController@getRemove');
 Route::get('livers/money/{id}', 'LiverController@getMoney');
 Route::post('livers/money', 'LiverController@postMoney');
 
-Route::get('rooms', 'RoomController@getIndex')->name('rooms.index');
-Route::get('rooms/floor/{id}', 'RoomController@getFloor')->name('rooms.floor');
-Route::get('rooms/show/{id}', 'RoomController@getShow');
-Route::get('rooms/settle/{id}', 'RoomController@getSettle');
+//Route::get('rooms', 'RoomController@getIndex')->name('rooms.index');
+//Route::get('rooms/floor/{id}', 'RoomController@getFloor')->name('rooms.floor');
+//Route::get('rooms/show/{id}', 'RoomController@getShow');
+//Route::get('rooms/settle/{id}', 'RoomController@getSettle');
 
 //Route::get('payments', 'PaymentController@getIndex');
 //Route::post('payments/create', 'PaymentController@postCreate');
@@ -98,6 +98,8 @@ Route::resource('payments', 'PaymentController');
 Route::resource('violations', 'ViolationController');
 
 Route::resource('livers', 'LiverController');
+
+Route::resource('rooms', 'RoomController');
 
 Route::get('', 'HomeController@index')->name('home');
 

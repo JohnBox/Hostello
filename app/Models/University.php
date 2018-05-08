@@ -13,4 +13,9 @@ class University extends Model
     {
         return $this->hasMany('App\Models\Faculty');
     }
+
+    function hostels()
+    {
+        return $this->hasMany('App\Models\Hostel');
+    }
 }

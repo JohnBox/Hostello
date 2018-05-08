@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-use App\Models\Pay;
+use App\Models\Payment;
 use App\Models\Room;
 use App\Models\Liver;
 use App\Models\Hostel;
@@ -21,7 +21,7 @@ class PaymentController extends Controller
 
     public function index()
     {
-        $pays = Pay::all();
+        $pays = Payment::all();
         return view('payment.index',['pays' => $pays]);
     }
 
@@ -42,7 +42,7 @@ class PaymentController extends Controller
             $gasPrice = $req->input('gas_price')/$hostelArea*$liver->room->area;
             $elecPrice = $req->input('elec_price_'.$liver->room->block) / $blockLiversCount;
             $waterPrice = $req->input('water_price_'.$liver->room->block) / $blockLiversCount;
-            $pay = Pay::create([
+            $pay = Payment::create([
                 'liver_id' => $liver->id,
                 'date' => date('Y-m-d'),
                 'live_price' => $req->input('live_price'),
@@ -59,12 +59,12 @@ class PaymentController extends Controller
     }
     public function getLivers($date)
     {
-        $pays = Pay::where('date','=',$date)->get();
+        $pays = Payment::where('date','=',$date)->get();
         return view('payment.livers', ['pays' => $pays]);
     }
     public function getPaid($id)
     {
-        $pay = Pay::find($id);
+        $pay = Payment::find($id);
         $liver = Liver::find($pay->liver->id);
         $liver->balance += $pay->total;
         $liver->save();

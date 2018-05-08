@@ -24,7 +24,7 @@ class RoomController extends Controller
         return $return;
     }
 
-    public function getIndex()
+    public function index()
     {
         $floors = Auth::user()->hostel->floors;
         $curruntFloor = count($floors) ? $floors[0] : null;
@@ -41,6 +41,57 @@ class RoomController extends Controller
             'current' => $curruntFloor
         ]);
     }
+
+
+    public function create(Request $request)
+    {
+//        ob_start();
+//        var_dump($request->input());
+//        return ob_get_clean();
+        $hostelId = $request->get('hostel');
+        $hostel = Hostel::find($hostelId);
+        if ($hostel) {
+            return view('room.create', ['floors' => $hostel->floors]);
+        }
+    }
+
+    public function store(Request $request)
+    {
+        $input = $request->only(['number', 'liver_max', 'area', 'block_id']);
+        $room = Room::create($input);
+        return redirect()->route('hostels.show', ['hostel' => $room->block->floor->hostel]);
+    }
+
+
+    public function show(Room $room)
+    {
+        return view('room.show', ['room' => $room]);
+    }
+
+    public function edit(Request $request, Room $room)
+    {
+        $hostelId = $request->get('hostel');
+        $hostel = Hostel::find($hostelId);
+        if ($hostel) {
+            return view('room.edit', ['room' => $room, 'floors' => $hostel->floors]);
+        }
+    }
+
+    public function update(Request $request, Room $room)
+    {
+        $input = $request->only(['number', 'liver_max', 'area', 'block_id']);
+        $room->fill($input);
+        $room->save();
+        return redirect()->route('hostels.show', ['hostel' => $room->block->floor->hostel]);
+    }
+
+    public function destroy(Room $room)
+    {
+        $hostel = $room->block->floor->hostel;
+        $room->delete();
+        return redirect()->route('hostels.show', ['hostel' => $hostel]);
+    }
+
 
     public function getFloor($id)
     {
@@ -60,11 +111,6 @@ class RoomController extends Controller
         ]);
     }
 
-
-    public function getShow($id)
-    {
-        return view('room.show', ['room' => Room::find($id)]);
-    }
     public function getSettle($id)
     {
 

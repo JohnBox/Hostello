@@ -6,8 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Injection extends Model
 {
-    protected $fillable = ['date', 'liver_id', 'room_id', 'watchman_id'];
+    protected $fillable = ['watchman_id', 'liver_id', 'room_id', 'date'];
     public $timestamps = false;
+
+    function watchman()
+    {
+        return $this->belongsTo('App\Models\Watchman');
+    }
 
     function liver()
     {
@@ -17,10 +22,5 @@ class Injection extends Model
     function room()
     {
         return $this->belongsTo('App\Models\Room');
-    }
-
-    function watchman()
-    {
-        return $this->belongsTo('App\Models\Watchman');
     }
 }

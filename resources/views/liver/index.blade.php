@@ -11,9 +11,11 @@
           <li role="presentation"><a href="{{ url('/livers/removed') }}">Виселені</a></li>
         </ul>
         <br/>
+        @if(Auth::user()->profile)
         <a type="button" class="btn btn-sm btn-default" href="{{ url('/livers/create') }}">Створити новий</a>
         <br/>
         <br/>
+        @endif
         <table class="table table-striped">
           <tr>
             <th>Прізвище Ім’я По батькові</th>

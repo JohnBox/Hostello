@@ -4,7 +4,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">Редагування</div>
       <div class="panel-body">
-        <form class="form-horizontal" method="POST" action="{{ route('groups.update', ['group' => $group]) }}">
+        <form id="edit_group" class="form-horizontal" method="POST" action="{{ route('groups.update', ['group' => $group]) }}">
           @method('PUT')
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <div class="form-group required">
@@ -68,6 +68,10 @@
               courseId.find('option[specialty_id="' + specialtyId + '"]').show();
               courseId.val('-');
           });
+          $('#edit_group').submit(function (e) {
+              if (courseId.val() === '-')
+                  e.preventDefault();
+          })
       });
   </script>
 @endsection

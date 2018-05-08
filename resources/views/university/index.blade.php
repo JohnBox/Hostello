@@ -102,6 +102,8 @@
         <table class="table table-striped table-hover">
           <th>
           <td>Назва</td>
+          <td>Курс</td>
+          <td>Спеціальність</td>
           <td>X</td>
           <td>X</td>
           </th>
@@ -109,6 +111,8 @@
             <tr>
               <td></td>
               <td>{{ $group->name }}</td>
+              <td>{{ $group->course->number }}</td>
+              <td>{{ $group->course->specialty->name }}</td>
               <td><a href="{{ route('groups.edit', ['group' => $group]) }}">E</a></td>
               <td>
                 {{ Form::open([ 'method'  => 'delete', 'route' => [ 'groups.destroy', $group ] ]) }}

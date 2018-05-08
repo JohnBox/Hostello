@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
+use App\Models\University;
 use App\Models\Hostel;
+use App\Models\User;
 use App\Models\Watchman;
 
 class WatchmanController extends Controller
@@ -16,15 +19,23 @@ class WatchmanController extends Controller
 
     function create()
     {
+        $iniversity = University::first();
         $hostels = Hostel::all();
-        return view('watchman.create', ['hostels' => $hostels]);
+        return view('watchman.create', ['hostels' => $hostels , 'university' => $iniversity]);
     }
 
     function store(Request $request)
     {
+        $university = University::first();
         $input = $request->only(['last_name', 'first_name', 'second_name', 'phone', 'hostel_id']);
-        Watchman::create($input);
-        return redirect()->route('hostels.index');
+        $watchman = Watchman::create($input);
+        $user = User::create([
+            'name' => $input['phone']  ,
+            'email' => 'watchman' . $watchman->id . '@gmail.com',
+            'password' => Hash::make($input['phone']),
+        ]);
+        $watchman->user()->save($user);
+        return redirect()->route('hostels.index', ['university' => $university]);
     }
 
     function show(Watchman $watchman)
@@ -34,8 +45,9 @@ class WatchmanController extends Controller
 
     function edit(Watchman $watchman)
     {
+        $iniversity = University::first();
         $hostels = Hostel::all();
-        return view('watchman.edit', ['watchman' => $watchman, 'hostels' => $hostels]);
+        return view('watchman.edit', ['watchman' => $watchman, 'hostels' => $hostels, 'university' => $iniversity]);
     }
 
     function update(Request $request, Watchman $watchman)

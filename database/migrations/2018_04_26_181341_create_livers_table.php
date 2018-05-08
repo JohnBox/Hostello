@@ -27,7 +27,6 @@ class CreateLiversTable extends Migration
             $table->string('phone');
             $table->integer('room_id')->nullable();
             $table->boolean('is_active')->nullable();
-            $table->integer('hostel_id');
         });
     }
 

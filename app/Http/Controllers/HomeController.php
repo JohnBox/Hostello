@@ -14,7 +14,7 @@ use App\Models\University;
 use App\Models\Hostel;
 use App\Models\Violation;
 use App\Models\Liver;
-use App\Models\Pay;
+use App\Models\Payment;
 
 
 class HomeController extends Controller
@@ -27,21 +27,9 @@ class HomeController extends Controller
     function index()
     {
         $profile = Auth::user()->profile;
-        $university = University::first();
-        if (!$profile) {
-            if ($university) {
-                return redirect()->route('livers.index');
-            }
-            return redirect()->route('universities.index');
+        if ($profile && get_class($profile) == 'App\Models\Liver') {
+            return redirect()->route('profiles.index');
         }
-        else {
-            $class = get_class($profile);
-            if ($class == 'App\Models\Watchman') {
-                return redirect()->route('watchman');
-            }
-            else {
-                return redirect()->route('liver.profile');
-            }
-        }
+        return redirect()->route('livers.index');
     }
 }

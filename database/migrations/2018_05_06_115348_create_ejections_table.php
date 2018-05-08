@@ -15,10 +15,10 @@ class CreateEjectionsTable extends Migration
     {
         Schema::create('ejections', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('date');
+            $table->integer('watchman_id');
             $table->integer('liver_id');
             $table->integer('room_id');
-            $table->integer('watchman_id');
+            $table->date('date');
         });
     }
 

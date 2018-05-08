@@ -34,7 +34,6 @@ class LiverSeeder extends Seeder
                     'room_id' => $room->id,
                     'phone' => '0991111111',
                     'balance' => 0,
-                    'hostel_id' => $hostel->id,
                     'is_active' => true,
                 ]);
                 $user = User::create([

@@ -10,12 +10,21 @@ class HostelSeeder extends Seeder
     public function run()
     {
         $university = University::first();
-        Hostel::create([
-            'name' => 'Гуртожиток 1',
-            'address' => 'Соломянська 7',
-            'phone' => '12345',
-            'area' => 1000,
-            'merchant' => $university->merchant
+        $university->hostels()->saveMany([
+            new Hostel([
+                'name' => 'Гуртожиток #1',
+                'address' => 'Соломянська 7',
+                'phone' => '12345',
+                'area' => 1000,
+                'merchant' => $university->merchant
+            ]),
+            new Hostel([
+                'name' => 'Гуртожиток #2',
+                'address' => 'Соломянська 4',
+                'phone' => '12345',
+                'area' => 10000,
+                'merchant' => $university->merchant
+            ]),
         ]);
     }
 }

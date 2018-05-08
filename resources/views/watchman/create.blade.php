@@ -1,4 +1,4 @@
-@extends('admin.master')
+@extends('watchman.master')
 
 @section('content')
   <div class="panel panel-default">

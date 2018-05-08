@@ -6,12 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Violation extends Model
 {
-    protected $fillable = ['liver_id', 'description', 'penalty', 'date', 'paid'];
+    protected $fillable = ['watchman_id', 'liver_id', 'room_id', 'date',
+        'description', 'penalty', 'is_paid'];
 
     public $timestamps = false;
+
+    function watchman()
+    {
+        return $this->belongsTo('App\Models\Watchman');
+    }
 
     function liver()
     {
         return $this->belongsTo('App\Models\Liver');
+    }
+
+    function room()
+    {
+        return $this->belongsTo('App\Models\Room');
     }
 }

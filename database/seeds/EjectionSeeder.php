@@ -3,29 +3,22 @@
 use Illuminate\Database\Seeder;
 
 use App\Models\Watchman;
-use App\Models\Room;
+use App\Models\Liver;
 use App\Models\Ejection;
 
 class EjectionSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         $watchman = Watchman::first();
-        $rooms = Room::all();
-        foreach ($rooms as $room) {
-            foreach ($room->livers as $liver) {
-                Ejection::create([
-                    'date' => date('Y-m-d'),
-                    'liver_id' => $liver->id,
-                    'room_id' => $room->id,
-                    'watchman_id' => $watchman->id
-                ]);
-            }
+        foreach (Liver::all() as $liver) {
+            $ejection = new Ejection([
+                'date' => date('Y-m-d'),
+            ]);
+//            $watchman->enjections()->save($ejection);
+            $liver->enjections()->save($ejection);
+            $liver->room->enjections()->save($ejection);
+            $ejection->save();
         }
     }
 }

@@ -7,27 +7,57 @@
         <form class="form-horizontal" method="POST" action="{{ route('hostels.store') }}">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group required">
-              <label class="control-label col-md-2" for="name">Назва</label>
+              <label class="control-label col-md-2" for="name">Назва гутожитку</label>
               <div class="col-md-10">
                 <input type="text" class="form-control" id="name" name="name" required>
               </div>
             </div>
             <div class="form-group required">
-              <label class="control-label col-md-2" for="address">Адреса</label>
+              <label class="control-label col-md-2" for="address">Адреса гутожитку</label>
               <div class="col-md-10">
                 <input type="text" class="form-control" id="address" name="address" required>
               </div>
             </div>
             <div class="form-group required">
-              <label class="control-label col-md-2" for="phone">Телефон</label>
+              <label class="control-label col-md-2" for="phone">Телефон гутожитку</label>
               <div class="col-md-10">
                 <input type="text" class="form-control" id="phone" name="phone" required>
               </div>
             </div>
           <div class="form-group required">
-            <label class="control-label col-md-2" for="area">Площа</label>
+            <label class="control-label col-md-2" for="area">Площа гутожитку</label>
             <div class="col-md-10">
               <input type="text" class="form-control" id="area" name="area" required>
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="control-label col-md-2" for="floor_count">Кількість поверхів</label>
+            <div class="col-md-10">
+              <input type="text" class="form-control" id="floor_count" name="floor_count" required>
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="control-label col-md-2" for="block_count">Кількість блоків на поверсі</label>
+            <div class="col-md-10">
+              <input type="text" class="form-control" id="block_count" name="block_count" required>
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="control-label col-md-2" for="room_count">Кількість кімнат у блоці</label>
+            <div class="col-md-10">
+              <input type="text" class="form-control" id="room_count" name="room_count" required>
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="control-label col-md-2" for="liver_count">Кількість місць у кімнаті</label>
+            <div class="col-md-10">
+              <input type="text" class="form-control" id="liver_count" name="liver_count" required>
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="control-label col-md-2" for="room_area">Площа кімнати</label>
+            <div class="col-md-10">
+              <input type="text" class="form-control" id="room_area" name="room_area" required>
             </div>
           </div>
           <div class="form-group required">
