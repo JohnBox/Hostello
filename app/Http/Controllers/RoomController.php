@@ -14,11 +14,6 @@ use App\Models\Room;
 
 class RoomController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     function flatten(array $array) {
         $return = array();
         array_walk_recursive($array, function($a) use (&$return) { $return[] = $a; });
