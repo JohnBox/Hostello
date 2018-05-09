@@ -2,7 +2,7 @@
 
 @section('nav')
     <div class="navbar-header">
-        <a class="navbar-brand" href="{{ url('/') }}">Гуртожиток</a>
+        <a class="navbar-brand" href="{{ route('home') }}">Гуртожиток</a>
     </div>
 @endsection
 

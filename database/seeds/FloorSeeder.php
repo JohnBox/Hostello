@@ -11,13 +11,9 @@ class FloorSeeder extends Seeder
 {
     public function run()
     {
-        $hostels = Hostel::all();
-        foreach ($hostels as $hostel) {
-            for ($number=1; $number<=FLOOR_COUNT; $number++) {
-                Floor::create([
-                    'number' => $number,
-                    'hostel_id' => $hostel->id
-                ]);
+        foreach (Hostel::all() as $hostel) {
+            foreach (range(1, FLOOR_COUNT) as $number) {
+                $hostel->floors()->create(['number' => $number]);
             }
         }
     }

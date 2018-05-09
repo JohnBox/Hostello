@@ -11,15 +11,10 @@ class BlockSeeder extends Seeder
 {
     public function run()
     {
-        $floors = Floor::all();
-        foreach ($floors as $floor) {
-            for ($number=1; $number<=BLOCK_PER_FLOOR; $number++) {
-                Block::create([
-                    'number' => $number,
-                    'floor_id' => $floor->id
-                ]);
+        foreach (Floor::all() as $floor) {
+            foreach (range(1, BLOCK_PER_FLOOR) as $number) {
+                $floor->blocks()->create(['number' => $number]);
             }
-
         }
     }
 }

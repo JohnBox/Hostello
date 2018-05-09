@@ -8,9 +8,14 @@ use App\Models\Injection;
 
 class InjectionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $injections = Injection::all();
+        $profile = $request->user()->profile;
+        if ($profile) {
+            $injections = $profile->injections;
+        } else {
+            $injections = Injection::all();
+        }
         return view('injection.index', ['injections' => $injections]);
     }
 

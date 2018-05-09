@@ -12,39 +12,22 @@ class LiverSeeder extends Seeder
 {
     public function run()
     {
-        $n = 0;
-        $group = Group::all()->first();
-        $rooms = Room::all();
-        $count = $rooms->count();
-        foreach ($rooms as $room) {
-            do {
-                $hostel = $room->block->floor->hostel;
-//                TODO: refactor with eloquent relationship methods
-                $phone = '+380991111111';
-
-                $liver = Liver::create([
-                    'last_name' => rand(1, $count),
-                    'first_name' => rand(1, $count),
-                    'second_name' => rand(1, $count),
+        foreach (Room::all() as $room) {
+                $liver = $room->livers()->create([
+                    'last_name' => 'Last',
+                    'first_name' => 'Name',
+                    'second_name' => 'Fatherovich',
                     'birth_date' => date('Y-m-d'),
                     'gender' => (bool)rand(0, 1),
-                    'is_student' => true,
                     'doc_number' => 'KB1231212',
-                    'group_id' => $group->id,
-                    'room_id' => $room->id,
                     'phone' => '0991111111',
-                    'balance' => 0,
                     'is_active' => true,
                 ]);
-                $user = User::create([
-                    'name' => 'liver' . (($n == 0) ? '' : $n),
-                    'email' => 'liver' . (($n == 0) ? '' : $n) . '@gmail.com',
-                    'password' => Hash::make('liver')
+                $liver->user()->create([
+                    'name' => 'user'  ,
+                    'email' => 'user' . $liver->id . '@gmail.com',
+                    'password' => Hash::make('user'),
                 ]);
-                $liver->user()->save($user);
-                $n++;
-            } while (0);
         }
-
     }
 }

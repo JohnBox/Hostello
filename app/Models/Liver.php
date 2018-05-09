@@ -9,7 +9,7 @@ class Liver extends Model
     protected $fillable = [
         'last_name', 'first_name', 'second_name',
         'birth_date', 'gender', 'is_student', 'doc_number', 'phone',
-        'balance', 'room_id', 'group_id', 'is_active'
+        'room_id', 'group_id', 'is_active', 'bad_habit'
     ];
     public $timestamps = false;
 
@@ -54,11 +54,6 @@ class Liver extends Model
     }
 
     function scopeNonactive($query)
-    {
-        return $query->where('is_active','=',null)->get();
-    }
-
-    function scopeRemoved($query)
     {
         return $query->where('is_active','=',false)->get();
     }

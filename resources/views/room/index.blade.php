@@ -5,32 +5,30 @@
     <div class="panel-heading">Кімнати</div>
     <div class="panel-body">
       <ul class="nav nav-tabs">
-        @foreach($floors as $floor)
-          @if ($current == $floor)
-            <li role="presentation" class="active"><a href="{{ route('rooms.floor', ['id' => $floor->id]) }}/">Поверх {{$floor->number}}</a></li>
-          @else
-            <li role="presentation"><a href="{{ route('rooms.floor', ['id' => $floor->id]) }}/">Поверх {{$floor->number}}</a></li>
-          @endif
+        @foreach($hostel->floors as $floor)
+          <li role="presentation" @if ($current == $floor) class="active" @endif>
+            <a href="{{ route('rooms.floor', ['id' => $floor->id]) }}/">Поверх {{$floor->number}}</a>
+          </li>
         @endforeach
       </ul>
-      @foreach($blocks as $block)
+      @foreach($current->blocks as $block)
         <div class="block">
           <h3 class="text-left">Блок {{ $block->number }}</h3>
           <div class="room_container">
             <ul>
-              @foreach($rooms[$block->id] as $room)
+              @foreach($block->rooms as $room)
               <li>
-                <a class='normal' href="{{ url('/rooms/show') }}/{{ $room->id }}">
+                <a class='normal' href="{{ route('rooms.show', ['room' => $room]) }}">
                   <span class="number">{{ $room->number }}<br/>
                     <span class="count">{{ $room->livers()->count() }}/{{ $room->liver_max }}</span>
                   </span>
                 </a>
                 <div class='info'>
                   <h3>
-                    @foreach($room->livers as $l)
-                      {{ $l->last_name }} {{ $l->first_name }} {{ $l->parent_name }}
-                      @if($l->student)
-                        {{ $l->group->number }}
+                    @foreach($room->livers as $liver)
+                      {{ $liver->short_full_name() }}
+                      @if($liver->is_student && $liver->group)
+                        {{ $liver->group->name }}
                       @endif
                       <br/>
                     @endforeach

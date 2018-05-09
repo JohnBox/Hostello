@@ -12,20 +12,17 @@ class WatchmanSeeder extends Seeder
     public function run()
     {
         foreach (Hostel::all() as $hostel) {
-            $phone = '+380661111111';
-            $watchman = new Watchman([
+            $watchman = $hostel->watchmen()->create([
                 'first_name' => 'Lol',
                 'last_name' => 'Kek',
                 'second_name' => 'Chebyrek',
-                'phone' => $phone,
+                'phone' => '+380661111111',
             ]);
-            $hostel->watchmen()->save($watchman);
-            $user = User::create([
+            $watchman->user()->create([
                 'name' => 'watchman'  ,
                 'email' => 'watchman' . $watchman->id . '@gmail.com',
                 'password' => Hash::make('watchman'),
             ]);
-            $watchman->user()->save($user);
         }
     }
 }

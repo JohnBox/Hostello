@@ -9,12 +9,20 @@
             <th>Прізвище Ім’я По батькові</th>
             <th>Дата</th>
             <th>Кімната</th>
+            @unless(Auth::user()->profile)
+              <th>Комендант</th>
+              <th>Гуртожиток</th>
+            @endunless
           </tr>
           @foreach($ejections as $ejection)
             <tr>
               <td>{{ $ejection->liver->full_name() }}</td>
               <td>{{ $ejection->date }}</td>
               <td>{{ $ejection->room->number }}</td>
+              @unless(Auth::user()->profile)
+                <th>{{ $ejection->watchman->short_full_name() }}</th>
+                <th>{{ $ejection->watchman->hostel->name }}</th>
+              @endunless
             </tr>
           @endforeach
         </table>

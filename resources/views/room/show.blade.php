@@ -4,7 +4,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <ol class="breadcrumb">
-        <li><a href="{{ url('/rooms') }}">Кімнати</a></li>
+        <li><a href="{{ route('rooms.index') }}">Кімнати</a></li>
         <li class="active">Кімната {{ $room->number }}</li>
       </ol>
     </div>
@@ -21,14 +21,13 @@
         @foreach($room->livers as $liver)
           <tr>
             <td>
-              <a href="{{ url('/livers/show') }}/{{ $liver->id }}">
-                {{ $liver->last_name }} {{ $liver->first_name }} {{ $liver->parent_name }}
+              <a href="{{ route('livers.show', ['liver' => $liver]) }}">
+                {{ $liver->full_name() }}
               </a>
             </td>
             <td>{{ $liver->birth }}</td>
-            <td>@if($liver->sex) Ч @else Ж @endif</td>
-            <td><input type="checkbox" @if($liver->student) checked @endif disabled style="cursor: text"/></td>
-
+            <td>@if($liver->gender) Чоловіча @else Жіноча @endif</td>
+            <td><input type="checkbox" @if($liver->is_student) checked @endif disabled style="cursor: text"/></td>
             <td>
               @if($liver->student)
                 {{ $liver->group->number }}</td>

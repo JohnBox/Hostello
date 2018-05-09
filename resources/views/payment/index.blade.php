@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="panel panel-default">
-    <div class="panel-heading">Виплати</div>
+    <div class="panel-heading">Нарахування</div>
     <div class="panel-body">
       <a class="btn btn-default" href="{{ route('payments.create') }}" role="button">Створити новий</a>
       <br/>

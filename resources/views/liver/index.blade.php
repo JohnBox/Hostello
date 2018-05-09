@@ -3,75 +3,83 @@
 @section('content')
   <div class="panel panel-default">
     <div class="panel-heading">Проживаючі</div>
-      <div class="panel-body">
-        <ul class="nav nav-tabs">
+    <div class="panel-body">
+      <ul class="nav nav-tabs">
+        @if($filter == 'active')
+          <li role="presentation"><a href="{{ route('livers.index') }}">Всі</a></li>
+          <li role="presentation" class="active"><a>Заселені</a></li>
+          <li role="presentation"><a href="{{ route('livers.index', ['f' => 'nonactive']) }}">Незаселені</a></li>
+        @elseif($filter == 'nonactive')
+          <li role="presentation"><a href="{{ route('livers.index') }}">Всі</a></li>
+          <li role="presentation"><a href="{{ route('livers.index', ['f' => 'active']) }}">Заселені</a></li>
+          <li role="presentation" class="active"><a>Незаселені</a></li>
+        @else
           <li role="presentation" class="active"><a>Всі</a></li>
-          <li role="presentation"><a href="{{ url('/livers/active') }}">Заселені</a></li>
-          <li role="presentation"><a href="{{ url('/livers/nonactive') }}">Незаселені</a></li>
-          <li role="presentation"><a href="{{ url('/livers/removed') }}">Виселені</a></li>
-        </ul>
-        <br/>
-        @if(Auth::user()->profile)
-        <a type="button" class="btn btn-sm btn-default" href="{{ url('/livers/create') }}">Створити новий</a>
-        <br/>
-        <br/>
+          <li role="presentation"><a href="{{ route('livers.index', ['f' => 'active']) }}">Заселені</a></li>
+          <li role="presentation"><a href="{{ route('livers.index', ['f' => 'nonactive']) }}">Незаселені</a></li>
         @endif
-        <table class="table table-striped">
+      </ul>
+      <br/>
+      @if(Auth::user()->profile)
+        <a type="button" class="btn btn-sm btn-default" href="{{ route('livers.create') }}">Створити новий</a>
+        <br/>
+        <br/>
+      @endif
+      <table class="table table-striped">
+        <tr>
+          <th>Прізвище Ім’я По батькові</th>
+          <th>Дата народження</th>
+          <th>Стать</th>
+          <th>Студент</th>
+          <th>Баланс</th>
+          <th>Кімната</th>
+          <th>Активний</th>
+          @if(Auth::user()->profile)
+          <th></th>
+          <th></th>
+          @endif
+        </tr>
+            @foreach($livers as $liver)
           <tr>
-            <th>Прізвище Ім’я По батькові</th>
-            <th>Дата народження</th>
-            <th>Стать</th>
-            <th>Студент</th>
-            <th>Баланс</th>
-            <th>Кімната</th>
-            <th>Заселення</th>
-            <th>Виселення</th>
-            <th></th>
-            <th></th>
+            <td>
+              <a href="{{ route('livers.show', ['liver' => $liver]) }}">
+                {{ $liver->full_name() }}
+              </a>
+            </td>
+            <td>{{ $liver->birth_date }}</td>
+            <td>@if($liver->gender) Чоловіча @else Жіноча @endif</td>
+            <td>
+              @if($liver->is_student && $liver->group)
+                {{ $liver->group->name }}
+              @else
+                -
+              @endif
+            </td>
+            <td>{{ $liver->balance }}</td>
+            <td>
+              @if($liver->room)
+                {{ $liver->room->number }}
+              @else
+                <a type="button" class="btn btn-xs btn-default" href="{{ route('rooms.injection', ['liver' => $liver]) }}">Заселити</a>
+              @endif
+            </td>
+            <td>
+              @if($liver->is_active)
+                Так
+              @else
+                Ні
+            @endif
+            @if(Auth::user()->profile)
+            <td><a href="{{ route('livers.edit', ['liver' => $liver]) }}">E</a></td>
+            <td>
+              {{ Form::open([ 'method'  => 'delete', 'route' => [ 'livers.destroy', $liver] ]) }}
+              {{ Form::submit('X', ['class' => 'btn btn-danger']) }}
+              {{ Form::close() }}
+            </td>
+            @endif
           </tr>
-          @foreach($livers as $liver)
-            <tr>
-              <td>
-                <a href="{{ url('/livers/show') }}/{{ $liver->id }}">
-                  {{ $liver->last_name }} {{ $liver->first_name }} {{ $liver->parent_name }}
-                </a>
-              </td>
-              <td>{{ $liver->birth }}</td>
-              <td>@if($liver->sex) Ч @else Ж @endif</td>
-                <td>
-                @if($liver->student)
-                  {{ $liver->group->number }}
-                @else
-                  -
-                @endif
-              </td>
-              <td>{{ $liver->balance }}</td>
-              <td>
-                @if($liver->room)
-                  {{ $liver->room->number }}
-                @else
-                  <a type="button" class="btn btn-xs btn-default" href="{{ url('livers/settle') }}/{{ $liver->id }}">Заселити</a>
-                @endif
-              </td>
-              <td>
-                @if ($liver->live_in)
-                  {{ $liver->live_in }}
-                @else
-                  -
-                @endif
-              </td>
-              <td>
-                @if($liver->live_out)
-                  {{ $liver->live_out }}
-                @else
-                  -
-                @endif
-              </td>
-              <td><a href="{{ url('/livers/edit') }}/{{ $liver->id }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
-              <td><a href="{{ url('/livers/delete') }}/{{ $liver->id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-            </tr>
-          @endforeach
-        </table>
-      </div>
+        @endforeach
+      </table>
     </div>
+  </div>
 @endsection

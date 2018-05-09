@@ -35,25 +35,22 @@ class PaymentController extends Controller
 
     public function store(Request $req)
     {
-        $hostelArea = $req->user()->profile->hostel->area;
+        $watchman = $req->user()->profile;
+        $hostelArea = $watchman->hostel->area;
         $livers = Liver::all();
         foreach ($livers as &$liver) {
             $blockLiversCount = $this->blockLiversCount($liver->room->block);
-            $gasPrice = $req->input('gas_price')/$hostelArea*$liver->room->area;
-            $elecPrice = $req->input('elec_price_'.$liver->room->block) / $blockLiversCount;
-            $waterPrice = $req->input('water_price_'.$liver->room->block) / $blockLiversCount;
-            $pay = Payment::create([
+            $gPrice = $req->input('gas_price')/$hostelArea*$liver->room->area;
+            $ePrice = $req->input('elec_price_'.$liver->room->block) / $blockLiversCount;
+            $wPrice = $req->input('water_price_'.$liver->room->block) / $blockLiversCount;
+            $watchman->payments()->create([
                 'liver_id' => $liver->id,
                 'date' => date('Y-m-d'),
                 'live_price' => $req->input('live_price'),
-                'gas_price' => $gasPrice,
-                'elec_price' => $elecPrice,
-                'water_price' => $waterPrice,
-                'total' => $gasPrice + $elecPrice + $waterPrice
+                'g_price' => $gPrice,
+                'e_price' => $ePrice,
+                'w_price' => $wPrice,
             ]);
-            $liver->balance -= $pay->total;
-            $liver->save();
-
         }
         return redirect()->route('payments.index');
     }

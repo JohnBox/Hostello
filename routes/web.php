@@ -99,6 +99,12 @@ Route::resource('violations', 'ViolationController');
 
 Route::resource('livers', 'LiverController');
 
+Route::get('/rooms/floor/{id}', 'RoomController@floor')->name('rooms.floor');
+Route::get('/rooms/injection/{liver}', 'RoomController@injection')->name('rooms.injection');
+Route::post ('/rooms/injection/{liver}', 'RoomController@injection')->name('rooms.injection');
+Route::get('/rooms/ejection/{liver}', 'RoomController@ejection')->name('rooms.ejection');
+Route::get('/rooms/rejection/{liver}', 'RoomController@rejection')->name('rooms.rejection');
+Route::post ('/rooms/rejection/{liver}', 'RoomController@rejection')->name('rooms.rejection');
 Route::resource('rooms', 'RoomController');
 
 Route::get('', 'HomeController@index')->name('home');

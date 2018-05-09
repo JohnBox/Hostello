@@ -20,10 +20,12 @@
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="{{ route('home') }}">
-					@if(Auth::user()->profile)
-						{{ Auth::user()->profile->hostel->name }}
-					@else
-						Адміністрування
+					@if(Auth::user())
+						@if(Auth::user()->profile)
+							{{ Auth::user()->profile->hostel->name }}
+						@else
+							Адміністрування
+						@endif
 					@endif
 				</a>
 			</div>
@@ -34,10 +36,12 @@
 				<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-								@if(Auth::user()->profile)
-									{{ Auth::user()->profile->short_full_name() }}<span class="caret"></span>
-								@else
-									{{ Auth::user()->name }}
+								@if(Auth::user())
+									@if(Auth::user()->profile)
+										{{ Auth::user()->profile->short_full_name() }}<span class="caret"></span>
+									@else
+										{{ Auth::user()->name }}
+									@endif
 								@endif
 							</a>
 							<ul class="dropdown-menu" role="menu">
@@ -59,6 +63,6 @@
 	<!-- Scripts -->
 	<script src="{{ asset('/js/jquery.min.js') }}"></script>
 	<script src="{{ asset('/js/bootstrap.min.js') }}"></script>
-  @yield('script')
+	@yield('script')
 </body>
 </html>

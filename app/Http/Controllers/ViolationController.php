@@ -11,18 +11,27 @@ use App\Models\Liver;
 
 class ViolationController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $violations = Violation::all();
+        $watchman = $request->user()->profile;
+        if ($watchman) {
+            $violations = $watchman->violations;
+        } else {
+            $violations = Violation::all();
+        }
         return view('violation.index', ['violations' => $violations]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        $watchman = $request->user()->profile;
         return view('violation.create', ['livers' => Liver::all()]);
     }
     public function store(Request $request)
     {
+        ob_start();
+        var_dump($request->input('livers'));
+        return ob_get_clean();
         $count = count($request->input('livers'));
         $penalty = (float)$request->input('penalty')/$count;
         foreach ($request->input('livers') as $l)

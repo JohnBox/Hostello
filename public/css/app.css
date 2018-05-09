@@ -334,7 +334,7 @@ form.show input[disabled],
 form.show select[disabled] {
   cursor: text;
 }
-option.hhh {
+.hhh {
   display: none;
 }
 .form-control-static {

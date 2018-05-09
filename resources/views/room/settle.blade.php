@@ -4,33 +4,47 @@
   <div class="panel panel-default">
     <div class="panel-heading">Кімнати</div>
     <div class="panel-body">
-      <form method="POST" action="{{ url('/livers/settle') }}" class="hidden">
+      <ul class="nav nav-tabs">
+        @foreach($hostel->floors as $floor)
+          <li role="presentation" @if ($current == $floor) class="active" @endif>
+            <a href="{{ route('rooms.floor', ['id' => $floor->id]) }}/">Поверх {{$floor->number}}</a>
+          </li>
+        @endforeach
+      </ul>
+      @foreach($current->blocks as $block)
+        <div class="block">
+          <h3 class="text-left">Блок {{ $block->number }}</h3>
+          <div class="room_container">
+            <ul>
+              @foreach($block->rooms as $room)
+                <li>
+                  <div id="{{$room->id}}" class='normal'>
+                  <span class="number">{{ $room->number }}<br/>
+                    <span class="count">{{ $room->livers()->count() }}/{{ $room->liver_max }}</span>
+                  </span>
+                  </div>
+                  <div class='info'>
+                    <h3>
+                      @foreach($room->livers as $liver)
+                        {{ $liver->short_full_name() }}
+                        @if($liver->is_student)
+                          {{ $liver->group->name }}
+                        @endif
+                        <br/>
+                      @endforeach
+                    </h3>
+                  </div>
+                </li>
+              @endforeach
+            </ul>
+          </div>
+        </div>
+        <hr>
+      @endforeach
+      <form id="settle" method="POST" action="{{ route('rooms.injection', ['liver' => $liver]) }}" class="hidden">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <input type="hidden" name="id" value="{{ $liver->id }}"/>
         <input type="hidden" name="room" id="room" value=""/>
       </form>
-      <div id="room_container">
-        <ul>
-        @foreach($rooms as $room)
-            <li>
-              <a class='normal'>
-                <span class="number">{{ $room->number }}<br/>
-                  <span class="count">{{ $room->livers()->count() }}/{{ $room->liver_max }}</span>
-                </span>
-              </a>
-              <div class='info'>
-                <h3>
-                  @foreach($room->livers as $l)
-                    {{ $l->last_name }} {{ $l->first_name }}
-                    {{ $l->group->facult->short_name }}-{{ $l->group->course }}{{ $l->group->number }}
-                    <br/>
-                  @endforeach
-                </h3>
-              </div>
-            </li>
-        @endforeach
-        </ul>
-        </div>
       </div>
     </div>
   </div>
@@ -38,63 +52,60 @@
 
 @section('script')
   <script>
-    var room_container = document.getElementById('room_container');
-    var nodes  = room_container.querySelectorAll('li'),
-        _nodes = [].slice.call(nodes, 0);
-    var getDirection = function (e, obj) {
-      var xDir, yDir;
-      var jEl = $(obj),
-      w = jEl.outerWidth(),
-      h = jEl.outerHeight(),
-      off = jEl.offset(),
-      x = e.pageX - off.left,
-      y = e.pageY - off.top,
-      xShift,
-      yShift;
-      if (x / w > .5) {
-        xShift = w - x;
-        xDir = 1;
-      } else {
-        xShift = x;
-        xDir = 3;
-      }
-      if (y / h > .5) {
-        yShift = h - y;
-        yDir = 2;
-      } else {
-        yShift = y;
-        yDir = 0;
-      }
-      return (xShift < yShift) ? xDir : yDir;;
-    };
-    var addClass = function ( ev, obj, state ) {
-      var direction = getDirection( ev, obj ),
-          class_suffix = "";
-      obj.className = "";
-      switch ( direction ) {
-        case 0 : class_suffix = '-top';    break;
-        case 1 : class_suffix = '-right';  break;
-        case 2 : class_suffix = '-bottom'; break;
-        case 3 : class_suffix = '-left';   break;
-      }
-      obj.classList.add( state + class_suffix );
-    };
-    var form = document.forms[0];
-    _nodes.forEach(function (el) {
-      el.addEventListener('mouseover', function (ev) {
-        addClass( ev, this, 'in' );
-      }, false);
-      el.addEventListener('mouseout', function (ev) {
-        addClass( ev, this, 'out' );
-      }, false);
-      el.addEventListener('click', function (ev) {
-        var room =$('#room');
-        var livers = ev.target.getElementsByTagName('span')[0].getElementsByTagName('span')[0].innerHTML.split('/');
-        if (livers[0] != livers[1]) {
-          room.val(parseInt(ev.target.getElementsByTagName('span')[0].innerHTML));
-          form.submit();
-        }
-      })
-    });
+      $('.room_container').each(function (i, roomContainer) {
+          let rooms = [].slice.call(roomContainer.querySelectorAll('li'), 0);
+          function getDirection(e, obj) {
+              let xDir, yDir;
+              let jEl = $(obj),
+                  w = jEl.outerWidth(),
+                  h = jEl.outerHeight(),
+                  off = jEl.offset(),
+                  x = e.pageX - off.left,
+                  y = e.pageY - off.top,
+                  xShift, // сдвиг от правой или левой границы
+                  yShift; // сдвиг от верхней или нижней границы
+              if (x / w > 0.5) {
+                  xShift = w - x;
+                  xDir = 1;
+              } else {
+                  xShift = x;
+                  xDir = 3;
+              }
+              if (y / h > .5) {
+                  yShift = h - y;
+                  yDir = 2;
+              } else {
+                  yShift = y;
+                  yDir = 0;
+              }
+              return (xShift < yShift) ? xDir : yDir;
+          }
+          function addClass(ev, obj, state) {
+              let direction = getDirection(ev, obj), class_suffix = "";
+              switch (direction) {
+                  case 0 : class_suffix = '-top';    break;
+                  case 1 : class_suffix = '-right';  break;
+                  case 2 : class_suffix = '-bottom'; break;
+                  case 3 : class_suffix = '-left';   break;
+              }
+              obj.className = "";
+              obj.classList.add( state + class_suffix );
+          }
+          rooms.forEach(function (el) {
+              el.addEventListener('mouseover', function (e) {
+                  addClass( e, this, 'in' );
+              }, false);
+              el.addEventListener('mouseout', function (e) {
+                  addClass( e, this, 'out' );
+              }, false);
+              el.addEventListener('click', function (e) {
+                  let [curr_count, max_count] = e.target.getElementsByTagName('span')[0].getElementsByTagName('span')[0].innerHTML.split('/');
+                  if (curr_count < max_count) {
+                      $('#room').val($(e.target).attr('id'));
+                      $('#settle').submit();
+                  }
+              })
+          });
+      });
   </script>
 @endsection

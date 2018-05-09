@@ -25,7 +25,7 @@ class Payment extends Model
         return $this->belongsTo('App\Models\Room');
     }
 
-    function totat()
+    function total()
     {
         return $this->live_price + $this->g_price + $this->e_price + $this->w_price;
     }
