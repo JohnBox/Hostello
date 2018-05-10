@@ -44,7 +44,6 @@
         {{--<input type="file" class="form-control" id="photo" name="photo" required>--}}
         {{--</div>--}}
         <div class="form-group col-md-6">
-          .ino
           <label for="is_student">Студент</label>
           <div class="radio">
             <label class="radio-inline">
@@ -66,7 +65,7 @@
         </div>
         <div class="form-group col-md-6">
           <label for="doc_number">Номер квитка</label>
-          <input type="text" class="form-control" name="doc_number" required>
+          <input type="text" class="form-control" name="doc_number" id="doc_number" required>
         </div>
         <div class="form-group col-md-6">
 
@@ -83,7 +82,7 @@
         </div>
         <div class="form-group col-md-6">
           <label for="phone">Телефон</label>
-          <input type="tel" class="form-control" name="phone" required>
+          <input type="tel" class="form-control" name="phone" id="phone" required>
         </div>
         <div class="form-group col-md-6">
           <label for="specialty_id">Спеціальність</label>
