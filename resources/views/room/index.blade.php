@@ -7,7 +7,7 @@
       <ul class="nav nav-tabs">
         @foreach($hostel->floors as $floor)
           <li role="presentation" @if ($current == $floor) class="active" @endif>
-            <a href="{{ route('rooms.floor', ['id' => $floor->id]) }}/">Поверх {{$floor->number}}</a>
+            <a href="{{ route('rooms.index', ['floor' => $floor->id]) }}">Поверх {{$floor->number}}</a>
           </li>
         @endforeach
       </ul>

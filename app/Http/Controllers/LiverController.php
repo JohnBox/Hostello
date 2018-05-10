@@ -15,11 +15,6 @@ use App\Models\Liver;
 
 class LiverController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index(Request $request)
     {
         $profile = $request->user()->profile;
@@ -51,15 +46,7 @@ class LiverController extends Controller
                     }
                 }
             } else {
-                foreach ($profile->hostel->floors as $floor) {
-                    foreach ($floor->blocks as $block) {
-                        foreach ($block->rooms as $room) {
-                            foreach ($room->livers as $liver) {
-                                $livers[] = $liver;
-                            }
-                        }
-                    }
-                }
+                $livers = Liver::all();
             }
         }
         return view('liver.index', ['livers' => $livers, 'filter' => $filter]);

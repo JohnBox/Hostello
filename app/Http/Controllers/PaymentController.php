@@ -14,11 +14,6 @@ use App\Models\Hostel;
 
 class PaymentController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         $pays = Payment::all();

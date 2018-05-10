@@ -5,9 +5,9 @@
     <div class="panel-heading">Кімнати</div>
     <div class="panel-body">
       <ul class="nav nav-tabs">
-        @foreach($hostel->floors as $floor)
+        @foreach($floors as $floor)
           <li role="presentation" @if ($current == $floor) class="active" @endif>
-            <a href="{{ route('rooms.floor', ['id' => $floor->id]) }}/">Поверх {{$floor->number}}</a>
+            <a href="{{ route('injections.create', ['liver' => $liver, 'floor' => $floor->id]) }}/">Поверх {{$floor->number}}</a>
           </li>
         @endforeach
       </ul>
@@ -41,9 +41,10 @@
         </div>
         <hr>
       @endforeach
-      <form id="settle" method="POST" action="{{ route('rooms.injection', ['liver' => $liver]) }}" class="hidden">
+      <form id="settle" method="POST" action="{{ route('injections.store') }}" class="hidden">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <input type="hidden" name="room" id="room" value=""/>
+        <input type="hidden" name="liver_id" id="liver_id" value="{{ $liver->id }}"/>
+        <input type="hidden" name="room_id" id="room_id" value=""/>
       </form>
       </div>
     </div>
@@ -101,7 +102,7 @@
               el.addEventListener('click', function (e) {
                   let [curr_count, max_count] = e.target.getElementsByTagName('span')[0].getElementsByTagName('span')[0].innerHTML.split('/');
                   if (curr_count < max_count) {
-                      $('#room').val($(e.target).attr('id'));
+                      $('#room_id').val($(e.target).attr('id'));
                       $('#settle').submit();
                   }
               })

@@ -19,11 +19,6 @@ use App\Models\Payment;
 
 class HomeController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     function index()
     {
         $profile = Auth::user()->profile;

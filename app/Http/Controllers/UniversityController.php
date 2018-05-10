@@ -12,11 +12,6 @@ use App\Models\Group;
 
 class UniversityController extends Controller
 {
-    function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     function index(Request $request)
     {
         $university = University::first();

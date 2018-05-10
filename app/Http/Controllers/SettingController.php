@@ -17,14 +17,6 @@ use App\Models\Faculty;
 
 class SettingController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-        if (Auth::check() && Auth::user()->name != 'admin') {
-            Redirect::to('/');
-        }
-    }
-
     public function getIndex()
     {
         return view('setting.index', [
