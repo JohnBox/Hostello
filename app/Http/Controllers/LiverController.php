@@ -46,15 +46,7 @@ class LiverController extends Controller
                     }
                 }
             } else {
-                foreach ($profile->hostel->floors as $floor) {
-                    foreach ($floor->blocks as $block) {
-                        foreach ($block->rooms as $room) {
-                            foreach ($room->livers as $liver) {
-                                $livers[] = $liver;
-                            }
-                        }
-                    }
-                }
+                $livers = Liver::all();
             }
         }
         return view('liver.index', ['livers' => $livers, 'filter' => $filter]);

@@ -60,7 +60,7 @@
               @if($liver->room)
                 {{ $liver->room->number }}
               @else
-                <a type="button" class="btn btn-xs btn-default" href="{{ route('rooms.injection', ['liver' => $liver]) }}">Заселити</a>
+                <a type="button" class="btn btn-xs btn-default" href="{{ route('injections.create', ['liver' => $liver]) }}">Заселити</a>
               @endif
             </td>
             <td>
