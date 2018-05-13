@@ -61,6 +61,18 @@
             </div>
           </div>
           <div class="form-group required">
+            <label class="control-label col-md-2" for="room_price">Плата за проживання у період навчання</label>
+            <div class="col-md-10">
+              <input type="text" class="form-control" id="room_price" name="room_price" required>
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="control-label col-md-2" for="room_price_summer">Плата за проживання у літній період</label>
+            <div class="col-md-10">
+              <input type="text" class="form-control" id="room_price_summer" name="room_price_summer" required>
+            </div>
+          </div>
+          <div class="form-group required">
             <label class="control-label col-md-2" for="merchant">Мерчант</label>
             <div class="col-md-10">
               <input type="text" class="form-control" id="merchant" name="merchant" value="{{ $university->merchant }}" required>

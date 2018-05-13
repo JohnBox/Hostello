@@ -17,11 +17,11 @@ class LiverController extends Controller
 {
     public function index(Request $request)
     {
-        $filter = $request->get('f');
+        $filter = $request->get('f') ?: 'all';
         switch ($filter) {
             case 'active': $livers = Liver::active(); break;
             case 'nonactive': $livers = Liver::nonactive(); break;
-            default: $livers = Liver::all();
+            case 'all': $livers = Liver::all(); break;
         }
         $livers = Liver::all();
         return view('liver.index', ['livers' => $livers, 'filter' => $filter]);

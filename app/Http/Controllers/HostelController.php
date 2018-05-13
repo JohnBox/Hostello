@@ -40,6 +40,8 @@ class HostelController extends Controller
         $roomCount = $input['room_count'];
         $liverCount = $input['liver_count'];
         $roomArea = $input['room_area'];
+        $roomPrice = $input['room_price'];
+        $roomPriceSummer = $input['room_price_summer'];
         $input = $request->only(['name', 'address', 'phone', 'area', 'merchant']);
         $hostel = new Hostel($input);
         $university->hostels()->save($hostel);
@@ -55,7 +57,9 @@ class HostelController extends Controller
                     $room = new Room([
                         'number' => $floor->number * 100 + $roomNumber,
                         'liver_max' => $liverCount,
-                        'area' => $roomArea
+                        'area' => $roomArea,
+                        'live_price' => $roomPrice,
+                        'live_price_summer' => $roomPriceSummer,
                     ]);
                     $block->rooms()->save($room);
                     $room->save();

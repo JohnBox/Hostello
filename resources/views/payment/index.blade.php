@@ -4,9 +4,11 @@
   <div class="panel panel-default">
     <div class="panel-heading">Нарахування</div>
     <div class="panel-body">
+      @if(Auth::user()->profile)
       <a class="btn btn-default" href="{{ route('payments.create') }}" role="button">Створити новий</a>
       <br/>
       <br/>
+      @endif
       <table class="table table-striped">
         <tr>
           <th>Дата</th>
@@ -20,7 +22,7 @@
         @foreach($pays as $p)
           <tr>
               <td>
-              <a href="{{ url('/payments/livers') }}/{{ $p->date }}">
+              <a href="{{ url('payments/livers') }}/{{ $p->date }}">
                 {{ implode('.', array_reverse(explode('-',$p->date))) }}
               </a>
             </td>

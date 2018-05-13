@@ -112,6 +112,7 @@
             <p class="form-control-static">{{ $liver->violations }}</p>
           </div>
         </div>
+        @if(Auth::user()->profile)
         <div class="form-group col-md-12">
           <div class="col-md-12">
             @if($liver->is_active)
@@ -122,6 +123,7 @@
             @endif
           </div>
         </div>
+        @endif
       </div>
       @elseif($page == 'payments')
       @elseif($page == 'violations')

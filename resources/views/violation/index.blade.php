@@ -4,9 +4,11 @@
   <div class="panel panel-default">
     <div class="panel-heading">Порушення</div>
     <div class="panel-body">
-      <a type="button" class="btn btn-sm btn-default" href="{{ url('/violations/create') }}">Створити</a>
+      @if(Auth::user()->profile)
+      <a type="button" class="btn btn-sm btn-default" href="{{ route('violations.create') }}">Створити</a>
       <br/>
       <br/>
+      @endif
       <table class="table table-striped">
         <tr>
           <th>Прізвище Ім’я По батькові</th>

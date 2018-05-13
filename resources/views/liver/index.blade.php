@@ -60,7 +60,11 @@
               @if($liver->room)
                 {{ $liver->room->number }}
               @else
-                <a type="button" class="btn btn-xs btn-default" href="{{ route('injections.create', ['liver' => $liver]) }}">Заселити</a>
+                @if(Auth::user()->profile)
+                  <a type="button" class="btn btn-xs btn-default" href="{{ route('injections.create', ['liver' => $liver]) }}">Заселити</a>
+                @else
+                  -
+                @endif
               @endif
             </td>
             <td>
