@@ -17,38 +17,13 @@ class LiverController extends Controller
 {
     public function index(Request $request)
     {
-        $profile = $request->user()->profile;
         $filter = $request->get('f');
-        $livers = [];
-        if ($profile) {
-            if ($filter == 'active') {
-                foreach ($profile->hostel->floors as $floor) {
-                    foreach ($floor->blocks as $block) {
-                        foreach ($block->rooms as $room) {
-                            foreach ($room->livers as $liver) {
-                                if ($liver->is_active) {
-                                    $livers[] = $liver;
-                                }
-                            }
-                        }
-                    }
-                }
-            } elseif ($filter == 'nonactive') {
-                foreach ($profile->hostel->floors as $floor) {
-                    foreach ($floor->blocks as $block) {
-                        foreach ($block->rooms as $room) {
-                            foreach ($room->livers as $liver) {
-                                if (!$liver->is_active) {
-                                    $livers[] = $liver;
-                                }
-                            }
-                        }
-                    }
-                }
-            } else {
-                $livers = Liver::all();
-            }
+        switch ($filter) {
+            case 'active': $livers = Liver::active(); break;
+            case 'nonactive': $livers = Liver::nonactive(); break;
+            default: $livers = Liver::all();
         }
+        $livers = Liver::all();
         return view('liver.index', ['livers' => $livers, 'filter' => $filter]);
     }
 
@@ -59,13 +34,16 @@ class LiverController extends Controller
     public function store(Request $request)
     {
         $input = $request->except(['specialty_id', 'faculty_id', 'group_id']);
+        if ($input['is_student'] == '1')
+            $input['group_id'] = $request->input('group_id');
         $liver = Liver::create($input);
         return redirect()->route('livers.show', ['liver' => $liver]);
     }
 
-    public function show(Liver $liver)
+    public function show(Request $request, Liver $liver)
     {
-        return view('liver.show', ['liver' => $liver]);
+        $page = $request->get('page') ?: 'profile';
+        return view('liver.show', ['liver' => $liver, 'page' => $page]);
     }
     public function edit(Liver $liver)
     {
