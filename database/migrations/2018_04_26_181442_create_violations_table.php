@@ -17,7 +17,6 @@ class CreateViolationsTable extends Migration
             $table->increments('id');
             $table->integer('watchman_id');
             $table->integer('liver_id');
-            $table->integer('room_id');
             $table->date('date');
             $table->string('description');
             $table->float('penalty');

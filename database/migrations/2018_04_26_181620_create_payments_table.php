@@ -20,9 +20,6 @@ class CreatePaymentsTable extends Migration
             $table->integer('room_id');
             $table->date('date');
             $table->float('live_price');
-            $table->float('g_price');
-            $table->float('e_price');
-            $table->float('w_price');
             $table->boolean('is_paid')->default(false);
         });
     }

@@ -17,12 +17,11 @@
           <th>Штраф</th>
           <th>Сплачено</th>
           <th></th>
-          <th></th>
         </tr>
         @foreach($violations as $violation)
           <tr>
             <td>
-              <a href="{{ url('/livers/show') }}">
+              <a href="{{ route('livers.show', ['liver' => $violation->liver]) }}">
                 {{ $violation->liver->full_name()}}
               </a>
             </td>
@@ -33,10 +32,9 @@
               @if($violation->paid)
                 <input type="checkbox" checked onclick="return false;"/>
               @else
-                <input type="checkbox"onclick="return false;"/>
+                <input type="checkbox" onclick="return false;"/>
               @endif
             </td>
-            <td><a href="{{ route('violations.edit', ['violation' => $violation]) }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
             <td>
               {{ Form::open([ 'method'  => 'delete', 'route' => [ 'violations.destroy', $violation] ]) }}
               {{ Form::submit('X', ['class' => 'btn btn-danger']) }}

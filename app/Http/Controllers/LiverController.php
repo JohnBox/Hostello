@@ -23,7 +23,7 @@ class LiverController extends Controller
             case 'nonactive': $livers = Liver::nonactive(); break;
             case 'all': $livers = Liver::all(); break;
         }
-        $livers = Liver::all();
+        $livers = Liver::withCount('violations')->get();
         return view('liver.index', ['livers' => $livers, 'filter' => $filter]);
     }
 

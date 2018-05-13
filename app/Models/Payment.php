@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     protected $fillable = ['watchman_id', 'liver_id', 'room_id', 'date',
-        'live_price', 'g_price', 'e_price', 'w_price', 'is_paid'];
+        'live_price', 'is_paid'];
     public $timestamps = false;
 
     function liver()

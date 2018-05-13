@@ -105,11 +105,11 @@
           </div>
           <div class="form-group col-md-4">
             <label for="payments">Несплати за проживання</label>
-            <p class="form-control-static">{{ $liver->payments }}</p>
+            <p class="form-control-static">{{ count($liver->payments) }}</p>
           </div>
           <div class="form-group col-md-4">
             <label for="violations">Несплати на порушення</label>
-            <p class="form-control-static">{{ $liver->violations }}</p>
+            <p class="form-control-static">{{ count($liver->violations)}}</p>
           </div>
         </div>
         @if(Auth::user()->profile)
@@ -126,9 +126,23 @@
         @endif
       </div>
       @elseif($page == 'payments')
+        @foreach($liver->payments as $payment)
+          <p>{{$payment->live_price}}</p>
+        @endforeach
       @elseif($page == 'violations')
+        @foreach($liver->violations as $violation)
+          <p>{{$violation->penalty}}</p>
+        @endforeach
       @elseif($page == 'injections')
+        @foreach($liver->injections as $injection)
+          <p>{{$injection->room}}</p>
+          <p>{{$injection->date}}</p>
+        @endforeach
       @elseif($page == 'ejections')
+        @foreach($liver->ejections as $ejection)
+          <p>{{$ejection->room}}</p>
+          <p>{{$ejection->date}}</p>
+        @endforeach
       @endif
     </div>
   </div>

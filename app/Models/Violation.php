@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Violation extends Model
 {
-    protected $fillable = ['watchman_id', 'liver_id', 'room_id', 'date',
+    protected $fillable = ['watchman_id', 'liver_id', 'date',
         'description', 'penalty', 'is_paid'];
 
     public $timestamps = false;
@@ -19,10 +19,5 @@ class Violation extends Model
     function liver()
     {
         return $this->belongsTo('App\Models\Liver');
-    }
-
-    function room()
-    {
-        return $this->belongsTo('App\Models\Room');
     }
 }

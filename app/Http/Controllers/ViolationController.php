@@ -29,22 +29,18 @@ class ViolationController extends Controller
     }
     public function store(Request $request)
     {
-        ob_start();
-        var_dump($request->input('livers'));
-        return ob_get_clean();
+        $watchman = $request->user()->profile;
         $count = count($request->input('livers'));
         $penalty = (float)$request->input('penalty')/$count;
-        foreach ($request->input('livers') as $l)
+        foreach ($request->input('livers') as $id)
         {
-            $liver = Liver::find($l);
-            $liver->balance -= $penalty;
-            $liver->save();
-            Violation::create([
-                'liver_id' => $liver->id,
+            $liver = Liver::find($id);
+            $liver->violations()->create([
                 'description' => $request->input('description'),
                 'date' => date("Y-m-d", strtotime($request->input('date'))),
                 'penalty' => $penalty,
-                'paid' => false
+                'paid' => false,
+                'watchman_id' => $watchman->id
             ]);
         }
         return redirect()->route('violations.index');
