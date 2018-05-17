@@ -16,10 +16,8 @@ class CreateViolationsTable extends Migration
         Schema::create('violations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('watchman_id');
-            $table->date('date');
             $table->string('description');
-            $table->float('penalty');
-            $table->boolean('is_paid')->default(false);
+            $table->date('date_of_charge');
         });
     }
 

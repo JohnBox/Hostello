@@ -18,6 +18,8 @@ class CreateLiverViolationTable extends Migration
             $table->foreign('liver_id')->references('id')->on('livers');
             $table->integer('violation_id')->unsigned();
             $table->foreign('violation_id')->references('id')->on('violations');
+            $table->float('penalty');
+            $table->date('paid')->nullable();
         });
     }
 

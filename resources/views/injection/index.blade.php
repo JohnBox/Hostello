@@ -26,6 +26,7 @@
             </tr>
           @endforeach
         </table>
+        {{ $injections->links() }}
       </div>
     </div>
 @endsection

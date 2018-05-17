@@ -19,7 +19,7 @@ class LiverController extends Controller
             case 'all': $livers = Liver::query(); break;
         }
         $livers = $livers->withCount('violations')
-            ->simplePaginate(10)
+            ->paginate(config('app.paginated_by'))
             ->withPath($request->url());
         return view('liver.index', ['livers' => $livers, 'state' => $state]);
     }

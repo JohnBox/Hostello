@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    protected $fillable = ['room_id', 'date', 'live_price', 'is_paid'];
+    protected $fillable = ['room_id', 'date_of_charge'];
     public $timestamps = false;
 
     function room()
@@ -16,8 +16,6 @@ class Payment extends Model
 
     function livers()
     {
-        return $this->belongsToMany('App\Models\Liver');
+        return $this->belongsToMany('App\Models\Liver')->withPivot('live_price', 'paid');
     }
-
-
 }

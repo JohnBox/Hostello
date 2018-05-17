@@ -16,12 +16,8 @@
             <th>Стать</th>
             <th>Студент</th>
             <th>Кімната</th>
-            @if(Auth::user()->profile)
-              <th></th>
-              <th></th>
-            @endif
           </tr>
-          @foreach($violation->livers as $liver)
+          @foreach($livers as $liver)
             <tr>
               <td>
                 <a href="{{ route('livers.show', ['liver' => $liver]) }}">
@@ -31,7 +27,7 @@
               <td>{{ $liver->birth_date }}</td>
               <td>@if($liver->gender) Чоловіча @else Жіноча @endif</td>
               <td>
-                @if($liver->is_student && $liver->group)
+                @if($liver->group)
                   {{ $liver->group->name }}
                 @else
                   -
@@ -48,18 +44,12 @@
                   @endif
                 @endif
               </td>
-              @if(Auth::user()->profile)
-                <td><a href="{{ route('livers.edit', ['liver' => $liver]) }}">E</a></td>
-                <td>
-                  {{ Form::open([ 'method'  => 'delete', 'route' => [ 'livers.destroy', $liver] ]) }}
-                  {{ Form::submit('X', ['class' => 'btn btn-danger']) }}
-                  {{ Form::close() }}
-                </td>
-              @endif
             </tr>
           @endforeach
         </table>
+      {{ $livers->links() }}
     </div>
+
   </div>
 @endsection
 

@@ -15,11 +15,11 @@ class InjectionController extends Controller
     {
         $profile = $request->user()->profile;
         if ($profile) {
-            $injections = $profile->injections;
+            $injections = $profile->injections();
         } else {
-            $injections = Injection::all();
+            $injections = Injection::query();
         }
-        return view('injection.index', ['injections' => $injections]);
+        return view('injection.index', ['injections' => $injections->paginate(config('app.paginated_by'))]);
     }
 
     public function create(Request $request)
@@ -47,21 +47,5 @@ class InjectionController extends Controller
         $liver->room()->associate($room);
         $liver->save();
         return redirect()->route('livers.show', ['liver' => $liver]);
-    }
-
-    public function show(Injection $injection)
-    {
-    }
-
-    public function edit(Request $request, Injection $injection)
-    {
-    }
-
-    public function update(Request $request, Injection $injection)
-    {
-    }
-
-    public function destroy(Injection $injection)
-    {
     }
 }

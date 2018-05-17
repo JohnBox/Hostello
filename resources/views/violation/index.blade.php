@@ -19,20 +19,17 @@
         </tr>
         @foreach($violations as $violation)
           <tr>
+            <td><a href="{{ route('violations.show', ['$violation' => $violation]) }}">{{ $violation->description }}</a></td>
+            <td>{{ $violation->date_of_charge }}</td>
+            <td>{{ $violation->pivot}}</td>
             <td>
-              <a href="{{ route('violations.show', ['violation' => $violation]) }}">
-                {{ $violation->description }}
-              </a>
-            </td>
-            <td>{{ $violation->date }}</td>
-            <td>{{ $violation->penalty }}</td>
-            <td>
-              @if($violation->paid)
-                <input type="checkbox" checked onclick="return false;"/>
+              @if($violation->pivot)
+                {{ $violation->pivot}}
               @else
-                <input type="checkbox" onclick="return false;"/>
+                -
               @endif
             </td>
+            <td><a href="{{ route('violations.edit', ['violation' => $violation]) }}">E</a></td>
             <td>
               {{ Form::open([ 'method'  => 'delete', 'route' => [ 'violations.destroy', $violation] ]) }}
               {{ Form::submit('X', ['class' => 'btn btn-danger']) }}
@@ -41,6 +38,7 @@
           </tr>
         @endforeach
       </table>
+      {{ $violations->links() }}
     </div>
   </div>
 @endsection

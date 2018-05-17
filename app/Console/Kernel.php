@@ -28,14 +28,19 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function () {
+            $payment = new Payment([
+                'date_of_charge' => date('Y-m-d')
+            ]);
             foreach (Liver::all() as $liver) {
-                $liver->payments()->create([
-                    'room_id' => $liver->room->id,
-                    'live_price' => $liver->room->live_price,
-                    'date' => date('Y-m-d'),
-                ]);
+                $payment->fill(['room_id' => $liver->room->id]);
+                $pivot = [
+                    'live_price' => 100,
+                    'paid' => (int)rand(0,1) ? null : date('Y-m-d')
+                ];
+                $payment->save();
+                $liver->payments()->attach($payment, $pivot);
             }
-        })->hourly();
+        })->monthlyOn(1);
         Log::debug('DONE');
     }
 

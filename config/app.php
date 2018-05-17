@@ -214,4 +214,6 @@ return [
 
     ],
 
+    'paginated_by' => 20,
+
 ];

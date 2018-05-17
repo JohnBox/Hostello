@@ -13,11 +13,11 @@ class EjectionController extends Controller
     {
         $profile = $request->user()->profile;
         if ($profile) {
-            $ejections = $profile->ejections;
+            $ejections = $profile->ejections();
         } else {
-            $ejections = Ejection::all();
+            $ejections = Ejection::query();
         }
-        return view('ejection.index', ['ejections' => $ejections]);
+        return view('ejection.index', ['ejections' => $ejections->paginate(config('app.paginated_by'))]);
     }
 
     public function create(Request $request)
@@ -33,25 +33,5 @@ class EjectionController extends Controller
         $liver->room()->dissociate();
         $liver->save();
         return redirect()->route('livers.show', ['liver' => $liver]);
-    }
-
-    public function store(Request $request, Liver $liver)
-    {
-
-    }
-
-    public function show(Ejection $ejection)
-    {
-        //
-    }
-
-    public function edit(Ejection $ejection)
-    {
-        //
-    }
-
-    public function update(Request $request, Ejection $ejection)
-    {
-        //
     }
 }

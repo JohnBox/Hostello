@@ -16,12 +16,12 @@ class PaymentController extends Controller
 {
     public function index()
     {
-        return view('payment.index', ['payments' => Payment::all()]);
+        return view('payment.index', ['payments' => Payment::paginate(config('app.paginated_by'))]);
     }
 
 
     public function show(Payment $payment)
     {
-        return view('payment.show', ['payment' => $payment]);
+        return view('payment.show', ['livers' => $payment->livers()->paginate(config('app.paginated_by'))]);
     }
 }

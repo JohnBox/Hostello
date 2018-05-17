@@ -18,6 +18,8 @@ class CreateLiverPaymentTable extends Migration
             $table->foreign('liver_id')->references('id')->on('livers');
             $table->integer('payment_id')->unsigned();
             $table->foreign('payment_id')->references('id')->on('payments');
+            $table->float('live_price');
+            $table->date('paid')->nullable();
         });
     }
 

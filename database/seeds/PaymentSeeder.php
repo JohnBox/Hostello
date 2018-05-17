@@ -10,13 +10,17 @@ class PaymentSeeder extends Seeder
 {
     public function run()
     {
+        $payment = new Payment([
+            'date_of_charge' => date('Y-m-d')
+        ]);
         foreach (Liver::all() as $liver) {
-            $payment = $liver->room->payments()->create([
-                'date' => date('Y-m-d'),
-                'live_price' => $liver->room->live_price
-            ]);
-            $liver->payments()->attach($payment);
+            $payment->fill(['room_id' => $liver->room->id]);
+            $pivot = [
+                'live_price' => 100,
+                'paid' => (int)rand(0,1) ? null : date('Y-m-d')
+            ];
             $payment->save();
+            $liver->payments()->attach($payment, $pivot);
         }
     }
 }

@@ -10,30 +10,15 @@
           <th>Проживання</th>
           <th>Сплачено</th>
         </tr>
-        @foreach($payment->livers as $liver)
+        @foreach($livers as $liver)
           <tr>
-            <td>
-              <a href="{{ route('livers.show', ['liver' => $liver]) }}">
-                {{ $liver->full_name() }}
-              </a>
-            </td>
-            <td>{{ $payment->live_price }}</td>
-            <td>{{ $payment->is_paid }}</td>
+            <td><a href="{{ route('livers.show', ['liver' => $liver]) }}">{{ $liver->full_name() }}</a></td>
+            <td>{{ $liver->pivot->live_price }}</td>
+            <td>@if($liver->pivot->paid){{ $liver->pivot->paid }}@else -@endif</td>
           </tr>
         @endforeach
       </table>
+      {{ $livers->links() }}
     </div>
   </div>
-@endsection
-
-@section('script')
-  <script>
-    $('.cp').on('keydown', function (e) {
-      if (e.key == 'Backspace' || e.key == 'Tab' || e.key == '.')
-        return true;
-      if ((e.key < '0' || e.key > '9'))
-        return false;
-      return true;
-    });
-  </script>
 @endsection

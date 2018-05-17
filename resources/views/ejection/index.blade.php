@@ -26,6 +26,7 @@
             </tr>
           @endforeach
         </table>
+        {{ $ejections->links() }}
       </div>
     </div>
 @endsection

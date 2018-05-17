@@ -36,12 +36,12 @@ class Liver extends Model
 
     function payments()
     {
-        return $this->belongsToMany('App\Models\Payment');
+        return $this->belongsToMany('App\Models\Payment')->withPivot('live_price', 'paid');
     }
 
     function violations()
     {
-        return $this->belongsToMany('App\Models\Violation');
+        return $this->belongsToMany('App\Models\Violation')->withPivot('penalty', 'paid');
     }
 
     function injections()

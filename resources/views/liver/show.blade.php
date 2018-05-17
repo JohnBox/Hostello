@@ -61,10 +61,10 @@
         <div class="col-md-12">
           <div class="form-group col-md-4">
             <label for="is_student">Студент</label>
-            <p class="form-control-static">@if($liver->is_student)Так @elseНі @endif</p>
+            <p class="form-control-static">@if($liver->group)Так @elseНі @endif</p>
           </div>
           <div class="form-group col-md-4" style="background: #aaa;">
-            <label for="doc_number">Номер @if($liver->is_student) студентського квитка @else паспорта @endif </label>
+            <label for="doc_number">Номер @if($liver->group) студентського квитка @else паспорта @endif </label>
             <p class="form-control-static">{{ $liver->doc_number }}</p>
           </div>
           <div class="form-group col-md-4">
@@ -134,9 +134,9 @@
           </tr>
           @foreach($liver->payments as $payment)
             <tr>
-              <td>{{ $payment->date }}</td>
-              <td>{{ $payment->live_price }}</td>
-              <td>{{ $payment->is_paid }}</td>
+              <td>{{ $payment->date_of_charge }}</td>
+              <td>{{ $payment->pivot->live_price }}</td>
+              <td>@if($payment->pivot->paid){{ $payment->pivot->paid }}@else -@endif</td>
             </tr>
           @endforeach
         </table>
@@ -150,14 +150,14 @@
           </tr>
           @foreach($liver->violations as $violation)
             <tr>
-              <td>{{ $violation->description }}</td>
-              <td>{{ $violation->date }}</td>
-              <td>{{ $violation->penalty }}</td>
+              <td><a href="{{ route('violations.show', ['violation' => $violation]) }}">{{ $violation->description }}</a></td>
+              <td>{{ $violation->date_of_charge }}</td>
+              <td>{{ $violation->pivot->penalty }}</td>
               <td>
-                @if($violation->paid)
-                  <input type="checkbox" checked onclick="return false;"/>
+                @if($violation->pivot->paid)
+                  {{ $violation->pivot->paid }}
                 @else
-                  <input type="checkbox" onclick="return false;"/>
+                  -
                 @endif
               </td>
             </tr>

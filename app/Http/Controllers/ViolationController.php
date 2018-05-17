@@ -15,11 +15,11 @@ class ViolationController extends Controller
     {
         $watchman = $request->user()->profile;
         if ($watchman) {
-            $violations = $watchman->violations;
+            $violations = $watchman->violations();
         } else {
-            $violations = Violation::all();
+            $violations = Violation::query();
         }
-        return view('violation.index', ['violations' => $violations]);
+        return view('violation.index', ['violations' => $violations->paginate(config('app.paginated_by'))]);
     }
 
     public function create(Request $request)
@@ -31,24 +31,26 @@ class ViolationController extends Controller
     {
         $watchman = $request->user()->profile;
         $count = count($request->input('livers'));
-        $penalty = (float)$request->input('penalty')/$count;
+        $violation = $watchman->violations()->create([
+            'description' => $request->input('description'),
+            'date_of_charge' => date("Y-m-d"),
+        ]);
+        $pivot = [
+            'penalty' => $request->input('penalty')/$count,
+            'paid' => (int)rand(0,1)? null : date('Y-m-d')
+        ];
         foreach ($request->input('livers') as $id)
         {
             $liver = Liver::find($id);
-            $liver->violations()->create([
-                'description' => $request->input('description'),
-                'date' => date("Y-m-d", strtotime($request->input('date'))),
-                'penalty' => $penalty,
-                'paid' => false,
-                'watchman_id' => $watchman->id
-            ]);
+            $liver->violations()->attach($violation, $pivot);
+            $violation->save();
         }
         return redirect()->route('violations.index');
     }
 
     public function show(Request $request, Violation $violation)
     {
-        return view('violation.show', ['violation' => $violation]);
+        return view('violation.show', ['livers' => $violation->livers()->paginate(config('app.paginated_by'))]);
     }
 
     public function edit(Violation $violation)
@@ -58,8 +60,6 @@ class ViolationController extends Controller
     public function update(Request $request, Violation $violation)
     {
         $violation->description = $request->input('description');
-        $violation->date = date("Y-m-d", strtotime($request->input('date')));
-        $violation->penalty = $request->input('penalty');
         $violation->save();
         return redirect()->route('violations.index');
     }

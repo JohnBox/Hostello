@@ -12,12 +12,13 @@
           <tr>
             <td>
               <a href="{{ route('payments.show', ['payment' => $payment]) }}">
-                {{ $payment->date }}
+                {{ $payment->date_of_charge }}
               </a>
             </td>
           </tr>
         @endforeach
       </table>
+      {{ $payments->links() }}
     </div>
   </div>
 @endsection

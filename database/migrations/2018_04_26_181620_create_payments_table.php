@@ -16,9 +16,7 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('room_id');
-            $table->date('date');
-            $table->float('live_price');
-            $table->boolean('is_paid')->default(false);
+            $table->date('date_of_charge');
         });
     }
 
