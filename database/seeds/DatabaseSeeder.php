@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
          $this->call(SpecialtySeeder::class);
          $this->call(CourseSeeder::class);
          $this->call(GroupSeeder::class);
-//         $this->call(LiverSeeder::class);
-//         $this->call(PaymentSeeder::class);
-//         $this->call(ViolationSeeder::class);
-//         $this->call(InjectionSeeder::class);
-//         $this->call(EjectionSeeder::class);
+         $this->call(LiverSeeder::class);
+         $this->call(PaymentSeeder::class);
+         $this->call(ViolationSeeder::class);
+         $this->call(EjectionSeeder::class);
+         $this->call(InjectionSeeder::class);
     }
 }

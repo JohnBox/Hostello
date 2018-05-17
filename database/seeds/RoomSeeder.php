@@ -17,7 +17,6 @@ class RoomSeeder extends Seeder
                     $block->rooms()->create([
                         'number' => $floor->id * 100 + $number,
                         'liver_max' => 4,
-                        'area' => 40,
                         'live_price' => 100,
                         'live_price_summer' => 200,
                     ]);

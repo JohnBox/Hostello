@@ -19,11 +19,6 @@ class Watchman extends Model
         return $this->morphOne('App\Models\User', 'profile');
     }
 
-    function payments()
-    {
-        return $this->hasMany('App\Models\Payment');
-    }
-
     function violations()
     {
         return $this->hasMany('App\Models\Violation');

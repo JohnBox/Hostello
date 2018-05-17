@@ -1,7 +1,7 @@
 @extends('liver.master')
 
 @section('content')
-  <div class="panel panel-default" style="overflow: hidden;">
+  <div class="panel panel-default">
     <div class="panel-heading">
       <ol class="breadcrumb">
         <li><a href="{{ route('livers.index') }}">Проживаючі</a></li>
@@ -63,7 +63,7 @@
             <label for="is_student">Студент</label>
             <p class="form-control-static">@if($liver->is_student)Так @elseНі @endif</p>
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-4" style="background: #aaa;">
             <label for="doc_number">Номер @if($liver->is_student) студентського квитка @else паспорта @endif </label>
             <p class="form-control-static">{{ $liver->doc_number }}</p>
           </div>
@@ -72,7 +72,7 @@
             <p class="form-control-static">{{ $liver->phone }}</p>
           </div>
         </div>
-        @if($liver->is_student)
+        @if($liver->group)
           <div class="col-md-12">
             <div class="form-group col-md-4">
               <label for="faculty">Факультет</label>
@@ -96,7 +96,7 @@
           <div class="form-group col-md-4">
             <label for="room">Кімната</label>
             <p class="form-control-static">
-              @if($liver->is_active)
+              @if($liver->room)
                 <a href="{{ route('rooms.show', ['room' => $liver->room]) }}">{{ $liver->room->number }}</a>
               @else
                 -
@@ -115,7 +115,7 @@
         @if(Auth::user()->profile)
         <div class="form-group col-md-12">
           <div class="col-md-12">
-            @if($liver->is_active)
+            @if($liver->room)
               <a href="{{ route('injections.create', ['liver' => $liver]) }}" id="settle" class="btn btn-default">Переселити</a>
               <a href="{{ route('ejections.create', ['liver' => $liver]) }}" id="remove" class="btn btn-default" style="color: #f66">Виселити</a>
             @else
@@ -126,23 +126,73 @@
         @endif
       </div>
       @elseif($page == 'payments')
-        @foreach($liver->payments as $payment)
-          <p>{{$payment->live_price}}</p>
-        @endforeach
+        <table class="table table-striped">
+          <tr>
+            <th>Дата</th>
+            <th>Сума</th>
+            <th>Сплачено</th>
+          </tr>
+          @foreach($liver->payments as $payment)
+            <tr>
+              <td>{{ $payment->date }}</td>
+              <td>{{ $payment->live_price }}</td>
+              <td>{{ $payment->is_paid }}</td>
+            </tr>
+          @endforeach
+        </table>
       @elseif($page == 'violations')
-        @foreach($liver->violations as $violation)
-          <p>{{$violation->penalty}}</p>
-        @endforeach
+        <table class="table table-striped">
+          <tr>
+            <th>Опис</th>
+            <th>Дата</th>
+            <th>Штраф</th>
+            <th>Сплачено</th>
+          </tr>
+          @foreach($liver->violations as $violation)
+            <tr>
+              <td>{{ $violation->description }}</td>
+              <td>{{ $violation->date }}</td>
+              <td>{{ $violation->penalty }}</td>
+              <td>
+                @if($violation->paid)
+                  <input type="checkbox" checked onclick="return false;"/>
+                @else
+                  <input type="checkbox" onclick="return false;"/>
+                @endif
+              </td>
+            </tr>
+          @endforeach
+        </table>
       @elseif($page == 'injections')
-        @foreach($liver->injections as $injection)
-          <p>{{$injection->room}}</p>
-          <p>{{$injection->date}}</p>
-        @endforeach
+        <table class="table table-striped">
+          <tr>
+            <th>Дата</th>
+            <th>Кімната</th>
+            <th>Комендант</th>
+          </tr>
+          @foreach($liver->injections as $injection)
+            <tr>
+              <td>{{ $injection->date }}</td>
+              <td>{{ $injection->room->number }}</td>
+              <th>{{ $injection->watchman->short_full_name() }}</th>
+            </tr>
+          @endforeach
+        </table>
       @elseif($page == 'ejections')
-        @foreach($liver->ejections as $ejection)
-          <p>{{$ejection->room}}</p>
-          <p>{{$ejection->date}}</p>
-        @endforeach
+        <table class="table table-striped">
+          <tr>
+            <th>Дата</th>
+            <th>Кімната</th>
+            <th>Комендант</th>
+          </tr>
+          @foreach($liver->ejections as $ejection)
+            <tr>
+              <td>{{ $ejection->date }}</td>
+              <td>{{ $ejection->room->number }}</td>
+              <th>{{ $ejection->watchman->short_full_name() }}</th>
+            </tr>
+          @endforeach
+        </table>
       @endif
     </div>
   </div>

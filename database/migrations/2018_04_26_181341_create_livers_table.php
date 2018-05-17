@@ -23,9 +23,7 @@ class CreateLiversTable extends Migration
             $table->string('doc_number');
             $table->string('phone');
             $table->boolean('bad_habit')->default(false);
-            $table->boolean('is_student')->default(false);
             $table->integer('group_id')->nullable();
-            $table->boolean('is_active')->default(false);
             $table->integer('room_id')->nullable();
         });
     }

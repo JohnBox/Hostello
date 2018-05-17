@@ -45,7 +45,6 @@ class InjectionController extends Controller
         $injection->room()->associate($room);
         $injection->save();
         $liver->room()->associate($room);
-        $liver->is_active = true;
         $liver->save();
         return redirect()->route('livers.show', ['liver' => $liver]);
     }

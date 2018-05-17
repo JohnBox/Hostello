@@ -16,7 +16,7 @@
           </tr>
           @foreach($injections as $injection)
             <tr>
-              <td>{{ $injection->liver->full_name() }}</td>
+              <td><a href="{{ route('livers.show', ['liver' => $injection->liver]) }}">{{ $injection->liver->full_name() }}</a></td>
               <td>{{ $injection->date }}</td>
               <td>{{ $injection->room->number }}</td>
               @unless(Auth::user()->profile)

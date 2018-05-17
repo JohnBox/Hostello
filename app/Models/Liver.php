@@ -8,8 +8,14 @@ class Liver extends Model
 {
     protected $fillable = [
         'last_name', 'first_name', 'second_name',
-        'birth_date', 'gender', 'is_student', 'doc_number', 'phone',
-        'room_id', 'group_id', 'is_active', 'bad_habit'
+        'birth_date',
+        'gender',
+        'doc_number',
+        'phone',
+        'balance',
+        'bad_habit',
+        'room_id',
+        'group_id',
     ];
     public $timestamps = false;
 
@@ -30,12 +36,12 @@ class Liver extends Model
 
     function payments()
     {
-        return $this->hasMany('App\Models\Payment');
+        return $this->belongsToMany('App\Models\Payment');
     }
 
     function violations()
     {
-        return $this->hasMany('App\Models\Violation');
+        return $this->belongsToMany('App\Models\Violation');
     }
 
     function injections()
@@ -50,12 +56,12 @@ class Liver extends Model
 
     function scopeActive($query)
     {
-        return $query->where('is_active','=',true)->get();
+        return $query->where('room_id', '<>', null);
     }
 
     function scopeNonactive($query)
     {
-        return $query->where('is_active','=',false)->get();
+        return $query->where('room_id', '=', null);
     }
 
     function full_name()

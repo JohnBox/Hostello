@@ -15,10 +15,12 @@ class EjectionSeeder extends Seeder
             $ejection = new Ejection([
                 'date' => date('Y-m-d'),
             ]);
-//            $watchman->enjections()->save($ejection);
-            $liver->enjections()->save($ejection);
-            $liver->room->enjections()->save($ejection);
+            $ejection->watchman()->associate($watchman);
+            $ejection->liver()->associate($liver);
+            $ejection->room()->associate($liver->room);
             $ejection->save();
+            $liver->room()->dissociate();
+            $liver->save();
         }
     }
 }

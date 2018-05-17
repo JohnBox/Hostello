@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Room;
 use Illuminate\Database\Seeder;
 
 use App\Models\Watchman;
@@ -12,13 +13,16 @@ class InjectionSeeder extends Seeder
     {
         $watchman = Watchman::first();
         foreach (Liver::all() as $liver) {
+            $room = Room::inRandomOrder()->first();
             $injection = new Injection([
                 'date' => date('Y-m-d'),
             ]);
-//            $watchman->injections()->save($injection);
-//            $liver->injections()->save($injection);
-//            $liver->room->injections()->save($injection);
+            $injection->watchman()->associate($watchman);
+            $injection->liver()->associate($liver);
+            $injection->room()->associate($room);
             $injection->save();
+            $liver->room()->associate($room);
+            $liver->save();
         }
     }
 }

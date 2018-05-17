@@ -5,18 +5,18 @@
     <div class="panel-heading">Проживаючі</div>
     <div class="panel-body">
       <ul class="nav nav-tabs">
-        @if($filter == 'active')
+        @if($state == 'active')
           <li role="presentation"><a href="{{ route('livers.index') }}">Всі</a></li>
           <li role="presentation" class="active"><a>Заселені</a></li>
-          <li role="presentation"><a href="{{ route('livers.index', ['f' => 'nonactive']) }}">Незаселені</a></li>
-        @elseif($filter == 'nonactive')
+          <li role="presentation"><a href="{{ route('livers.index', ['state' => 'nonactive']) }}">Незаселені</a></li>
+        @elseif($state == 'nonactive')
           <li role="presentation"><a href="{{ route('livers.index') }}">Всі</a></li>
-          <li role="presentation"><a href="{{ route('livers.index', ['f' => 'active']) }}">Заселені</a></li>
+          <li role="presentation"><a href="{{ route('livers.index', ['state' => 'active']) }}">Заселені</a></li>
           <li role="presentation" class="active"><a>Незаселені</a></li>
         @else
           <li role="presentation" class="active"><a>Всі</a></li>
-          <li role="presentation"><a href="{{ route('livers.index', ['f' => 'active']) }}">Заселені</a></li>
-          <li role="presentation"><a href="{{ route('livers.index', ['f' => 'nonactive']) }}">Незаселені</a></li>
+          <li role="presentation"><a href="{{ route('livers.index', ['state' => 'active']) }}">Заселені</a></li>
+          <li role="presentation"><a href="{{ route('livers.index', ['state' => 'nonactive']) }}">Незаселені</a></li>
         @endif
       </ul>
       <br/>
@@ -31,9 +31,7 @@
           <th>Дата народження</th>
           <th>Стать</th>
           <th>Студент</th>
-          <th>Баланс</th>
           <th>Кімната</th>
-          <th>Активний</th>
           @if(Auth::user()->profile)
           <th></th>
           <th></th>
@@ -55,7 +53,6 @@
                 -
               @endif
             </td>
-            <td>{{ $liver->balance }}</td>
             <td>
               @if($liver->room)
                 {{ $liver->room->number }}
@@ -67,12 +64,6 @@
                 @endif
               @endif
             </td>
-            <td>
-              @if($liver->is_active)
-                Так
-              @else
-                Ні
-            @endif
             @if(Auth::user()->profile)
             <td><a href="{{ route('livers.edit', ['liver' => $liver]) }}">E</a></td>
             <td>
@@ -84,6 +75,13 @@
           </tr>
         @endforeach
       </table>
+      @if($state == 'active')
+        {{ $livers->appends(['state' => 'active'])->links() }}
+      @elseif($state == 'nonactive')
+        {{ $livers->appends(['state' => 'nonactive'])->links() }}
+      @else
+       {{ $livers->links() }}
+      @endif
     </div>
   </div>
 @endsection

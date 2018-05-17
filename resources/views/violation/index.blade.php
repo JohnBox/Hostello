@@ -11,7 +11,6 @@
       @endif
       <table class="table table-striped">
         <tr>
-          <th>Прізвище Ім’я По батькові</th>
           <th>Опис</th>
           <th>Дата</th>
           <th>Штраф</th>
@@ -21,11 +20,10 @@
         @foreach($violations as $violation)
           <tr>
             <td>
-              <a href="{{ route('livers.show', ['liver' => $violation->liver]) }}">
-                {{ $violation->liver->full_name()}}
+              <a href="{{ route('violations.show', ['violation' => $violation]) }}">
+                {{ $violation->description }}
               </a>
             </td>
-            <td>{{ $violation->description }}</td>
             <td>{{ $violation->date }}</td>
             <td>{{ $violation->penalty }}</td>
             <td>

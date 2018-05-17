@@ -16,11 +16,10 @@ class CreateViolationsTable extends Migration
         Schema::create('violations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('watchman_id');
-            $table->integer('liver_id');
             $table->date('date');
             $table->string('description');
             $table->float('penalty');
-            $table->boolean('id_paid')->default(false);
+            $table->boolean('is_paid')->default(false);
         });
     }
 

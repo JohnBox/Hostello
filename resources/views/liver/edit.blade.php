@@ -34,7 +34,7 @@
           <div class="form-group col-md-4">
             <label for="gender">Стать</label>
             <div class="radio">
-              <label class="radio-inline"><input type="radio" class="gender" name="gender" value="1" @if($liver->genger) checked @endif required>Чоловік</label>
+              <label class="radio-inline"><input type="radio" class="gender" name="gender" value="1" @if($liver->gender) checked @endif required>Чоловік</label>
               <label class="radio-inline"><input type="radio" class="gender" name="gender" value="0" @unless($liver->gender) checked @endunless required>Жінка</label>
             </div>
           </div>

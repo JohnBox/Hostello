@@ -15,8 +15,6 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('watchman_id');
-            $table->integer('liver_id');
             $table->integer('room_id');
             $table->date('date');
             $table->float('live_price');

@@ -10,18 +10,12 @@ class PaymentSeeder extends Seeder
 {
     public function run()
     {
-        $watchman = Watchman::first();
         foreach (Liver::all() as $liver) {
-            $payment = new Payment([
+            $payment = $liver->room->payments()->create([
                 'date' => date('Y-m-d'),
-                'live_price' => 100,
-                'g_price' => 50,
-                'e_price' => 50,
-                'w_price' => 100,
+                'live_price' => $liver->room->live_price
             ]);
-            $liver->payments()->save($payment);
-            $liver->room->payments()->save($payment);
-//            $watchman->payments()->save($payment);
+            $liver->payments()->attach($payment);
             $payment->save();
         }
     }

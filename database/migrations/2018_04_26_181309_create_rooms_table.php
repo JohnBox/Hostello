@@ -17,7 +17,6 @@ class CreateRoomsTable extends Migration
             $table->increments('id');
             $table->integer('number');
             $table->integer('liver_max');
-            $table->float('area');
             $table->float('live_price');
             $table->float('live_price_summer');
             $table->integer('block_id');

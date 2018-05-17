@@ -21,13 +21,12 @@ class LiverSeeder extends Seeder
                     'gender' => (bool)rand(0, 1),
                     'doc_number' => 'KB1231212',
                     'phone' => '0991111111',
-                    'is_active' => true,
                 ]);
-                $liver->user()->create([
-                    'name' => 'user'  ,
-                    'email' => 'user' . $liver->id . '@gmail.com',
-                    'password' => Hash::make('user'),
-                ]);
+//                $liver->user()->create([
+//                    'name' => 'user'  ,
+//                    'email' => 'user' . $liver->id . '@gmail.com',
+//                    'password' => Hash::make('user'),
+//                ]);
         }
     }
 }

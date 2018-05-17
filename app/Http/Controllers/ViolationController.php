@@ -45,6 +45,12 @@ class ViolationController extends Controller
         }
         return redirect()->route('violations.index');
     }
+
+    public function show(Request $request, Violation $violation)
+    {
+        return view('violation.show', ['violation' => $violation]);
+    }
+
     public function edit(Violation $violation)
     {
         return view('violation.edit', ['violation' => $violation]);

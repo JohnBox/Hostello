@@ -6,27 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    protected $fillable = ['watchman_id', 'liver_id', 'room_id', 'date',
-        'live_price', 'is_paid'];
+    protected $fillable = ['room_id', 'date', 'live_price', 'is_paid'];
     public $timestamps = false;
-
-    function liver()
-    {
-        return $this->belongsTo('App\Models\Liver');
-    }
-
-    function watchman()
-    {
-        return $this->belongsTo('App\Models\Watchman');
-    }
 
     function room()
     {
         return $this->belongsTo('App\Models\Room');
     }
 
-    function total()
+    function livers()
     {
-        return $this->live_price + $this->g_price + $this->e_price + $this->w_price;
+        return $this->belongsToMany('App\Models\Liver');
     }
+
+
 }

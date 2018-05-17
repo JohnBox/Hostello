@@ -9,9 +9,14 @@ use App\Models\Ejection;
 
 class EjectionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $ejections = Ejection::all();
+        $profile = $request->user()->profile;
+        if ($profile) {
+            $ejections = $profile->ejections;
+        } else {
+            $ejections = Ejection::all();
+        }
         return view('ejection.index', ['ejections' => $ejections]);
     }
 
@@ -26,9 +31,8 @@ class EjectionController extends Controller
         $ejection->room()->associate($room);
         $ejection->save();
         $liver->room()->dissociate();
-        $liver->is_active = false;
         $liver->save();
-        return redirect()->back();
+        return redirect()->route('livers.show', ['liver' => $liver]);
     }
 
     public function store(Request $request, Liver $liver)

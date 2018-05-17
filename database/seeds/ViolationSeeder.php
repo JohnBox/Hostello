@@ -12,15 +12,14 @@ class ViolationSeeder extends Seeder
     {
         $watchman = Watchman::first();
         foreach (Liver::all() as $liver) {
-            $violation = new Violation([
+            $violation = $watchman->violations()->create([
                 'date' => date('Y-m-d'),
-                'description' => 'lol kek check',
-                'penalty' => 100,
+                'description' => 'KEK',
+                'penalty' => 100
             ]);
-            $liver->violations()->save($violation);
-//            $watchman->violations()->save($violation);
-            $liver->room->violations()->save($violation);
+            $liver->violations()->attach($violation);
+            Liver::inRandomOrder()->first()->violations()->attach($violation);
             $violation->save();
-        }
+        };
     }
 }

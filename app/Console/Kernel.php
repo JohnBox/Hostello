@@ -2,8 +2,11 @@
 
 namespace App\Console;
 
+use App\Models\Liver;
+use App\Models\Payment;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,8 +27,16 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->call(function () {
+            foreach (Liver::all() as $liver) {
+                $liver->payments()->create([
+                    'room_id' => $liver->room->id,
+                    'live_price' => $liver->room->live_price,
+                    'date' => date('Y-m-d'),
+                ]);
+            }
+        })->hourly();
+        Log::debug('DONE');
     }
 
     /**

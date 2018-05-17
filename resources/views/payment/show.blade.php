@@ -6,15 +6,19 @@
     <div class="panel-body">
       <table class="table table-striped">
         <tr>
-          <th>Дата</th>
+          <th>Імя</th>
+          <th>Проживання</th>
+          <th>Сплачено</th>
         </tr>
-        @foreach($payments as $payment)
+        @foreach($payment->livers as $liver)
           <tr>
             <td>
-              <a href="{{ route('payments.show', ['payment' => $payment]) }}">
-                {{ $payment->date }}
+              <a href="{{ route('livers.show', ['liver' => $liver]) }}">
+                {{ $liver->full_name() }}
               </a>
             </td>
+            <td>{{ $payment->live_price }}</td>
+            <td>{{ $payment->is_paid }}</td>
           </tr>
         @endforeach
       </table>
@@ -25,9 +29,11 @@
 @section('script')
   <script>
     $('.cp').on('keydown', function (e) {
-      if (e.key === 'Backspace' || e.key === 'Tab' || e.key === '.')
+      if (e.key == 'Backspace' || e.key == 'Tab' || e.key == '.')
         return true;
-      return (!(e.key < '0' || e.key > '9'));
+      if ((e.key < '0' || e.key > '9'))
+        return false;
+      return true;
     });
   </script>
 @endsection
