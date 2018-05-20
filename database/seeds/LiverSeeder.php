@@ -12,11 +12,11 @@ class LiverSeeder extends Seeder
 {
     public function run()
     {
-        foreach (Room::all() as $room) {
+        foreach (Room::all() as $i => $room) {
                 $liver = $room->livers()->create([
-                    'last_name' => 'Last',
-                    'first_name' => 'Name',
-                    'second_name' => 'Fatherovich',
+                    'last_name' => 'Last' . ($i+1),
+                    'first_name' => 'Name' . ($i+1),
+                    'second_name' => 'Fatherovich' . ($i+1),
                     'birth_date' => date('Y-m-d'),
                     'gender' => (bool)rand(0, 1),
                     'doc_number' => 'KB1231212',

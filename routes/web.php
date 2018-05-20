@@ -32,11 +32,13 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('violations', 'ViolationController');
 
+    Route::get('livers/autocomplete', 'LiverController@autocomplete')->name('livers.autocomplete');
     Route::resource('livers', 'LiverController');
 
     Route::resource('rooms', 'RoomController');
 
     Route::resource('profiles', 'ProfileController');
+
 
     Route::get('', 'HomeController@index')->name('home');
 

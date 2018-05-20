@@ -5,11 +5,11 @@
     <div class="panel-heading">Проживаючі</div>
     <div class="panel-body">
       <ul class="nav nav-tabs">
-        @if($state == 'active')
+        @if($filter['state'] == 'active')
           <li role="presentation"><a href="{{ route('livers.index') }}">Всі</a></li>
           <li role="presentation" class="active"><a>Заселені</a></li>
           <li role="presentation"><a href="{{ route('livers.index', ['state' => 'nonactive']) }}">Незаселені</a></li>
-        @elseif($state == 'nonactive')
+        @elseif($filter['state'] == 'nonactive')
           <li role="presentation"><a href="{{ route('livers.index') }}">Всі</a></li>
           <li role="presentation"><a href="{{ route('livers.index', ['state' => 'active']) }}">Заселені</a></li>
           <li role="presentation" class="active"><a>Незаселені</a></li>
@@ -25,6 +25,14 @@
         <br/>
         <br/>
       @endif
+      <form class="form-inline" id="search_form" action="{{ route('livers.index') }}" method="get">
+        <div class="form-group">
+          <label for="q">Ім'я</label>
+          <input type="text" name="q" id="q">
+        </div>
+        <button type="submit" class="btn btn-default btn-sm">Пошук</button>
+      </form>
+      <br>
       <table class="table table-striped">
         <tr>
           <th>Прізвище Ім’я По батькові</th>
@@ -47,7 +55,7 @@
             <td>{{ $liver->birth_date }}</td>
             <td>@if($liver->gender) Чоловіча @else Жіноча @endif</td>
             <td>
-              @if($liver->is_student && $liver->group)
+              @if($liver->group)
                 {{ $liver->group->name }}
               @else
                 -
@@ -65,23 +73,37 @@
               @endif
             </td>
             @if(Auth::user()->profile)
-            <td><a href="{{ route('livers.edit', ['liver' => $liver]) }}">E</a></td>
-            <td>
-              {{ Form::open([ 'method'  => 'delete', 'route' => [ 'livers.destroy', $liver] ]) }}
-              {{ Form::submit('X', ['class' => 'btn btn-danger']) }}
-              {{ Form::close() }}
-            </td>
+            <td><a href="{{ route('livers.edit', ['liver' => $liver]) }}"><span class="glyphicon glyphicon-edit"></span></a></td>
+            <td><a href="{{ route('livers.destroy', ['liver' => $liver]) }}"><span class="glyphicon glyphicon-minus"></span></a></td>
             @endif
           </tr>
         @endforeach
       </table>
-      @if($state == 'active')
+      @if($filter['state'] == 'active')
         {{ $livers->appends(['state' => 'active'])->links() }}
-      @elseif($state == 'nonactive')
+      @elseif($filter['state'] == 'nonactive')
         {{ $livers->appends(['state' => 'nonactive'])->links() }}
       @else
        {{ $livers->links() }}
       @endif
     </div>
   </div>
+@endsection
+
+@section('script')
+  <script>
+      $(function()
+      {
+          $("#q").autocomplete({
+              source: "livers/autocomplete?state={{$filter['state']}}",
+              select: function(event, ui) {
+                  $('#q').val(ui.item.value);
+                  $('#q').attr('qid', ui.item.id)
+              }
+          });
+          $('#search_form').submit(function (e) {
+              $('#q').val($('#q').attr('qid'));
+          })
+      });
+  </script>
 @endsection

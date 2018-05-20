@@ -1,6 +1,6 @@
 @import "bootstrap.css";
 * {
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .form-group.required .control-label:after {
