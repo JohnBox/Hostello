@@ -37,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('livers/autocomplete', 'LiverController@autocomplete')->name('livers.autocomplete');
     Route::resource('livers', 'LiverController');
 
+    Route::get('rooms/autocomplete', 'RoomController@autocomplete')->name('rooms.autocomplete');
     Route::resource('rooms', 'RoomController');
 
     Route::resource('profiles', 'ProfileController');

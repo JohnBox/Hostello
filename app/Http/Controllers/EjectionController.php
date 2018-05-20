@@ -17,6 +17,9 @@ class EjectionController extends Controller
         } else {
             $ejections = Ejection::query();
         }
+        if ($request->get('q')) {
+            $ejections = $ejections->where('room_id','=', $request->get('q'));
+        }
         $ejections = $ejections->orderBy('created_at', 'DESC')->paginate(config('app.paginated_by'));
         return view('ejection.index', ['ejections' => $ejections]);
     }

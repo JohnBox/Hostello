@@ -20,6 +20,9 @@ class InjectionController extends Controller
         } else {
             $injections = Injection::query();
         }
+        if ($request->get('q')) {
+            $injections = $injections->where('room_id','=', $request->get('q'));
+        }
         $injections = $injections->orderBy('created_at', 'DESC')->paginate(config('app.paginated_by'));
         return view('injection.index', ['injections' => $injections]);
     }
