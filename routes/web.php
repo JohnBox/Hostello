@@ -28,6 +28,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('ejections', 'EjectionController');
 
+    Route::get('payments/autocomplete', 'PaymentController@autocomplete')->name('payments.autocomplete');
     Route::resource('payments', 'PaymentController');
 
     Route::get('violations/autocomplete', 'ViolationController@autocomplete')->name('violations.autocomplete');

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ejection extends Model
 {
     protected $fillable = ['watchman_id', 'liver_id', 'room_id', 'date'];
-    public $timestamps = false;
+    public $timestamps = true;
 
     function watchman()
     {

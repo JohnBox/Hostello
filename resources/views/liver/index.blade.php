@@ -95,7 +95,7 @@
       $(function()
       {
           $("#q").autocomplete({
-              source: "livers/autocomplete?state={{$filter['state']}}",
+              source: '{{route('livers.autocomplete')}}?state={{$filter['state']}}',
               select: function(event, ui) {
                   $('#q').val(ui.item.value);
                   $('#q').attr('qid', ui.item.id)

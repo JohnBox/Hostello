@@ -19,6 +19,7 @@ class CreateEjectionsTable extends Migration
             $table->integer('liver_id');
             $table->integer('room_id');
             $table->date('date');
+            $table->timestamps();
         });
     }
 

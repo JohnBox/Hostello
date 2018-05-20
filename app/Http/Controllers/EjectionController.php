@@ -17,7 +17,8 @@ class EjectionController extends Controller
         } else {
             $ejections = Ejection::query();
         }
-        return view('ejection.index', ['ejections' => $ejections->paginate(config('app.paginated_by'))]);
+        $ejections = $ejections->orderBy('created_at', 'DESC')->paginate(config('app.paginated_by'));
+        return view('ejection.index', ['ejections' => $ejections]);
     }
 
     public function create(Request $request)

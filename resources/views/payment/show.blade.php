@@ -4,6 +4,14 @@
   <div class="panel panel-default">
     <div class="panel-heading">Нарахування</div>
     <div class="panel-body">
+      <form class="form-inline" id="search_form" action="{{ route('payments.show', ['payment' => $payment]) }}" method="get">
+        <div class="form-group">
+          <label for="q">Ім'я</label>
+          <input type="text" name="q" id="q">
+        </div>
+        <button type="submit" class="btn btn-default btn-sm">Пошук</button>
+      </form>
+      <br>
       <table class="table table-striped">
         <tr>
           <th>Імя</th>
@@ -21,4 +29,22 @@
       {{ $livers->links() }}
     </div>
   </div>
+@endsection
+
+@section('script')
+  <script>
+      $(function()
+      {
+          $("#q").autocomplete({
+              source: '{{route('payments.autocomplete')}}',
+              select: function(event, ui) {
+                  $('#q').val(ui.item.value);
+                  $('#q').attr('qid', ui.item.id)
+              }
+          });
+          $('#search_form').submit(function (e) {
+              $('#q').val($('#q').attr('qid'));
+          })
+      });
+  </script>
 @endsection

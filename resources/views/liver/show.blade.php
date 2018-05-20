@@ -116,7 +116,7 @@
         <div class="form-group col-md-12">
           <div class="col-md-12">
             @if($liver->room)
-              <a href="{{ route('injections.create', ['liver' => $liver]) }}" id="settle" class="btn btn-default">Переселити</a>
+              <a href="{{ route('injections.create', ['liver' => $liver, 'update' => true]) }}" id="settle" class="btn btn-default">Переселити</a>
               <a href="{{ route('ejections.create', ['liver' => $liver]) }}" id="remove" class="btn btn-default" style="color: #f66">Виселити</a>
             @else
               <a href="{{ route('injections.create', ['liver' => $liver]) }}" id="settle" class="btn btn-default">Заселити</a>
