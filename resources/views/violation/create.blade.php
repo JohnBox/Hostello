@@ -24,10 +24,6 @@
           <textarea class="form-control" id="description" name="description"></textarea>
         </div>
         <div class="form-group col-md-12">
-          <label for="date">Дата</label>
-          <input type="date" class="form-control" id="date" name="date">
-        </div>
-        <div class="form-group col-md-12">
           <label for="penalty">Штраф</label>
           <input type="number" class="form-control" id="penalty" name="penalty">
         </div>

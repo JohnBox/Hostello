@@ -28,8 +28,9 @@ class LiverController extends Controller
                 $livers = $livers->nonactive();
                 break;
         }
+        $livers = $livers->take(5)->get();
         $results = array();
-        foreach ($livers->get() as $liver)
+        foreach ($livers as $liver)
         {
             $results[] = [ 'id' => $liver->id, 'value' => $liver->full_name()];
         }

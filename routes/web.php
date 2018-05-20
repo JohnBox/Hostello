@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('payments', 'PaymentController');
 
+    Route::get('violations/autocomplete', 'ViolationController@autocomplete')->name('violations.autocomplete');
     Route::resource('violations', 'ViolationController');
 
     Route::get('livers/autocomplete', 'LiverController@autocomplete')->name('livers.autocomplete');

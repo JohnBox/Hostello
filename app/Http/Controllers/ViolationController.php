@@ -7,10 +7,22 @@ use Illuminate\Support\Facades\Redirect;
 
 use App\Models\Violation;
 use App\Models\Liver;
+use Illuminate\Support\Facades\Response;
 
 
 class ViolationController extends Controller
 {
+    public function autocomplete(Request $request)
+    {
+        $term = $request->get('term');
+        $violations = Violation::where('description', 'LIKE', "%$term%")->take(5)->get();
+        $results = array();
+        foreach ($violations as $violation)
+        {
+            $results[] = [ 'id' => $violation->id, 'value' => $violation->description];
+        }
+        return Response::json($results);
+    }
     public function index(Request $request)
     {
         $watchman = $request->user()->profile;
@@ -18,6 +30,9 @@ class ViolationController extends Controller
             $violations = $watchman->violations();
         } else {
             $violations = Violation::query();
+        }
+        if ($request->get('q')) {
+            $violations = $violations->where('id', '=', $request->get('q'));
         }
         return view('violation.index', ['violations' => $violations->paginate(config('app.paginated_by'))]);
     }

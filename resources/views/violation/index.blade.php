@@ -9,6 +9,13 @@
       <br/>
       <br/>
       @endif
+        <form class="form-inline" id="search_form" action="{{ route('violations.index') }}" method="get">
+          <div class="form-group">
+            <label for="q">Опис</label>
+            <input type="text" name="q" id="q">
+          </div>
+          <button type="submit" class="btn btn-default btn-sm">Пошук</button>
+        </form>
       <table class="table table-striped">
         <tr>
           <th>Опис</th>
@@ -44,4 +51,19 @@
 @endsection
 
 @section('script')
+  <script>
+      $(function()
+      {
+          $("#q").autocomplete({
+              source: '{{route('violations.autocomplete')}}',
+              select: function(event, ui) {
+                  $('#q').val(ui.item.value);
+                  $('#q').attr('qid', ui.item.id)
+              }
+          });
+          $('#search_form').submit(function (e) {
+              $('#q').val($('#q').attr('qid'));
+          })
+      });
+  </script>
 @endsection
