@@ -48,14 +48,17 @@
 
 @section('script')
   <script>
-      $(function()
-      {
-          $("#q").autocomplete({
+      $(function() {
+          let q = $('#q'), form = $('#search_form'), hostel = $('#hostel');
+          q.autocomplete({
               source: '{{route('rooms.autocomplete')}}',
               select: function(event, ui) {
-                  $('#q').val(ui.item.id);
-                  $('#search_form').submit();
+                  q.val(ui.item.id);
+                  form.submit();
               },
+          });
+          hostel.change(function (e) {
+              form.submit();
           });
       });
   </script>

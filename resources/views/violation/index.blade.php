@@ -31,19 +31,25 @@
         <tr>
           <th>Опис</th>
           <th>Дата</th>
+          <th>Комендант</th>
+          @if(Auth::user()->profile)
           <th></th>
           <th></th>
+          @endif
         </tr>
         @foreach($violations as $violation)
           <tr>
             <td><a href="{{ route('violations.show', ['$violation' => $violation]) }}">{{ $violation->description }}</a></td>
             <td>{{ $violation->date_of_charge }}</td>
+            <td>{{ $violation->watchman->short_full_name() }}</td>
+            @if(Auth::user()->profile)
             <td><a href="{{ route('violations.edit', ['violation' => $violation]) }}">E</a></td>
             <td>
               {{ Form::open([ 'method'  => 'delete', 'route' => [ 'violations.destroy', $violation] ]) }}
               {{ Form::submit('X', ['class' => 'btn btn-danger']) }}
               {{ Form::close() }}
             </td>
+            @endif
           </tr>
         @endforeach
       </table>
