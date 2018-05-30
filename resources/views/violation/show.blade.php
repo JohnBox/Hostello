@@ -2,7 +2,13 @@
 
 @section('content')
   <div class="panel panel-default">
-    <div class="panel-heading">Порушення</div>
+    <div class="panel-heading">
+      <ol class="breadcrumb">
+        <li><a href="{{ route('violations.index') }}">Порушення</a></li>
+        <li class="active">{{ $violation->date_of_charge }}</li>
+        <li class="active">{{ $violation->description }}</li>
+      </ol>
+    </div>
     <div class="panel-body">
       @if(Auth::user()->profile)
       <a type="button" class="btn btn-sm btn-default" href="{{ route('violations.create') }}">Створити</a>
@@ -12,20 +18,18 @@
         <table class="table table-striped">
           <tr>
             <th>Прізвище Ім’я По батькові</th>
-            <th>Дата народження</th>
-            <th>Стать</th>
             <th>Студент</th>
             <th>Кімната</th>
+            <th>Штраф</th>
+            <th>Сплаченно</th>
           </tr>
-          @foreach($livers as $liver)
+          @foreach($violation->livers as $liver)
             <tr>
               <td>
                 <a href="{{ route('livers.show', ['liver' => $liver]) }}">
                   {{ $liver->full_name() }}
                 </a>
               </td>
-              <td>{{ $liver->birth_date }}</td>
-              <td>@if($liver->gender) Чоловіча @else Жіноча @endif</td>
               <td>
                 @if($liver->group)
                   {{ $liver->group->name }}
@@ -42,6 +46,16 @@
                   @else
                     -
                   @endif
+                @endif
+              </td>
+              <td>
+                {{ $liver->pivot->penalty }}
+              </td>
+              <td>
+                @if($liver->pivot->paid)
+                  {{ $liver->pivot->paid }}
+                @else
+                  -
                 @endif
               </td>
             </tr>

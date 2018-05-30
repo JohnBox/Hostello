@@ -18,6 +18,7 @@ class CreateViolationsTable extends Migration
             $table->integer('watchman_id');
             $table->string('description');
             $table->date('date_of_charge');
+            $table->timestamps();
         });
     }
 

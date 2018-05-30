@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     protected $fillable = ['room_id', 'date_of_charge'];
-    public $timestamps = false;
+    public $timestamps = true;
 
     function room()
     {

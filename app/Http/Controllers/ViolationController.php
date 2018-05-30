@@ -31,10 +31,12 @@ class ViolationController extends Controller
         } else {
             $violations = Violation::query();
         }
-        if ($request->get('q')) {
-            $violations = $violations->where('id', '=', $request->get('q'));
+        $q = $request->get('q');
+        if ($q) {
+            $violations = $violations->where('date_of_charge', '=', $q);
         }
-        return view('violation.index', ['violations' => $violations->paginate(config('app.paginated_by'))]);
+        $violations = $violations->orderBy('created_at', 'DESC')->paginate(config('app.paginated_by'));
+        return view('violation.index', compact('violations', 'q'));
     }
 
     public function create(Request $request)
@@ -51,8 +53,8 @@ class ViolationController extends Controller
             'date_of_charge' => date("Y-m-d"),
         ]);
         $pivot = [
-            'penalty' => $request->input('penalty')/$count,
-            'paid' => (int)rand(0,1)? null : date('Y-m-d')
+            'penalty' => $request->input('penalty'),
+            'paid' => rand(0,1) > 0.5 ? null : date('Y-m-d')
         ];
         foreach ($request->input('livers') as $id)
         {
@@ -65,7 +67,8 @@ class ViolationController extends Controller
 
     public function show(Request $request, Violation $violation)
     {
-        return view('violation.show', ['livers' => $violation->livers()->paginate(config('app.paginated_by'))]);
+        $livers = $violation->livers()->paginate(config('app.paginated_by'));
+        return view('violation.show', compact('violation', 'livers'));
     }
 
     public function edit(Violation $violation)

@@ -17,6 +17,7 @@ class CreatePaymentsTable extends Migration
             $table->increments('id');
             $table->integer('room_id');
             $table->date('date_of_charge');
+            $table->timestamps();
         });
     }
 

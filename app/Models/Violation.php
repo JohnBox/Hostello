@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Violation extends Model
 {
     protected $fillable = ['watchman_id', 'description', 'date_of_charge'];
-    public $timestamps = false;
+    public $timestamps = true;
 
     function watchman()
     {

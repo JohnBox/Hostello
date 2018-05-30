@@ -15,8 +15,9 @@ use Illuminate\Support\Facades\Response;
 
 class PaymentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $profile = $request->user()->profile;
         return view('payment.index', ['payments' => Payment::paginate(config('app.paginated_by'))]);
     }
 
