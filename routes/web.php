@@ -28,15 +28,20 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('ejections', 'EjectionController');
 
+    Route::get('payments/autocomplete', 'PaymentController@autocomplete')->name('payments.autocomplete');
     Route::resource('payments', 'PaymentController');
 
+    Route::get('violations/autocomplete', 'ViolationController@autocomplete')->name('violations.autocomplete');
     Route::resource('violations', 'ViolationController');
 
+    Route::get('livers/autocomplete', 'LiverController@autocomplete')->name('livers.autocomplete');
     Route::resource('livers', 'LiverController');
 
+    Route::get('rooms/autocomplete', 'RoomController@autocomplete')->name('rooms.autocomplete');
     Route::resource('rooms', 'RoomController');
 
     Route::resource('profiles', 'ProfileController');
+
 
     Route::get('', 'HomeController@index')->name('home');
 

@@ -5,8 +5,10 @@
   @if(Auth::user()->profile)
     <li><a href="{{ route('rooms.index') }}">Кімнати</a></li>
   @endif
+  @unless(Auth::user()->profile)
+    <li><a href="{{ route('payments.index') }}">Нарахування</a></li>
+  @endunless
   <li class="active"><a href="{{ route('violations.index') }}">Порушення</a></li>
-  <li><a href="{{ route('payments.index') }}">Нарахування</a></li>
   <li><a href="{{ route('injections.index') }}">Заселення</a></li>
   <li><a href="{{ route('ejections.index') }}">Виселення</a></li>
   @if(!Auth::user()->profile)

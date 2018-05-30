@@ -15,9 +15,11 @@ class CreateViolationsTable extends Migration
     {
         Schema::create('violations', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('hostel_id');
             $table->integer('watchman_id');
             $table->string('description');
             $table->date('date_of_charge');
+            $table->timestamps();
         });
     }
 

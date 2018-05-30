@@ -7,7 +7,7 @@
       <ul class="nav nav-tabs">
         @foreach($floors as $floor)
           <li role="presentation" @if ($current == $floor) class="active" @endif>
-            <a href="{{ route('injections.create', ['liver' => $liver, 'floor' => $floor->id]) }}/">Поверх {{$floor->number}}</a>
+            <a href="{{ route('injections.create', ['liver' => $liver->id, 'floor' => $floor->id]) }}/">Поверх {{$floor->number}}</a>
           </li>
         @endforeach
       </ul>
@@ -25,10 +25,10 @@
                   </div>
                   <div class='info'>
                     <h3>
-                      @foreach($room->livers as $liver)
-                        {{ $liver->short_full_name() }}
-                        @if($liver->is_student)
-                          {{ $liver->group->name }}
+                      @foreach($room->livers as $room_liver)
+                        {{ $room_liver->short_full_name() }}
+                        @if($room_liver->group)
+                          {{ $room_liver->group->name }}
                         @endif
                         <br/>
                       @endforeach
@@ -41,9 +41,9 @@
         </div>
         <hr>
       @endforeach
-      <form id="settle" method="POST" action="{{ route('injections.store') }}" class="hidden">
+      <form id="settle" method="POST" action="{{ route('injections.store', ['update' => $update]) }}" class="hidden">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <input type="hidden" name="liver_id" id="liver_id" value="{{ $liver->id }}"/>
+        <input type="hidden" name="liver_id" id="liver_id" value="{{$liver->id}}"/>
         <input type="hidden" name="room_id" id="room_id" value=""/>
       </form>
       </div>
@@ -103,6 +103,7 @@
                   let [curr_count, max_count] = e.target.getElementsByTagName('span')[0].getElementsByTagName('span')[0].innerHTML.split('/');
                   if (curr_count < max_count) {
                       $('#room_id').val($(e.target).attr('id'));
+                      $('#liver_id').val('{{$liver->id}}');
                       $('#settle').submit();
                   }
               })

@@ -6,8 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Violation extends Model
 {
-    protected $fillable = ['watchman_id', 'description', 'date_of_charge'];
-    public $timestamps = false;
+    protected $fillable = ['hostel_id', 'watchman_id', 'description', 'date_of_charge'];
+    public $timestamps = true;
+
+    function hostel()
+    {
+        return $this->belongsTo('App\Models\Hostel');
+    }
 
     function watchman()
     {

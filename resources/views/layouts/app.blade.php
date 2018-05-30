@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Гуртожик</title>
 	<link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet">
+	<link href="{{ asset('/css/jquery-ui.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
   <style>
@@ -62,6 +63,7 @@
 
 	<!-- Scripts -->
 	<script src="{{ asset('/js/jquery.min.js') }}"></script>
+	<script src="{{ asset('/js/jquery-ui.min.js') }}"></script>
 	<script src="{{ asset('/js/bootstrap.min.js') }}"></script>
 	@yield('script')
 </body>

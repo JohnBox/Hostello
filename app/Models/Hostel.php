@@ -18,4 +18,29 @@ class Hostel extends Model
     {
         return $this->hasMany('App\Models\Floor');
     }
+
+    function livers()
+    {
+        return $this->hasMany('App\Models\Liver');
+    }
+
+    function violations()
+    {
+        return $this->hasMany('App\Models\Violation');
+    }
+
+    function payments()
+    {
+        return $this->hasMany('App\Models\Payment');
+    }
+
+    function injections()
+    {
+        return $this->hasMany('App\Models\Injection');
+    }
+
+    function ejections()
+    {
+        return $this->hasMany('App\Models\Ejection');
+    }
 }

@@ -22,9 +22,12 @@ class CreateLiversTable extends Migration
             $table->boolean('gender');
             $table->string('doc_number');
             $table->string('phone');
+            $table->float('balance')->default(0);
             $table->boolean('bad_habit')->default(false);
             $table->integer('group_id')->nullable();
             $table->integer('room_id')->nullable();
+            $table->integer('hostel_id')->nullable();
+            $table->timestamps();
         });
     }
 

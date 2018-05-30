@@ -11,9 +11,22 @@ use App\Models\Hostel;
 use App\Models\Floor;
 use App\Models\Block;
 use App\Models\Room;
+use Illuminate\Support\Facades\Response;
 
 class RoomController extends Controller
 {
+    public function autocomplete(Request $request)
+    {
+        $term = $request->get('term');
+        $rooms = Room::where('number', 'LIKE', "$term%")->take(5)->get();
+        $results = array();
+        foreach ($rooms as $room)
+        {
+            $results[] = [ 'id' => $room->id, 'value' => $room->number];
+        }
+        return Response::json($results);
+    }
+
     function flatten(array $array) {
         $return = array();
         array_walk_recursive($array, function($a) use (&$return) { $return[] = $a; });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hostel;
 use Illuminate\Http\Request;
 
 use App\Models\Liver;
@@ -13,11 +14,21 @@ class EjectionController extends Controller
     {
         $profile = $request->user()->profile;
         if ($profile) {
+            $hostels = null;
+            $currentHostel = $profile->hostel;
             $ejections = $profile->ejections();
         } else {
-            $ejections = Ejection::query();
+            $hostels = Hostel::all();
+            $currentHostel = $request->get('hostel')
+                ? Hostel::find($request->get('hostel'))
+                : $hostels->first();
+            $ejections = $currentHostel->ejections();
         }
-        return view('ejection.index', ['ejections' => $ejections->paginate(config('app.paginated_by'))]);
+        if ($request->get('q')) {
+            $ejections = $ejections->where('room_id','=', $request->get('q'));
+        }
+        $ejections = $ejections->orderBy('created_at', 'DESC')->paginate(config('app.paginated_by'));
+        return view('ejection.index', compact('ejections', 'hostels', 'currentHostel'));
     }
 
     public function create(Request $request)

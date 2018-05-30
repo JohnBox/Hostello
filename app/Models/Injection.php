@@ -6,8 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Injection extends Model
 {
-    protected $fillable = ['watchman_id', 'liver_id', 'room_id', 'date'];
-    public $timestamps = false;
+    protected $fillable = ['hostel_id', 'watchman_id', 'liver_id', 'room_id', 'date'];
+    public $timestamps = true;
+
+    function hostel()
+    {
+        return $this->belongsTo('App\Models\Hostel');
+    }
 
     function watchman()
     {

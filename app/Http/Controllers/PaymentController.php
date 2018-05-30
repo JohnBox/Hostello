@@ -11,17 +11,42 @@ use App\Models\Payment;
 use App\Models\Room;
 use App\Models\Liver;
 use App\Models\Hostel;
+use Illuminate\Support\Facades\Response;
 
 class PaymentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         return view('payment.index', ['payments' => Payment::paginate(config('app.paginated_by'))]);
     }
 
-
-    public function show(Payment $payment)
+    public function autocomplete(Request $request, Payment $payment)
     {
-        return view('payment.show', ['livers' => $payment->livers()->paginate(config('app.paginated_by'))]);
+        $term = $request->get('term');
+        $livers = Liver::where('last_name', 'LIKE', "$term%")
+            ->orWhere('first_name', 'LIKE', "$term%")
+            ->orWhere('second_name', 'LIKE', "$term%")
+            ->take(5)->get();
+        $results = array();
+        foreach ($livers as $liver)
+        {
+            $results[] = [ 'id' => $liver->id, 'value' => $liver->full_name()];
+        }
+        return Response::json($results);
+    }
+
+    public function show(Request $request, Payment $payment)
+    {
+        $hostels = Hostel::all();
+        $currentHostel = $request->get('hostel')
+            ? Hostel::find($request->get('hostel'))
+            : $hostels->first();
+        $paid = $request->get('paid');
+        if ($paid == null) $paid = true;
+        if ($request->get('q'))
+            $livers = $payment->livers()->whereId($request->get('q'))->paginate(config('app.paginated_by'));
+        else
+            $livers = $payment->livers()->paginate(config('app.paginated_by'));
+        return view('payment.show', compact('livers', 'payment', 'paid', 'hostels', 'currentHostel'));
     }
 }
