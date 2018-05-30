@@ -70,6 +70,11 @@ class Liver extends Model
         return $query->where('room_id', '=', null)->where('hostel_id', '=', $hostel->id);
     }
 
+    function scopeOwer($query, Hostel $hostel)
+    {
+        return $this->where('hostel_id', '=', $hostel->id)->where('balance', '<', 0);
+    }
+
     function scopeAny($query, Hostel $hostel)
     {
         return $query->where('hostel_id', '=', $hostel->id);

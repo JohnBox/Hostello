@@ -9,14 +9,22 @@
           <li role="presentation"><a href="{{ route('livers.index', ['hostel' => $currentHostel]) }}">Всі</a></li>
           <li role="presentation" class="active"><a>Заселені</a></li>
           <li role="presentation"><a href="{{ route('livers.index', ['hostel' => $currentHostel, 'state' => 'nonactive']) }}">Незаселені</a></li>
+          <li role="presentation"><a href="{{ route('livers.index', ['hostel' => $currentHostel, 'state' => 'ower']) }}">Боржники</a></li>
         @elseif($state == 'nonactive')
           <li role="presentation"><a href="{{ route('livers.index', ['hostel' => $currentHostel]) }}">Всі</a></li>
           <li role="presentation"><a href="{{ route('livers.index', ['hostel' => $currentHostel, 'state' => 'active']) }}">Заселені</a></li>
           <li role="presentation" class="active"><a>Незаселені</a></li>
+          <li role="presentation"><a href="{{ route('livers.index', ['hostel' => $currentHostel, 'state' => 'ower']) }}">Боржники</a></li>
+        @elseif($state == 'ower')
+          <li role="presentation"><a href="{{ route('livers.index', ['hostel' => $currentHostel]) }}">Всі</a></li>
+          <li role="presentation"><a href="{{ route('livers.index', ['hostel' => $currentHostel, 'state' => 'active']) }}">Заселені</a></li>
+          <li role="presentation"><a href="{{ route('livers.index', ['hostel' => $currentHostel, 'state' => 'nonactive']) }}">Незаселені</a></li>
+          <li role="presentation" class="active"><a>Боржники</a></li>
         @else
           <li role="presentation" class="active"><a>Всі</a></li>
           <li role="presentation"><a href="{{ route('livers.index', ['hostel' => $currentHostel, 'state' => 'active']) }}">Заселені</a></li>
           <li role="presentation"><a href="{{ route('livers.index', ['hostel' => $currentHostel, 'state' => 'nonactive']) }}">Незаселені</a></li>
+          <li role="presentation"><a href="{{ route('livers.index', ['hostel' => $currentHostel, 'state' => 'ower']) }}">Боржники</a></li>
         @endif
       </ul>
       <br/>

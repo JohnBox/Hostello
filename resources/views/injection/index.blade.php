@@ -28,7 +28,6 @@
             <th>Дата</th>
             @unless(Auth::user()->profile)
               <th>Комендант</th>
-              <th>Гуртожиток</th>
             @endunless
           </tr>
           @foreach($injections as $injection)
@@ -38,7 +37,6 @@
               <td>{{ $injection->date }}</td>
             @unless(Auth::user()->profile)
                 <th>{{ $injection->watchman->short_full_name() }}</th>
-                <th>{{ $injection->watchman->hostel->name }}</th>
               @endunless
             </tr>
           @endforeach

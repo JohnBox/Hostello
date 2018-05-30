@@ -30,36 +30,20 @@
           @foreach($violation->livers as $liver)
             @if($paid && $liver->pivot->paid)
             <tr>
-              <td>
-                <a href="{{ route('livers.show', ['liver' => $liver]) }}">
-                  {{ $liver->full_name() }}
-                </a>
-              </td>
-              <td>
-                @if($liver->group)
-                  {{ $liver->group->name }}
-                @else
-                  -
-                @endif
-              </td>
-              <td>
-                @if($liver->room)
-                  {{ $liver->room->number }}
-                @else
-                    -
-                @endif
-              </td>
-              <td>
-                {{ $liver->pivot->penalty }}
-              </td>
-              <td>
-                @if($liver->pivot->paid)
-                  {{ $liver->pivot->paid }}
-                @else
-                  -
-                @endif
-              </td>
+              <td><a href="{{ route('livers.show', ['liver' => $liver]) }}">{{ $liver->full_name() }}</a></td>
+              <td>@if($liver->group){{ $liver->group->name }}@else -@endif</td>
+              <td>@if($liver->room){{ $liver->room->number }}@else -@endif</td>
+              <td>{{ $liver->pivot->penalty }}</td>
+              <td>{{ $liver->pivot->paid }}</td>
             </tr>
+            @elseif(!$paid && !$liver->pivot->paid)
+              <tr>
+                <td><a href="{{ route('livers.show', ['liver' => $liver]) }}">{{ $liver->full_name() }}</a></td>
+                <td>@if($liver->group){{ $liver->group->name }}@else -@endif</td>
+                <td>@if($liver->room){{ $liver->room->number }}@else -@endif</td>
+                <td>{{ $liver->pivot->penalty }}</td>
+                <td>-</td>
+              </tr>
             @endif
           @endforeach
         </table>
