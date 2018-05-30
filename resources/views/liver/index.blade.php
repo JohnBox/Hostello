@@ -28,7 +28,6 @@
         @endif
       </ul>
       <br/>
-
       <form class="form-inline" id="search_form" action="{{ route('livers.index') }}" method="get">
         <div class="form-group">
           @if($hostels)
@@ -103,8 +102,7 @@
 
 @section('script')
   <script>
-      $(function()
-      {
+      $(function() {
           let q = $('#q'), form = $('#search_form'), hostel = $('#hostel');
           q.autocomplete({
               source: '{{route('livers.autocomplete')}}?hostel={{$currentHostel->id}}&state={{$state}}',
