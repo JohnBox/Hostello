@@ -6,8 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    protected $fillable = ['room_id', 'date_of_charge'];
+    protected $fillable = ['hostel_id', 'room_id', 'date_of_charge'];
     public $timestamps = true;
+
+    function hostel()
+    {
+        return $this->belongsTo('App\Models\Hostel');
+    }
 
     function room()
     {

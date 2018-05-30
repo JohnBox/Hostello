@@ -17,6 +17,7 @@ class InjectionSeeder extends Seeder
             $injection = new Injection([
                 'date' => date('Y-m-d'),
             ]);
+            $injection->hostel()->associate($watchman->hostel);
             $injection->watchman()->associate($watchman);
             $injection->liver()->associate($liver);
             $injection->room()->associate($room);

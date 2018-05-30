@@ -75,8 +75,11 @@ class ViolationController extends Controller
 
     public function show(Request $request, Violation $violation)
     {
-        $livers = $violation->livers()->paginate(config('app.paginated_by'));
-        return view('violation.show', compact('violation', 'livers'));
+        $paid = $request->get('paid');
+//        ob_start();var_dump($violation->livers); return ob_get_clean();
+        $livers = $violation->livers()->wherePivot('paid', 0)->paginate(config('app.paginated_by'));
+        
+        return view('violation.show', compact('violation', 'livers', 'paid'));
     }
 
     public function edit(Violation $violation)

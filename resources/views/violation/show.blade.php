@@ -10,11 +10,15 @@
       </ol>
     </div>
     <div class="panel-body">
-      @if(Auth::user()->profile)
-      <a type="button" class="btn btn-sm btn-default" href="{{ route('violations.create') }}">Створити</a>
-      <br/>
-      <br/>
-      @endif
+      <ul class="nav nav-tabs">
+        <li @if($paid) class="active" @endif>
+          <a href="{{ route('violations.show', ['violation' => $violation, 'paid' => true]) }}">Сплаченні</a>
+        </li>
+        <li @unless($paid) class="active" @endif>
+          <a href="{{ route('violations.show', ['violation' => $violation, 'paid' => false]) }}">Несплаченні</a>
+        </li>
+      </ul>
+      <br>
         <table class="table table-striped">
           <tr>
             <th>Прізвище Ім’я По батькові</th>
@@ -24,6 +28,7 @@
             <th>Сплаченно</th>
           </tr>
           @foreach($violation->livers as $liver)
+            @if($paid && $liver->pivot->paid)
             <tr>
               <td>
                 <a href="{{ route('livers.show', ['liver' => $liver]) }}">
@@ -55,6 +60,7 @@
                 @endif
               </td>
             </tr>
+            @endif
           @endforeach
         </table>
       {{ $livers->links() }}

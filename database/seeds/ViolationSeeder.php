@@ -19,7 +19,7 @@ class ViolationSeeder extends Seeder
             ]);
             $pivot = [
                 'penalty' => 100,
-                'paid' => (int)rand(0,1) ? null : date('Y-m-d')
+                'paid' => rand(0,1) > 0.5 ? null : date('Y-m-d')
             ];
             $liver->violations()->attach($violation, $pivot);
             Liver::inRandomOrder()->first()->violations()->attach($violation, $pivot);

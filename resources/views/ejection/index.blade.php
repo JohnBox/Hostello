@@ -4,13 +4,23 @@
   <div class="panel panel-default">
     <div class="panel-heading">Виселення</div>
       <div class="panel-body">
-        <form class="form-horizontal" id="search_form" action="{{ route('injections.index') }}" method="get">
-          <div class="form-group">
-            <div class="col-md-6 col-md-offset-3">
-              <input class="form-control" type="text" name="q" id="q" placeholder="Кімната">
+        <form class="form-inline" id="search_form" action="{{ route('ejections.index') }}" method="get">
+          @if($hostels)
+            <div class="form-group">
+              <label for="hostel" class="control-label">Гуртожиток</label>
+              <select name="hostel" id="hostel" class="form-control">
+                @foreach($hostels as $hostel)
+                  <option value="{{ $hostel->id}}" @if($currentHostel == $hostel) selected @endif>{{ $hostel->name }}</option>
+                @endforeach
+              </select>
             </div>
+          @endif
+          <div class="form-group">
+            <label for="q" class="control-label">Кімната</label>
+            <input class="form-control" type="text" name="q" id="q">
           </div>
         </form>
+        <br>
         <table class="table table-striped">
           <tr>
             <th>Прізвище Ім’я По батькові</th>

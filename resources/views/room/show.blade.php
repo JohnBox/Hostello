@@ -15,8 +15,6 @@
           <th>Дата народження</th>
           <th>Стать</th>
           <th>Студент</th>
-          <th>Група</th>
-          <th>Баланс</th>
         </tr>
         @foreach($room->livers as $liver)
           <tr>
@@ -25,16 +23,14 @@
                 {{ $liver->full_name() }}
               </a>
             </td>
-            <td>{{ $liver->birth }}</td>
+            <td>{{ $liver->birth_date }}</td>
             <td>@if($liver->gender) Чоловіча @else Жіноча @endif</td>
-            <td><input type="checkbox" @if($liver->is_student) checked @endif disabled style="cursor: text"/></td>
             <td>
-              @if($liver->student)
+              @if($liver->group)
                 {{ $liver->group->number }}</td>
             @else
               -
             @endif
-            <td>{{ $liver->balance }}</td>
           </tr>
         @endforeach
       </table>

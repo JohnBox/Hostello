@@ -15,6 +15,7 @@ class EjectionSeeder extends Seeder
             $ejection = new Ejection([
                 'date' => date('Y-m-d'),
             ]);
+            $ejection->hostel()->associate($watchman->hostel);
             $ejection->watchman()->associate($watchman);
             $ejection->liver()->associate($liver);
             $ejection->room()->associate($liver->room);

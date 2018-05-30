@@ -24,14 +24,14 @@
       <form class="form-inline" id="search_form" action="{{ route('livers.index') }}" method="get">
         <div class="form-group">
           @if($hostels)
-            <label for="hostel">Гуртожиток</label>
+            <label for="hostel" class="control-label">Гуртожиток</label>
             <select name="hostel" id="hostel" class="form-control">
               @foreach($hostels as $hostel)
                 <option value="{{ $hostel->id}}" @if($currentHostel == $hostel) selected @endif>{{ $hostel->name }}</option>
               @endforeach
             </select>
           @elseif(Auth::user()->profile)
-            <a type="button" class="btn btn-default" href="{{ route('livers.create') }}">Створити новий</a>
+            <a type="button" class="btn btn-default" href="{{ route('livers.create') }}">Створити</a>
           @endif
         </div>
         <div class="form-group">
