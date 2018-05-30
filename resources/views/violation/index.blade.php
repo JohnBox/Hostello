@@ -8,9 +8,16 @@
         <form class="form-inline" id="search_form" action="{{ route('violations.index') }}" method="get">
 
           <div class="form-group">
-              @if(Auth::user()->profile)
-                <a type="button" class="btn btn-default" href="{{ route('violations.create') }}">Створити</a>
-              @endif
+            @if($hostels)
+              <label for="hostel">Гуртожиток</label>
+              <select name="hostel" id="hostel" class="form-control">
+                @foreach($hostels as $hostel)
+                  <option value="{{ $hostel->id}}" @if($currentHostel == $hostel) selected @endif>{{ $hostel->name }}</option>
+                @endforeach
+              </select>
+            @elseif(Auth::user()->profile)
+              <a type="button" class="btn btn-default" href="{{ route('violations.create') }}">Створити</a>
+            @endif
           </div>
           <div class="form-group">
               <label for="q" class="control-label">Дата</label>
@@ -49,8 +56,11 @@
   <script>
       $(function()
       {
-          let q = $('#q'), form = $('#search_form');
+          let q = $('#q'), form = $('#search_form'), hostel = $('#hostel');
           q.change(function (e) {
+              form.submit();
+          });
+          hostel.change(function (e) {
               form.submit();
           });
       });

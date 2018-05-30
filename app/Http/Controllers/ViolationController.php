@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hostel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -25,18 +26,25 @@ class ViolationController extends Controller
     }
     public function index(Request $request)
     {
-        $watchman = $request->user()->profile;
-        if ($watchman) {
-            $violations = $watchman->violations();
+        $profile = $request->user()->profile;
+        if ($profile) {
+            $hostels = null;
+            $currentHostel = $profile->hostel;
+            $violations = $profile->violations();
+
         } else {
-            $violations = Violation::query();
+            $hostels = Hostel::all();
+            $currentHostel = $request->get('hostel')
+                ? Hostel::find($request->get('hostel'))
+                : $hostels->first();
+            $violations = $currentHostel->violations();
         }
         $q = $request->get('q');
         if ($q) {
             $violations = $violations->where('date_of_charge', '=', $q);
         }
         $violations = $violations->orderBy('created_at', 'DESC')->paginate(config('app.paginated_by'));
-        return view('violation.index', compact('violations', 'q'));
+        return view('violation.index', compact('violations', 'q', 'currentHostel', 'hostels'));
     }
 
     public function create(Request $request)

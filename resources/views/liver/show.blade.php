@@ -5,7 +5,7 @@
     <div class="panel-heading">
       <ol class="breadcrumb">
         <li><a href="{{ route('livers.index') }}">Проживаючі</a></li>
-        <li class="active">Перегляд</li>
+        <li class="active">{{ $liver->full_name() }}</li>
       </ol>
     </div>
     <div class="panel-body">
@@ -183,13 +183,17 @@
           <tr>
             <th>Дата</th>
             <th>Кімната</th>
+            @unless(Auth::user()->profile)
             <th>Комендант</th>
+            @endunless
           </tr>
           @foreach($liver->ejections as $ejection)
             <tr>
               <td>{{ $ejection->date }}</td>
               <td>{{ $ejection->room->number }}</td>
+              @unless(Auth::user()->profile)
               <th>{{ $ejection->watchman->short_full_name() }}</th>
+              @endunless
             </tr>
           @endforeach
         </table>

@@ -21,6 +21,7 @@ class LiverSeeder extends Seeder
                     'gender' => (bool)rand(0, 1),
                     'doc_number' => 'KB1231212',
                     'phone' => '0991111111',
+                    'hostel_id' => $room->block->floor->hostel->id
                 ]);
 //                $liver->user()->create([
 //                    'name' => 'user'  ,

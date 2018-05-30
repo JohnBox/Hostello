@@ -29,8 +29,8 @@ class InjectionController extends Controller
 
     public function create(Request $request)
     {
+        $liver = Liver::find($request->get('liver'));
         $floor = Floor::find($request->get('floor'));
-        $liver = Floor::find($request->get('liver'));
         $update = $request->get('update');
         $hostel = $request->user()->profile->hostel;
         $currentFloor = $floor ? $floor : (count($hostel->floors) ? $hostel->floors[0] : null);
@@ -49,7 +49,7 @@ class InjectionController extends Controller
         $room = Room::find($request->input('room_id'));
         $watchman = $request->user()->profile;
         if ($request->get('update')) {
-            $ejection = new Ejection(['date' => date('d.m.Y')]);
+            $ejection = new Ejection(['date' => date('Y-m-d')]);
             $ejection->watchman()->associate($watchman);
             $ejection->liver()->associate($liver);
             $ejection->room()->associate($liver->room);

@@ -12,7 +12,11 @@ class ViolationSeeder extends Seeder
     {
         $watchman = Watchman::first();
         foreach (Liver::all() as $liver) {
-            $violation = $watchman->violations()->create(['description' => 'KEK', 'date_of_charge' => date('Y-m-d')]);
+            $violation = $watchman->violations()->create([
+                'description' => 'KEK',
+                'date_of_charge' => date('Y-m-d'),
+                'hostel_id' => $watchman->hostel->id
+            ]);
             $pivot = [
                 'penalty' => 100,
                 'paid' => (int)rand(0,1) ? null : date('Y-m-d')

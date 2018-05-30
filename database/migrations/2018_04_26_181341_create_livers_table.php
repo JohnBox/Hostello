@@ -25,6 +25,8 @@ class CreateLiversTable extends Migration
             $table->boolean('bad_habit')->default(false);
             $table->integer('group_id')->nullable();
             $table->integer('room_id')->nullable();
+            $table->integer('hostel_id')->nullable();
+            $table->timestamps();
         });
     }
 

@@ -214,6 +214,6 @@ return [
 
     ],
 
-    'paginated_by' => 20,
+    'paginated_by' => 10,
 
 ];

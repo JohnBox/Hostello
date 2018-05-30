@@ -5,32 +5,39 @@
     <div class="panel-heading">Проживаючі</div>
     <div class="panel-body">
       <ul class="nav nav-tabs">
-        @if($filter['state'] == 'active')
-          <li role="presentation"><a href="{{ route('livers.index') }}">Всі</a></li>
+        @if($state == 'active')
+          <li role="presentation"><a href="{{ route('livers.index', ['hostel' => $currentHostel]) }}">Всі</a></li>
           <li role="presentation" class="active"><a>Заселені</a></li>
-          <li role="presentation"><a href="{{ route('livers.index', ['state' => 'nonactive']) }}">Незаселені</a></li>
-        @elseif($filter['state'] == 'nonactive')
-          <li role="presentation"><a href="{{ route('livers.index') }}">Всі</a></li>
-          <li role="presentation"><a href="{{ route('livers.index', ['state' => 'active']) }}">Заселені</a></li>
+          <li role="presentation"><a href="{{ route('livers.index', ['hostel' => $currentHostel, 'state' => 'nonactive']) }}">Незаселені</a></li>
+        @elseif($state == 'nonactive')
+          <li role="presentation"><a href="{{ route('livers.index', ['hostel' => $currentHostel]) }}">Всі</a></li>
+          <li role="presentation"><a href="{{ route('livers.index', ['hostel' => $currentHostel, 'state' => 'active']) }}">Заселені</a></li>
           <li role="presentation" class="active"><a>Незаселені</a></li>
         @else
           <li role="presentation" class="active"><a>Всі</a></li>
-          <li role="presentation"><a href="{{ route('livers.index', ['state' => 'active']) }}">Заселені</a></li>
-          <li role="presentation"><a href="{{ route('livers.index', ['state' => 'nonactive']) }}">Незаселені</a></li>
+          <li role="presentation"><a href="{{ route('livers.index', ['hostel' => $currentHostel, 'state' => 'active']) }}">Заселені</a></li>
+          <li role="presentation"><a href="{{ route('livers.index', ['hostel' => $currentHostel, 'state' => 'nonactive']) }}">Незаселені</a></li>
         @endif
       </ul>
       <br/>
-      @if(Auth::user()->profile)
-        <a type="button" class="btn btn-sm btn-default" href="{{ route('livers.create') }}">Створити новий</a>
-        <br/>
-        <br/>
-      @endif
+
       <form class="form-inline" id="search_form" action="{{ route('livers.index') }}" method="get">
         <div class="form-group">
-          <label for="q">Ім'я</label>
-          <input type="text" name="q" id="q">
+          @if($hostels)
+            <label for="hostel">Гуртожиток</label>
+            <select name="hostel" id="hostel" class="form-control">
+              @foreach($hostels as $hostel)
+                <option value="{{ $hostel->id}}" @if($currentHostel == $hostel) selected @endif>{{ $hostel->name }}</option>
+              @endforeach
+            </select>
+          @elseif(Auth::user()->profile)
+            <a type="button" class="btn btn-default" href="{{ route('livers.create') }}">Створити новий</a>
+          @endif
         </div>
-        <button type="submit" class="btn btn-default btn-sm">Пошук</button>
+        <div class="form-group">
+          <label for="q" class="control-label">Ім'я</label>
+          <input type="text" name="q" id="q" class="form-control">
+        </div>
       </form>
       <br>
       <table class="table table-striped">
@@ -65,11 +72,7 @@
               @if($liver->room)
                 {{ $liver->room->number }}
               @else
-                @if(Auth::user()->profile)
-                  <a type="button" class="btn btn-xs btn-default" href="{{ route('injections.create', ['liver' => $liver]) }}">Заселити</a>
-                @else
-                  -
-                @endif
+                -
               @endif
             </td>
             @if(Auth::user()->profile)
@@ -79,9 +82,9 @@
           </tr>
         @endforeach
       </table>
-      @if($filter['state'] == 'active')
+      @if($state == 'active')
         {{ $livers->appends(['state' => 'active'])->links() }}
-      @elseif($filter['state'] == 'nonactive')
+      @elseif($state == 'nonactive')
         {{ $livers->appends(['state' => 'nonactive'])->links() }}
       @else
        {{ $livers->links() }}
@@ -94,16 +97,17 @@
   <script>
       $(function()
       {
-          $("#q").autocomplete({
-              source: '{{route('livers.autocomplete')}}?state={{$filter['state']}}',
+          let q = $('#q'), form = $('#search_form'), hostel = $('#hostel');
+          q.autocomplete({
+              source: '{{route('livers.autocomplete')}}?hostel={{$currentHostel->id}}&state={{$state}}',
               select: function(event, ui) {
-                  $('#q').val(ui.item.value);
-                  $('#q').attr('qid', ui.item.id)
+                  q.val(ui.item.id);
+                  form.submit();
               }
           });
-          $('#search_form').submit(function (e) {
-              $('#q').val($('#q').attr('qid'));
-          })
+          hostel.change(function (e) {
+              form.submit();
+          });
       });
   </script>
 @endsection

@@ -16,12 +16,18 @@ class Liver extends Model
         'bad_habit',
         'room_id',
         'group_id',
+        'hostel_id',
     ];
-    public $timestamps = false;
+    public $timestamps = true;
 
     function user()
     {
         return $this->morphOne('App\Models\User', 'profile');
+    }
+
+    function hostel()
+    {
+        return $this->belongsTo('App\Models\Hostel');
     }
 
     function group()
@@ -54,14 +60,19 @@ class Liver extends Model
         return $this->hasMany('App\Models\Ejection');
     }
 
-    function scopeActive($query)
+    function scopeActive($query, Hostel $hostel)
     {
-        return $query->where('room_id', '<>', null);
+        return $query->where('room_id', '<>', null)->where('hostel_id', '=', $hostel->id);
     }
 
-    function scopeNonactive($query)
+    function scopeNonactive($query, Hostel $hostel)
     {
-        return $query->where('room_id', '=', null);
+        return $query->where('room_id', '=', null)->where('hostel_id', '=', $hostel->id);
+    }
+
+    function scopeAny($query, Hostel $hostel)
+    {
+        return $query->where('hostel_id', '=', $hostel->id);
     }
 
     function full_name()

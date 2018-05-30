@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hostel;
 use App\Models\University;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,19 +17,22 @@ class LiverController extends Controller
     {
         $state = $request->get('state');
         $term = $request->get('term');
-        $livers = Liver::query()
-            ->where('last_name', 'LIKE', "%$term%")
-            ->orWhere('first_name', 'LIKE', "%$term%")
-            ->orWhere('second_name', 'LIKE', "%$term%");
+        $hostel = Hostel::find($request->get('hostel'));
         switch ($state) {
             case 'active':
-                $livers = $livers->active();
+                $livers = Liver::active($hostel);
                 break;
             case 'nonactive':
-                $livers = $livers->nonactive();
+                $livers = Liver::nonactive($hostel);
                 break;
+            default:
+                $livers = Liver::any($hostel);
         }
-        $livers = $livers->take(5)->get();
+        $livers = $livers
+            ->where('last_name', 'LIKE', "$term%")
+            ->orWhere('first_name', 'LIKE', "$term%")
+            ->orWhere('second_name', 'LIKE', "$term%")
+            ->take(5)->get();
         $results = array();
         foreach ($livers as $liver)
         {
@@ -39,27 +43,33 @@ class LiverController extends Controller
 
     public function index(Request $request)
     {
-        $filter = $request->all();
-        $filter['state'] = array_key_exists('state', $filter) ? $filter['state'] : null;
-        switch ($filter['state']) {
+        $profile = $request->user()->profile;
+        if ($profile) {
+            $hostels = null;
+            $currentHostel = $profile->hostel;
+        } else {
+            $hostels = Hostel::all();
+            $currentHostel = $request->get('hostel')
+                ? Hostel::find($request->get('hostel'))
+                : $hostels->first();
+        }
+        $state = $request->get('state');
+        switch ($state) {
             case 'active':
-                $livers = Liver::active();
+                $livers = Liver::active($currentHostel);
                 break;
             case 'nonactive':
-                $livers = Liver::nonactive();
+                $livers = Liver::nonactive($currentHostel);
                 break;
             default:
-                $livers = Liver::query();
-                break;
+                $livers = Liver::any($currentHostel);
         }
-        $q = array_key_exists('q', $filter) ? $filter['q'] : null;
+        $q = $request->get('q');
         if ($q) {
             $livers = $livers->where('id', '=', $q);
         }
-            $livers = $livers
-                ->paginate(config('app.paginated_by'))
-                ->withPath($request->url());
-        return view('liver.index', ['livers' => $livers, 'filter' => $filter]);
+        $livers = $livers->orderBy('created_at', 'DESC')->paginate(config('app.paginated_by'))->withPath($request->url());
+        return view('liver.index', compact('livers', 'state', 'currentHostel', 'hostels'));
     }
 
     public function create()
@@ -71,6 +81,7 @@ class LiverController extends Controller
         $input = $request->except(['specialty_id', 'faculty_id', 'group_id', 'is_student']);
         if ($request->input('is_student') == '1')
             $input['group_id'] = $request->input('group_id');
+        $input['hostel_id'] = $request->user()->profile->hostel->id;
         $liver = Liver::create($input);
         return redirect()->route('livers.show', ['liver' => $liver]);
     }
