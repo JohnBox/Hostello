@@ -23,11 +23,11 @@ class LiverSeeder extends Seeder
                     'phone' => '0991111111',
                     'hostel_id' => $room->block->floor->hostel->id
                 ]);
-//                $liver->user()->create([
-//                    'name' => 'user'  ,
-//                    'email' => 'user' . $liver->id . '@gmail.com',
-//                    'password' => Hash::make('user'),
-//                ]);
+                $liver->user()->create([
+                    'name' => 'user'  ,
+                    'email' => 'user' . $liver->id . '@gmail.com',
+                    'password' => Hash::make('user'),
+                ]);
         }
     }
 }

@@ -40,7 +40,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('rooms/autocomplete', 'RoomController@autocomplete')->name('rooms.autocomplete');
     Route::resource('rooms', 'RoomController');
 
-    Route::resource('profiles', 'ProfileController');
+    Route::get('profile/payments', 'ProfileController@payments')->name('profile.payments');
+    Route::get('profile/violations', 'ProfileController@violations')->name('profile.violations');
+    Route::get('profile/injections', 'ProfileController@injections')->name('profile.injections');
+    Route::get('profile/ejections', 'ProfileController@ejections')->name('profile.ejections');
+    Route::resource('profile', 'ProfileController');
 
 
     Route::get('', 'HomeController@index')->name('home');
