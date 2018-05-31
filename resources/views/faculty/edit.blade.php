@@ -8,7 +8,9 @@
           @method('PUT')
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group required">
-              <label class="control-label col-md-2" for="name">Назва</label>
+              <div class="col-md-2">
+                <label class="control-label" for="name">Назва</label>
+              </div>
               <div class="col-md-10">
                 <input type="text" class="form-control" id="name" name="name" value="{{ $faculty->name }}" required>
               </div>

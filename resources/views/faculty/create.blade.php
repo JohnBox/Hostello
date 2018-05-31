@@ -7,7 +7,9 @@
         <form class="form-horizontal" method="POST" action="{{ route('faculties.store') }}">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group required">
-              <label class="control-label col-md-2" for="name">Назва</label>
+              <div class="col-md-2">
+                <label class="control-label" for="name">Назва</label>
+              </div>
               <div class="col-md-10">
                 <input type="text" class="form-control" id="name" name="name" required>
               </div>

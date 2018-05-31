@@ -13,7 +13,7 @@
           </div>
           <div class="col-md-10">
             <select name="hostel_id" id="hostel_id" class="form-control">
-              <option value="0">-</option>
+              <option value="-">-</option>
               @foreach($hostels as $hostel)
                 <option value="{{ $hostel->id }}">{{ $hostel->name }}</option>
               @endforeach
@@ -66,7 +66,7 @@
 @section('script')
   <script>
     $('#hostel_id').change(function (e) {
-        $('#hostel_id').find('option[value="0"]').hide();
+        $('#hostel_id').find('option[value="-"]').hide();
     })
   </script>
 @endsection

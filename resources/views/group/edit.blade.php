@@ -7,8 +7,11 @@
         <form id="edit_group" class="form-horizontal" method="POST" action="{{ route('groups.update', ['group' => $group]) }}">
           @method('PUT')
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
           <div class="form-group required">
-            <label class="control-label col-md-2" for="specialty_id">Спеціальність</label>
+            <div class="col-md-2">
+              <label class="control-label" for="specialty_id">Спеціальність</label>
+            </div>
             <div class="col-md-10">
               <select name="specialty_id" id="specialty_id" class="form-control">
                 @foreach($specialties as $specialty)
@@ -17,8 +20,11 @@
               </select>
             </div>
           </div>
+
           <div class="form-group required">
-            <label class="control-label col-md-2" for="course_id">Курс</label>
+            <div class="col-md-2">
+              <label class="control-label" for="course_id">Курс</label>
+            </div>
             <div class="col-md-10">
               <select name="course_id" id="course_id" class="form-control">
                 <option value="-">-</option>
@@ -30,20 +36,29 @@
               </select>
             </div>
           </div>
+
           <div class="form-group required">
-            <label class="control-label col-md-2" for="name">Назва</label>
+            <div class="col-md-2">
+              <label class="control-label" for="name">Назва</label>
+            </div>
             <div class="col-md-10">
               <input type="text" class="form-control" id="name" name="name" value="{{ $group->name }}" required>
             </div>
           </div>
+
           <div class="form-group required">
-            <label class="control-label col-md-2" for="leader">Наставник</label>
+            <div class="col-md-2">
+              <label class="control-label" for="leader">Наставник</label>
+            </div>
             <div class="col-md-10">
               <input type="text" class="form-control" id="leader" name="leader" value="{{ $group->leader }}"required>
             </div>
           </div>
+
           <div class="form-group required">
-            <label class="control-label col-md-2" for="phone">Телефон</label>
+            <div class="col-md-2">
+              <label class="control-label" for="phone">Телефон</label>
+            </div>
             <div class="col-md-10">
               <input type="text" class="form-control" id="phone" name="phone" value="{{ $group->phone }}"required>
             </div>
