@@ -36,7 +36,7 @@
               <td><a href="{{ route('rooms.show', ['room' => $injection->room]) }}">{{ $injection->room->number }}</a></td>
               <td>{{ $injection->date }}</td>
             @unless(Auth::user()->profile)
-                <th>{{ $injection->watchman->short_full_name() }}</th>
+                <th>{{ $injection->watchman->short_name() }}</th>
               @endunless
             </tr>
           @endforeach
