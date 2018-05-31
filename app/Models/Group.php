@@ -19,10 +19,10 @@ class Group extends Model
         return $this->hasMany('App\Models\Liver');
     }
 
-    function name()
+    function short_name()
     {
         // TODO: add template for generating group name
-        return ;
+        return 'SHORT_NAME';
     }
 
     static function generateName(Course $course, int $number)

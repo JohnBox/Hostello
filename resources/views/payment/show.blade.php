@@ -15,16 +15,6 @@
       <br>
       <form class="form-inline" id="search_form" action="{{ route('payments.show', ['payment' => $payment]) }}" method="get">
         <div class="form-group">
-          @if($hostels)
-            <label for="hostel" class="control-label">Гуртожиток</label>
-            <select name="hostel" id="hostel" class="form-control">
-              @foreach($hostels as $hostel)
-                <option value="{{ $hostel->id}}" @if($currentHostel == $hostel) selected @endif>{{ $hostel->name }}</option>
-              @endforeach
-            </select>
-          @endif
-        </div>
-        <div class="form-group">
           <label for="q" class="control-label">Ім'я</label>
           <input type="text" name="q" id="q" class="form-control">
         </div>
@@ -40,7 +30,7 @@
           @if($paid && $liver->pivot->paid)
             <tr>
               <td><a href="{{ route('livers.show', ['liver' => $liver]) }}">{{ $liver->full_name() }}</a></td>
-              <td>{{ $liver->pivot->live_price }}</td>
+              <td>{{ $liver->pivot->room_id}}</td>
               <td>{{ $liver->pivot->paid }}</td>
             </tr>
           @elseif(!$paid && !$liver->pivot->paid)

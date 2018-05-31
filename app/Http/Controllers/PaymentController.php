@@ -17,7 +17,17 @@ class PaymentController extends Controller
 {
     public function index(Request $request)
     {
-        return view('payment.index', ['payments' => Payment::paginate(config('app.paginated_by'))]);
+        $hostels = Hostel::all();
+        $currentHostel = $request->get('hostel')
+            ? Hostel::find($request->get('hostel'))
+            : $hostels->first();
+        $payments = $currentHostel->payments();
+        $q = $request->get('q');
+        if ($q) {
+            $payments = $payments->where('date_of_charge', '=', $q);
+        }
+        $payments = $payments->paginate(config('app.paginated_by'));
+        return view('payment.index', compact('payments', 'hostels', 'currentHostel', 'q'));
     }
 
     public function autocomplete(Request $request, Payment $payment)
@@ -27,6 +37,7 @@ class PaymentController extends Controller
             ->orWhere('first_name', 'LIKE', "$term%")
             ->orWhere('second_name', 'LIKE', "$term%")
             ->take(5)->get();
+        $livers = $payment->livers;
         $results = array();
         foreach ($livers as $liver)
         {

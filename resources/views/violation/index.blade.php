@@ -4,9 +4,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">Порушення</div>
     <div class="panel-body">
-
         <form class="form-inline" id="search_form" action="{{ route('violations.index') }}" method="get">
-
           <div class="form-group">
             @if($hostels)
               <label for="hostel">Гуртожиток</label>
@@ -60,8 +58,7 @@
 
 @section('script')
   <script>
-      $(function()
-      {
+      $(function() {
           let q = $('#q'), form = $('#search_form'), hostel = $('#hostel');
           q.change(function (e) {
               form.submit();

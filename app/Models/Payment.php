@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    protected $fillable = ['hostel_id', 'room_id', 'date_of_charge'];
+    protected $fillable = ['hostel_id', 'date'];
     public $timestamps = true;
 
     function hostel()
@@ -14,13 +14,8 @@ class Payment extends Model
         return $this->belongsTo('App\Models\Hostel');
     }
 
-    function room()
-    {
-        return $this->belongsTo('App\Models\Room');
-    }
-
     function livers()
     {
-        return $this->belongsToMany('App\Models\Liver')->withPivot('live_price', 'paid');
+        return $this->belongsToMany('App\Models\Liver')->withPivot('price', 'paid');
     }
 }

@@ -18,19 +18,10 @@
         </tr>
         @foreach($room->livers as $liver)
           <tr>
-            <td>
-              <a href="{{ route('livers.show', ['liver' => $liver]) }}">
-                {{ $liver->full_name() }}
-              </a>
-            </td>
+            <td><a href="{{ route('livers.show', ['liver' => $liver]) }}">{{ $liver->full_name() }}</a></td>
             <td>{{ $liver->birth_date }}</td>
             <td>@if($liver->gender) Чоловіча @else Жіноча @endif</td>
-            <td>
-              @if($liver->group)
-                {{ $liver->group->number }}</td>
-            @else
-              -
-            @endif
+            <td>@if($liver->group){{ $liver->group->number }}@else -@endif</td>
           </tr>
         @endforeach
       </table>

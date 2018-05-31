@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Hostel;
 use Illuminate\Database\Seeder;
 
 use App\Models\Watchman;
@@ -10,17 +11,19 @@ class PaymentSeeder extends Seeder
 {
     public function run()
     {
-        $payment = new Payment([
-            'date_of_charge' => date('Y-m-d'),
-        ]);
-        foreach (Liver::all() as $liver) {
-            $payment->fill(['room_id' => $liver->room->id, 'hostel_id' => $liver->hostel->id]);
-            $pivot = [
-                'live_price' => 100,
-                'paid' => (int)rand(0,1) ? null : date('Y-m-d')
-            ];
-            $payment->save();
-            $liver->payments()->attach($payment, $pivot);
+
+        foreach (Hostel::all() as $hostel) {
+            $payment = $hostel->payments()->create([
+                'date' => date('Y-m-d'),
+            ]);
+            foreach ($hostel->livers as $liver) {
+                $pivot = [
+                    'price' => $liver->room->price,
+                    'paid' => rand(0, 1) > 0.5 ? null : date('Y-m-d')
+                ];
+                $payment->save();
+                $liver->payments()->attach($payment, $pivot);
+            }
         }
     }
 }

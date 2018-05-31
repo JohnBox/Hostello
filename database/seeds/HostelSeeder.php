@@ -15,14 +15,12 @@ class HostelSeeder extends Seeder
                 'name' => 'Гуртожиток #1',
                 'address' => 'Соломянська 7',
                 'phone' => '12345',
-                'area' => 1000,
                 'merchant' => $university->merchant
             ],
             [
                 'name' => 'Гуртожиток #2',
                 'address' => 'Соломянська 4',
                 'phone' => '12345',
-                'area' => 10000,
                 'merchant' => $university->merchant
             ]
         ]);

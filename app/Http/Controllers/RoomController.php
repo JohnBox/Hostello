@@ -50,15 +50,15 @@ class RoomController extends Controller
         $hostelId = $request->get('hostel');
         $hostel = Hostel::find($hostelId);
         if ($hostel) {
-            return view('room.create', ['floors' => $hostel->floors]);
+            return view('room.create', ['hostel' => $hostel]);
         }
     }
 
     public function store(Request $request)
     {
-        $input = $request->only(['number', 'liver_max', 'area', 'block_id']);
+        $input = $request->only(['number', 'liver_max', 'area', 'block_id', 'hostel_id', 'price', 'price_summer']);
         $room = Room::create($input);
-        return redirect()->route('hostels.show', ['hostel' => $room->block->floor->hostel]);
+        return redirect()->route('hostels.show', ['hostel' => $room->hostel]);
     }
 
 
@@ -69,11 +69,7 @@ class RoomController extends Controller
 
     public function edit(Request $request, Room $room)
     {
-        $hostelId = $request->get('hostel');
-        $hostel = Hostel::find($hostelId);
-        if ($hostel) {
-            return view('room.edit', ['room' => $room, 'floors' => $hostel->floors]);
-        }
+        return view('room.edit', ['room' => $room]);
     }
 
     public function update(Request $request, Room $room)

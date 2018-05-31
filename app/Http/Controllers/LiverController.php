@@ -25,6 +25,9 @@ class LiverController extends Controller
             case 'nonactive':
                 $livers = Liver::nonactive($hostel);
                 break;
+            case 'ower':
+                $livers = Liver::ower($hostel);
+                break;
             default:
                 $livers = Liver::any($hostel);
         }

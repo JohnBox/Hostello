@@ -15,11 +15,10 @@ class CreateHostelsTable extends Migration
     {
         Schema::create('hostels', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('university_id');
             $table->string('name');
             $table->string('address');
             $table->string('phone');
-            $table->float('area');
-            $table->integer('university_id');
             $table->string('merchant');
         });
     }

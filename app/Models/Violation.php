@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Violation extends Model
 {
-    protected $fillable = ['hostel_id', 'watchman_id', 'description', 'date_of_charge'];
+    protected $fillable = ['hostel_id', 'watchman_id', 'description', 'date'];
     public $timestamps = true;
 
     function hostel()
@@ -21,6 +21,6 @@ class Violation extends Model
 
     function livers()
     {
-        return $this->belongsToMany('App\Models\Liver')->withPivot('penalty', 'paid');
+        return $this->belongsToMany('App\Models\Liver')->withPivot('price', 'paid');
     }
 }

@@ -39,8 +39,8 @@ class Watchman extends Model
         return $this->last_name . ' ' . $this->first_name . ' ' . $this->second_name;
     }
 
-    function short_full_name()
+    function short_name()
     {
-        return $this->last_name . ' ' . mb_substr($this->first_name, 0, 1) . ' ' . mb_substr($this->second_name, 0, 1);
+        return $this->last_name.' '.mb_substr($this->first_name, 0, 1).'. '.mb_substr($this->second_name, 0, 1).'.';
     }
 }
