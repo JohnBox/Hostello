@@ -31,7 +31,7 @@
           <tr>
             <td>
               <a href="{{ route('payments.show', ['payment' => $payment]) }}">
-                {{ $payment->date_of_charge }}
+                {{ $payment->date }}
               </a>
             </td>
           </tr>

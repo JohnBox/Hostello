@@ -2,7 +2,13 @@
 
 @section('content')
   <div class="panel panel-default">
-    <div class="panel-heading">Нарахування</div>
+    <div class="panel-heading">
+
+      <ol class="breadcrumb">
+        <li><a href="{{ route('payments.index') }}">Нарахування</a></li>
+        <li class="active">{{ $payment->date }}</li>
+      </ol>
+    </div>
     <div class="panel-body">
       <ul class="nav nav-tabs">
         <li @if($paid) class="active" @endif>
@@ -30,13 +36,13 @@
           @if($paid && $liver->pivot->paid)
             <tr>
               <td><a href="{{ route('livers.show', ['liver' => $liver]) }}">{{ $liver->full_name() }}</a></td>
-              <td>{{ $liver->pivot->room_id}}</td>
+              <td>{{ $liver->pivot->price}}</td>
               <td>{{ $liver->pivot->paid }}</td>
             </tr>
           @elseif(!$paid && !$liver->pivot->paid)
             <tr>
               <td><a href="{{ route('livers.show', ['liver' => $liver]) }}">{{ $liver->full_name() }}</a></td>
-              <td>{{ $liver->pivot->live_price }}</td>
+              <td>{{ $liver->pivot->price }}</td>
               <td>-</td>
             </tr>
           @endif

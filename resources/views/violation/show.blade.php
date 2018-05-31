@@ -5,7 +5,7 @@
     <div class="panel-heading">
       <ol class="breadcrumb">
         <li><a href="{{ route('violations.index') }}">Порушення</a></li>
-        <li class="active">{{ $violation->date_of_charge }}</li>
+        <li class="active">{{ $violation->date }}</li>
         <li class="active">{{ $violation->description }}</li>
       </ol>
     </div>
@@ -33,7 +33,7 @@
               <td><a href="{{ route('livers.show', ['liver' => $liver]) }}">{{ $liver->full_name() }}</a></td>
               <td>@if($liver->group){{ $liver->group->name }}@else -@endif</td>
               <td>@if($liver->room){{ $liver->room->number }}@else -@endif</td>
-              <td>{{ $liver->pivot->penalty }}</td>
+              <td>{{ $liver->pivot->price }}</td>
               <td>{{ $liver->pivot->paid }}</td>
             </tr>
             @elseif(!$paid && !$liver->pivot->paid)
@@ -41,7 +41,7 @@
                 <td><a href="{{ route('livers.show', ['liver' => $liver]) }}">{{ $liver->full_name() }}</a></td>
                 <td>@if($liver->group){{ $liver->group->name }}@else -@endif</td>
                 <td>@if($liver->room){{ $liver->room->number }}@else -@endif</td>
-                <td>{{ $liver->pivot->penalty }}</td>
+                <td>{{ $liver->pivot->price }}</td>
                 <td>-</td>
               </tr>
             @endif

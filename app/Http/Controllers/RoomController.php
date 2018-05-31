@@ -56,7 +56,7 @@ class RoomController extends Controller
 
     public function store(Request $request)
     {
-        $input = $request->only(['number', 'liver_max', 'area', 'block_id', 'hostel_id', 'price', 'price_summer']);
+        $input = $request->only(['number', 'liver_max', 'block_id', 'hostel_id', 'price', 'price_summer']);
         $room = Room::create($input);
         return redirect()->route('hostels.show', ['hostel' => $room->hostel]);
     }
@@ -74,15 +74,15 @@ class RoomController extends Controller
 
     public function update(Request $request, Room $room)
     {
-        $input = $request->only(['number', 'liver_max', 'area', 'block_id']);
+        $input = $request->only(['number', 'liver_max', 'block_id', 'price', 'price_summer']);
         $room->fill($input);
         $room->save();
-        return redirect()->route('hostels.show', ['hostel' => $room->block->floor->hostel]);
+        return redirect()->route('hostels.show', ['hostel' => $room->hostel]);
     }
 
     public function destroy(Room $room)
     {
-        $hostel = $room->block->floor->hostel;
+        $hostel = $room->hostel;
         $room->delete();
         return redirect()->route('hostels.show', ['hostel' => $hostel]);
     }

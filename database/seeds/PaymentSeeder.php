@@ -21,7 +21,6 @@ class PaymentSeeder extends Seeder
                     'price' => $liver->room->price,
                     'paid' => rand(0, 1) > 0.5 ? null : date('Y-m-d')
                 ];
-                $payment->save();
                 $liver->payments()->attach($payment, $pivot);
             }
         }

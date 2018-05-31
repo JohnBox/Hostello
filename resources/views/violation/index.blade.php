@@ -38,8 +38,8 @@
         @foreach($violations as $violation)
           <tr>
             <td><a href="{{ route('violations.show', ['$violation' => $violation]) }}">{{ $violation->description }}</a></td>
-            <td>{{ $violation->date_of_charge }}</td>
-            <td>{{ $violation->watchman->short_full_name() }}</td>
+            <td>{{ $violation->date }}</td>
+            <td>{{ $violation->watchman->short_name() }}</td>
             @if(Auth::user()->profile)
             <td><a href="{{ route('violations.edit', ['violation' => $violation]) }}">E</a></td>
             <td>

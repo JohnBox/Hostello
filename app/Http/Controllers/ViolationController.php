@@ -41,7 +41,7 @@ class ViolationController extends Controller
         }
         $q = $request->get('q');
         if ($q) {
-            $violations = $violations->where('date_of_charge', '=', $q);
+            $violations = $violations->where('date', '=', $q);
         }
         $violations = $violations->orderBy('created_at', 'DESC')->paginate(config('app.paginated_by'));
         return view('violation.index', compact('violations', 'q', 'currentHostel', 'hostels'));
@@ -55,13 +55,12 @@ class ViolationController extends Controller
     public function store(Request $request)
     {
         $watchman = $request->user()->profile;
-        $count = count($request->input('livers'));
         $violation = $watchman->violations()->create([
             'description' => $request->input('description'),
-            'date_of_charge' => date("Y-m-d"),
+            'date' => date("Y-m-d"),
         ]);
         $pivot = [
-            'penalty' => $request->input('penalty'),
+            'price' => $request->input('price'),
             'paid' => rand(0,1) > 0.5 ? null : date('Y-m-d')
         ];
         foreach ($request->input('livers') as $id)
