@@ -29,7 +29,9 @@
         <tr>
           <th>Опис</th>
           <th>Дата</th>
+          @unless(Auth::user()->profile)
           <th>Комендант</th>
+          @endunless
           @if(Auth::user()->profile)
           <th></th>
           <th></th>
@@ -39,14 +41,12 @@
           <tr>
             <td><a href="{{ route('violations.show', ['$violation' => $violation]) }}">{{ $violation->description }}</a></td>
             <td>{{ $violation->date }}</td>
+            @unless(Auth::user()->profile)
             <td>{{ $violation->watchman->short_name() }}</td>
+            @endunless
             @if(Auth::user()->profile)
-            <td><a href="{{ route('violations.edit', ['violation' => $violation]) }}">E</a></td>
-            <td>
-              {{ Form::open([ 'method'  => 'delete', 'route' => [ 'violations.destroy', $violation] ]) }}
-              {{ Form::submit('X', ['class' => 'btn btn-danger']) }}
-              {{ Form::close() }}
-            </td>
+            <td><a href="{{ route('violations.edit', ['violation' => $violation]) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+            <td><a href="{{ route('violations.destroy', ['violation' => $violation]) }}"><span class="glyphicon glyphicon-remove"></span></a></td>
             @endif
           </tr>
         @endforeach
