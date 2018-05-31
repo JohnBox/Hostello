@@ -14,11 +14,11 @@ class ViolationSeeder extends Seeder
         foreach (Liver::all() as $liver) {
             $violation = $watchman->violations()->create([
                 'description' => 'KEK',
-                'date_of_charge' => date('Y-m-d'),
+                'date' => date('Y-m-d'),
                 'hostel_id' => $watchman->hostel->id
             ]);
             $pivot = [
-                'penalty' => 100,
+                'price' => 100,
                 'paid' => rand(0,1) > 0.5 ? null : date('Y-m-d')
             ];
             $liver->violations()->attach($violation, $pivot);

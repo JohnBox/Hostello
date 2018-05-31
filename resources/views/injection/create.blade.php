@@ -26,7 +26,7 @@
                   <div class='info'>
                     <h3>
                       @foreach($room->livers as $room_liver)
-                        {{ $room_liver->short_full_name() }}
+                        {{ $room_liver->short_name() }}
                         @if($room_liver->group)
                           {{ $room_liver->group->name }}
                         @endif

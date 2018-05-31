@@ -42,12 +42,12 @@ class Liver extends Model
 
     function payments()
     {
-        return $this->belongsToMany('App\Models\Payment')->withPivot('live_price', 'paid');
+        return $this->belongsToMany('App\Models\Payment')->withPivot('price', 'paid');
     }
 
     function violations()
     {
-        return $this->belongsToMany('App\Models\Violation')->withPivot('penalty', 'paid');
+        return $this->belongsToMany('App\Models\Violation')->withPivot('price', 'paid');
     }
 
     function injections()
@@ -85,8 +85,8 @@ class Liver extends Model
         return $this->last_name . ' ' . $this->first_name . ' ' . $this->second_name;
     }
 
-    function short_full_name()
+    function short_name()
     {
-        return $this->last_name . ' ' . mb_substr($this->first_name, 0, 1) . ' ' . mb_substr($this->second_name, 0, 1);
+        return $this->last_name.' '.mb_substr($this->first_name, 0, 1).'. '.mb_substr($this->second_name, 0, 1).'.';
     }
 }

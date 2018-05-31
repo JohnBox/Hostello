@@ -13,17 +13,6 @@ use Illuminate\Support\Facades\Response;
 
 class ViolationController extends Controller
 {
-    public function autocomplete(Request $request)
-    {
-        $term = $request->get('term');
-        $violations = Violation::where('description', 'LIKE', "%$term%")->take(5)->get();
-        $results = array();
-        foreach ($violations as $violation)
-        {
-            $results[] = [ 'id' => $violation->id, 'value' => $violation->description];
-        }
-        return Response::json($results);
-    }
     public function index(Request $request)
     {
         $profile = $request->user()->profile;
@@ -31,7 +20,6 @@ class ViolationController extends Controller
             $hostels = null;
             $currentHostel = $profile->hostel;
             $violations = $profile->violations();
-
         } else {
             $hostels = Hostel::all();
             $currentHostel = $request->get('hostel')
@@ -41,7 +29,7 @@ class ViolationController extends Controller
         }
         $q = $request->get('q');
         if ($q) {
-            $violations = $violations->where('date_of_charge', '=', $q);
+            $violations = $violations->where('date', '=', $q);
         }
         $violations = $violations->orderBy('created_at', 'DESC')->paginate(config('app.paginated_by'));
         return view('violation.index', compact('violations', 'q', 'currentHostel', 'hostels'));
@@ -49,26 +37,21 @@ class ViolationController extends Controller
 
     public function create(Request $request)
     {
-        $watchman = $request->user()->profile;
-        return view('violation.create', ['livers' => Liver::all()]);
+        $livers = $request->user()->profile->hostel->livers;
+        return view('violation.create', compact('livers'));
     }
     public function store(Request $request)
     {
-        $watchman = $request->user()->profile;
-        $count = count($request->input('livers'));
-        $violation = $watchman->violations()->create([
+        $profile = $request->user()->profile;
+        $violation = $profile->violations()->create([
             'description' => $request->input('description'),
-            'date_of_charge' => date("Y-m-d"),
+            'date' => date("Y-m-d"),
+            'hostel_id' => $profile->hostel->id
         ]);
-        $pivot = [
-            'penalty' => $request->input('penalty'),
-            'paid' => rand(0,1) > 0.5 ? null : date('Y-m-d')
-        ];
-        foreach ($request->input('livers') as $id)
-        {
+        $pivot = ['price' => $request->input('price')];
+        foreach ($request->input('livers') as $id) {
             $liver = Liver::find($id);
             $liver->violations()->attach($violation, $pivot);
-            $violation->save();
         }
         return redirect()->route('violations.index');
     }
@@ -77,8 +60,7 @@ class ViolationController extends Controller
     {
         $paid = $request->get('paid');
         if ($paid == null) $paid = true;
-        $livers = $violation->livers()->wherePivot('paid', $paid)->paginate(config('app.paginated_by'));
-        
+        $livers = $violation->livers()->wherePivot('paid', $paid ? '<>' : '=', null)->paginate(config('app.paginated_by'));
         return view('violation.show', compact('violation', 'livers', 'paid'));
     }
 

@@ -8,35 +8,41 @@
         @method('PUT')
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="form-group required">
-          <label class="control-label col-md-2" for="name">Назва</label>
-          <div class="col-md-10">
-            <input type="text" class="form-control" id="name" name="name" value="{{ $hostel->name }}" required>
+          <div class="col-md-4">
+            <label class="control-label" for="name">Назва гутожитку</label>
+          </div>
+          <div class="col-md-8">
+            <input type="text" class="form-control" id="name" name="name" required value="{{ $hostel->name }}">
           </div>
         </div>
+
         <div class="form-group required">
-          <label class="control-label col-md-2" for="address">Адреса</label>
-          <div class="col-md-10">
-            <input type="text" class="form-control" id="address" name="address" value="{{ $hostel->address }}" required>
+          <div class="col-md-4">
+            <label class="control-label" for="address">Адреса гутожитку</label>
+          </div>
+          <div class="col-md-8">
+            <input type="text" class="form-control" id="address" name="address" required value="{{ $hostel->address }}">
           </div>
         </div>
+
         <div class="form-group required">
-          <label class="control-label col-md-2" for="phone">Телефон</label>
-          <div class="col-md-10">
-            <input type="text" class="form-control" id="phone" name="phone" value="{{ $hostel->phone }}" required>
+          <div class="col-md-4">
+            <label class="control-label" for="phone">Телефон гутожитку</label>
+          </div>
+          <div class="col-md-8">
+            <input type="text" class="form-control" id="phone" name="phone" required value="{{ $hostel->phone }}">
           </div>
         </div>
+
         <div class="form-group required">
-          <label class="control-label col-md-2" for="area">Площа</label>
-          <div class="col-md-10">
-            <input type="text" class="form-control" id="area" name="area" value="{{ $hostel->area }}" required>
+          <div class="col-md-4">
+            <label class="control-label" for="merchant">Мерчант</label>
           </div>
-        </div>
-        <div class="form-group required">
-          <label class="control-label col-md-2" for="merchant">Мерчант</label>
-          <div class="col-md-10">
+          <div class="col-md-8">
             <input type="text" class="form-control" id="merchant" name="merchant" value="{{ $hostel->merchant }}" required>
           </div>
         </div>
+
         <button type="submit" class="btn btn-default">Оновити</button>
       </form>
     </div>

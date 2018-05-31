@@ -2,7 +2,12 @@
 
 @section('content')
   <div class="panel panel-default">
-    <div class="panel-heading">Налаштування гуртожитку</div>
+    <div class="panel-heading">
+      <ol class="breadcrumb">
+        <li><a href="{{ route('hostels.index') }}">Налаштування гуртожитку</a></li>
+        <li class="active">{{ $hostel->name }}</li>
+      </ol>
+    </div>
     <div class="panel-body">
       @unless($university)
         <div class="alert alert-danger" role="alert">Університет не налаштовано.</div>
@@ -11,34 +16,33 @@
         <hr>
         <h4>Кімнати</h4>
         <hr>
-        <a class="btn btn-default" href="{{ route('rooms.create') }}?hostel={{ $hostel->id }}" role="button">Створити новий</a>
+        <a class="btn btn-default" href="{{ route('rooms.create') }}?hostel={{ $hostel->id }}" role="button">Створити</a>
         <br>
         <br>
         <table class="table table-striped table-hover">
           <tr>
-          <th>Номер</th>
-          <th>Поверх</th>
-          <th>Блок</th>
-          <td>Кількість місць</td>
-          <th></th>
-          <th></th>
+            <th>Номер</th>
+            <th>Поверх</th>
+            <th>Блок</th>
+            <td>Кількість мешканців</td>
+            <td>Кількість місць</td>
+            <th></th>
+            <th></th>
           </tr>
           @foreach($rooms as $room)
-              <tr>
-                <td>{{ $room->number }}</td>
-                <td>{{ $room->block->floor->number }}</td>
-                <td>{{ $room->block->number }}</td>
-                <td>{{ $room->liver_max }}</td>
-                <td><a href="{{ route('rooms.edit', ['rooms' => $room]) }}?hostel={{ $hostel->id }}">E</a></td>
-                <td>
-                  {{ Form::open([ 'method'  => 'delete', 'route' => [ 'rooms.destroy', $room] ]) }}
-                  {{ Form::submit('X', ['class' => 'btn btn-danger']) }}
-                  {{ Form::close() }}
-                </td>
-              </tr>
+            <tr>
+              <td><a href="{{ route('rooms.show', ['room' => $room]) }}">{{ $room->number }}</a></td>
+              <td>{{ $room->block->floor->number }}</td>
+              <td>{{ $room->block->number }}</td>
+              <td>{{ count($room->livers) }}</td>
+              <td>{{ $room->liver_max }}</td>
+              <td><a href="{{ route('rooms.edit', ['rooms' => $room]) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+              <td><a href="{{ route('rooms.destroy', ['rooms' => $room]) }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+            </tr>
           @endforeach
         </table>
-        @endunless
+        {{ $rooms->links() }}
+      @endunless
       </div>
     </div>
 @endsection

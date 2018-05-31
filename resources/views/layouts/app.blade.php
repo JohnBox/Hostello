@@ -8,7 +8,9 @@
 	<link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/jquery-ui.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
   <style>
     * {
 			font-family: Roboto;
@@ -39,7 +41,7 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 								@if(Auth::user())
 									@if(Auth::user()->profile)
-										{{ Auth::user()->profile->short_full_name() }}<span class="caret"></span>
+										{{ Auth::user()->profile->short_name() }}<span class="caret"></span>
 									@else
 										{{ Auth::user()->name }}
 									@endif
@@ -65,6 +67,7 @@
 	<script src="{{ asset('/js/jquery.min.js') }}"></script>
 	<script src="{{ asset('/js/jquery-ui.min.js') }}"></script>
 	<script src="{{ asset('/js/bootstrap.min.js') }}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 	@yield('script')
 </body>
 </html>

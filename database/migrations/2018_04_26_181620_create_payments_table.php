@@ -16,8 +16,7 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('hostel_id');
-            $table->integer('room_id');
-            $table->date('date_of_charge');
+            $table->date('date');
             $table->timestamps();
         });
     }

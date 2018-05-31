@@ -14,8 +14,8 @@
         <div class="form-group col-md-12">
           <label for="livers">Прізвище</label>
           <select class="form-control" name="livers[]" id="livers" multiple>
-            @foreach($livers as $l)
-              <option value="{{ $l->id }}">{{ $l->full_name() }}</option>
+            @foreach($livers as $liver)
+              <option value="{{ $liver->id }}">{{ $liver->full_name() }}</option>
             @endforeach
           </select>
         </div>
@@ -24,8 +24,8 @@
           <textarea class="form-control" id="description" name="description"></textarea>
         </div>
         <div class="form-group col-md-12">
-          <label for="penalty">Штраф з кожного участика</label>
-          <input type="number" class="form-control" id="penalty" name="penalty">
+          <label for="price">Штраф з кожного участика</label>
+          <input type="number" class="form-control" id="price" name="price">
         </div>
         <div class="form-group col-md-12">
           <button class="btn btn-default">Зберегти</button>
@@ -37,12 +37,13 @@
 
 @section('script')
   <script>
-    $('#penalty').on('keydown', function (e) {
-      if (e.key == 'Backspace')
+    $(document).ready(function(){
+        $('#livers').select2();
+    });
+    $('#price').on('keydown', function (e) {
+      if (e.key === 'Backspace')
         return true;
-      if ((e.key < '0' || e.key > '9'))
-        return false;
-      return true;
+      return (!(e.key < '0' || e.key > '9'));
     });
   </script>
 @endsection

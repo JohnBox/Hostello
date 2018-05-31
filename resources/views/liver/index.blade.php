@@ -50,41 +50,25 @@
       <table class="table table-striped">
         <tr>
           <th>Прізвище Ім’я По батькові</th>
+          <th>Кімната</th>
           <th>Дата народження</th>
           <th>Стать</th>
           <th>Студент</th>
-          <th>Кімната</th>
           @if(Auth::user()->profile)
           <th></th>
           <th></th>
           @endif
         </tr>
-            @foreach($livers as $liver)
+        @foreach($livers as $liver)
           <tr>
-            <td>
-              <a href="{{ route('livers.show', ['liver' => $liver]) }}">
-                {{ $liver->full_name() }}
-              </a>
-            </td>
+            <td><a href="{{ route('livers.show', ['liver' => $liver]) }}">{{ $liver->full_name() }}</a></td>
+            <td>@if($liver->room)<a href="{{ route('rooms.show', ['room' => $liver->room]) }}">{{ $liver->room->number }}</a>@else -@endif</td>
             <td>{{ $liver->birth_date }}</td>
             <td>@if($liver->gender) Чоловіча @else Жіноча @endif</td>
-            <td>
-              @if($liver->group)
-                {{ $liver->group->name }}
-              @else
-                -
-              @endif
-            </td>
-            <td>
-              @if($liver->room)
-                {{ $liver->room->number }}
-              @else
-                -
-              @endif
-            </td>
+            <td>@if($liver->group){{ $liver->group->name }}@else -@endif</td>
             @if(Auth::user()->profile)
-            <td><a href="{{ route('livers.edit', ['liver' => $liver]) }}"><span class="glyphicon glyphicon-edit"></span></a></td>
-            <td><a href="{{ route('livers.destroy', ['liver' => $liver]) }}"><span class="glyphicon glyphicon-minus"></span></a></td>
+            <td><a href="{{ route('livers.edit', ['liver' => $liver]) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+            <td><a href="{{ route('livers.destroy', ['liver' => $liver]) }}"><span class="glyphicon glyphicon-remove"></span></a></td>
             @endif
           </tr>
         @endforeach

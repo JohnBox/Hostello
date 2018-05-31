@@ -6,8 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
-    protected $fillable = ['number', 'liver_max', 'area', 'live_price', 'live_price_summer', 'block_id'];
+    protected $fillable = ['number', 'liver_max', 'price', 'price_summer', 'block_id', 'hostel_id'];
     public $timestamps = false;
+
+    function hostel()
+    {
+        return $this->belongsTo('App\Models\Hostel');
+    }
 
     function block()
     {
@@ -17,11 +22,6 @@ class Room extends Model
     function livers()
     {
         return $this->hasMany('App\Models\Liver');
-    }
-
-    function payments()
-    {
-        return $this->hasMany('App\Models\Payment');
     }
 
     function injections()

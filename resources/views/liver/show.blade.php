@@ -27,7 +27,6 @@
         </li>
       </ul>
       <br>
-      <br>
       @if($page == 'profile')
       <div class="show">
         <div class="form-group col-md-12">
@@ -134,8 +133,8 @@
           </tr>
           @foreach($liver->payments as $payment)
             <tr>
-              <td>{{ $payment->date_of_charge }}</td>
-              <td>{{ $payment->pivot->live_price }}</td>
+              <td>{{ $payment->date}}</td>
+              <td>{{ $payment->pivot->price }}</td>
               <td>@if($payment->pivot->paid){{ $payment->pivot->paid }}@else -@endif</td>
             </tr>
           @endforeach
@@ -144,6 +143,7 @@
         <table class="table table-striped">
           <tr>
             <th>Опис</th>
+            <th>Комендант</th>
             <th>Дата</th>
             <th>Штраф</th>
             <th>Сплачено</th>
@@ -151,8 +151,9 @@
           @foreach($liver->violations as $violation)
             <tr>
               <td><a href="{{ route('violations.show', ['violation' => $violation]) }}">{{ $violation->description }}</a></td>
-              <td>{{ $violation->date_of_charge }}</td>
-              <td>{{ $violation->pivot->penalty }}</td>
+              <td>{{ $violation->watchman->short_name() }}</td>
+              <td>{{ $violation->date }}</td>
+              <td>{{ $violation->pivot->price }}</td>
               <td>
                 @if($violation->pivot->paid)
                   {{ $violation->pivot->paid }}
@@ -166,34 +167,30 @@
       @elseif($page == 'injections')
         <table class="table table-striped">
           <tr>
-            <th>Дата</th>
             <th>Кімната</th>
             <th>Комендант</th>
+            <th>Дата</th>
           </tr>
           @foreach($liver->injections as $injection)
             <tr>
+              <td><a href="{{ route('rooms.show', ['room' => $injection->room]) }}">{{ $injection->room->number }}</a></td>
+              <th>{{ $injection->watchman->short_name() }}</th>
               <td>{{ $injection->date }}</td>
-              <td>{{ $injection->room->number }}</td>
-              <th>{{ $injection->watchman->short_full_name() }}</th>
             </tr>
           @endforeach
         </table>
       @elseif($page == 'ejections')
         <table class="table table-striped">
           <tr>
-            <th>Дата</th>
             <th>Кімната</th>
-            @unless(Auth::user()->profile)
             <th>Комендант</th>
-            @endunless
+            <th>Дата</th>
           </tr>
           @foreach($liver->ejections as $ejection)
             <tr>
+              <td><a href="{{ route('rooms.show', ['room' => $ejection->room]) }}">{{ $ejection->room->number }}</a></td>
+              <th>{{ $ejection->watchman->short_name() }}</th>
               <td>{{ $ejection->date }}</td>
-              <td>{{ $ejection->room->number }}</td>
-              @unless(Auth::user()->profile)
-              <th>{{ $ejection->watchman->short_full_name() }}</th>
-              @endunless
             </tr>
           @endforeach
         </table>

@@ -15,11 +15,12 @@ class CreateRoomsTable extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('hostel_id');
+            $table->integer('block_id');
             $table->integer('number');
             $table->integer('liver_max');
-            $table->float('live_price');
-            $table->float('live_price_summer');
-            $table->integer('block_id');
+            $table->float('price');
+            $table->float('price_summer');
         });
     }
 

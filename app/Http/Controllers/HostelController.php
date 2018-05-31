@@ -39,10 +39,9 @@ class HostelController extends Controller
         $blockCount = $input['block_count'];
         $roomCount = $input['room_count'];
         $liverCount = $input['liver_count'];
-        $roomArea = $input['room_area'];
         $roomPrice = $input['room_price'];
         $roomPriceSummer = $input['room_price_summer'];
-        $input = $request->only(['name', 'address', 'phone', 'area', 'merchant']);
+        $input = $request->only(['name', 'address', 'phone', 'merchant']);
         $hostel = new Hostel($input);
         $university->hostels()->save($hostel);
         foreach (range(1, $floorCount) as $floorNumber) {
@@ -57,9 +56,9 @@ class HostelController extends Controller
                     $room = new Room([
                         'number' => $floor->number * 100 + $roomNumber,
                         'liver_max' => $liverCount,
-                        'area' => $roomArea,
-                        'live_price' => $roomPrice,
-                        'live_price_summer' => $roomPriceSummer,
+                        'price' => $roomPrice,
+                        'price_summer' => $roomPriceSummer,
+                        'hostel_id' => $hostel->id
                     ]);
                     $block->rooms()->save($room);
                     $room->save();
@@ -74,18 +73,7 @@ class HostelController extends Controller
     public function show(Hostel $hostel)
     {
         $university = University::first();
-        $rooms = [];
-        foreach ($hostel->floors as $floor) {
-            foreach ($floor->blocks as $block) {
-                foreach ($block->rooms as $room) {
-                    $rooms[] = $room;
-                }
-            }
-        }
-//        ob_start();
-//        var_dump($rooms);
-//        return ob_get_clean();
-        return view('hostel.show', ['rooms' => $rooms, 'hostel' => $hostel, 'university' => $university]);
+        return view('hostel.show', ['rooms' => $hostel->rooms()->orderBy('number')->paginate(config('app.paginated_by')), 'hostel' => $hostel, 'university' => $university]);
     }
 
     public function edit(Hostel $hostel)
@@ -96,7 +84,7 @@ class HostelController extends Controller
 
     public function update(Request $request, Hostel $hostel)
     {
-        $input = $request->only(['name', 'address', 'phone', 'area', 'merchant']);
+        $input = $request->only(['name', 'address', 'phone', 'merchant']);
         $hostel->fill($input);
         $hostel->save();
         return redirect()->route('hostels.index');

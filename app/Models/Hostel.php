@@ -6,8 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Hostel extends Model
 {
-    protected $fillable = ['name', 'address', 'phone', 'area', 'merchant', 'university_id'];
+    protected $fillable = ['name', 'address', 'phone', 'merchant', 'university_id'];
     public $timestamps = false;
+
+    function university()
+    {
+        return $this->belongsTo('App\Models\University');
+    }
 
     function watchmen()
     {
@@ -22,6 +27,11 @@ class Hostel extends Model
     function livers()
     {
         return $this->hasMany('App\Models\Liver');
+    }
+
+    function rooms()
+    {
+        return $this->hasMany('App\Models\Room');
     }
 
     function violations()

@@ -11,62 +11,62 @@
         <hr>
         <h4>Гуртожитки</h4>
         <hr>
-        <a class="btn btn-default" href="{{ route('hostels.create') }}" role="button">Створити новий</a>
+        <a class="btn btn-default" href="{{ route('hostels.create') }}" role="button">Створити</a>
         <br>
         <br>
         <table class="table table-striped table-hover">
-          <th>
-            <td>Назва</td>
-            <td>Адреса</td>
-            <td>Телефон</td>
-            <td></td>
-            <td></td>
-          </th>
+          <tr>
+            <th>Назва</th>
+            <th>Адреса</th>
+            <th>Телефон</th>
+            <th></th>
+            <th></th>
+          </tr>
             @foreach($hostels as $hostel)
               <tr>
-                <td></td>
                 <td><a href="{{ route('hostels.show', ['hostel' => $hostel]) }}">{{$hostel->name}}</a></td>
                 <td>{{$hostel->address}}</td>
                 <td>{{$hostel->phone}}</td>
-                <td><a href="{{ route('hostels.edit', ['hostel' => $hostel]) }}">E</a></td>
-                <td>
-                  {{ Form::open([ 'method'  => 'delete', 'route' => [ 'hostels.destroy', $hostel] ]) }}
-                  {{ Form::submit('X', ['class' => 'btn btn-danger']) }}
-                  {{ Form::close() }}
-                </td>
+                <td><a href="{{ route('hostels.edit', ['hostel' => $hostel]) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                <td><a class="delete_hostel" rid="{{$hostel->id}}"><span class="glyphicon glyphicon-remove"></span></a></td>
               </tr>
             @endforeach
           </table>
         <hr>
         <h4>Коменданти</h4>
         <hr>
-        <a class="btn btn-default" href="{{ route('watchmen.create') }}" role="button">Створити новий</a>
+        <a class="btn btn-default" href="{{ route('watchmen.create') }}" role="button">Створити</a>
         <br>
         <br>
         <table class="table table-striped table-hover">
-          <th>
-          <td>Імя</td>
-          <td>Гуртожиток</td>
-          <td>Телефон</td>
-          <td></td>
-          <td></td>
-          </th>
+          <tr>
+            <th>Імя</th>
+            <th>Гуртожиток</th>
+            <th>Телефон</th>
+            <th></th>
+            <th></th>
+          </tr>
           @foreach($watchmen as $watchman)
             <tr>
-              <td></td>
-              <td>{{ $watchman->short_full_name() }}</td>
+              <td>{{ $watchman->short_name() }}</td>
               <td>{{ $watchman->hostel->name }}</td>
               <td>{{ $watchman->phone }}</td>
-              <td><a href="{{ route('watchmen.edit', ['watchman' => $watchman]) }}">E</a></td>
-              <td>
-                {{ Form::open([ 'method'  => 'delete', 'route' => [ 'watchmen.destroy', $watchman] ]) }}
-                {{ Form::submit('X', ['class' => 'btn btn-danger']) }}
-                {{ Form::close() }}
-              </td>
+              <td><a href="{{ route('watchmen.edit', ['watchman' => $watchman]) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+              <td><a href="{{ route('watchmen.destroy', ['watchman' => $watchman]) }}"><span class="glyphicon glyphicon-remove"></span></a></td>
             </tr>
           @endforeach
         </table>
         @endunless
       </div>
     </div>
+@endsection
+
+@section('script')
+  <script>
+    $('a.delete_hostel').click(function (e) {
+        alert($(e.target).attr('rid'));
+        $('#hostel_id').val();
+        $('#delete_hostel')
+    });
+  </script>
 @endsection
