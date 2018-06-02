@@ -25,8 +25,12 @@ class InjectionController extends Controller
             $currentHostel = $request->get('hostel')
                 ? Hostel::find($request->get('hostel'))
                 : $hostels->first();
+            if (!$currentHostel) {
+                return redirect()->route('universities.index');
+            }
             $injections = $currentHostel->injections();
         }
+
         if ($request->get('q')) {
             $injections = $injections->where('room_id','=', $request->get('q'));
         }

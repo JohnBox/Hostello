@@ -25,8 +25,12 @@ class ViolationController extends Controller
             $currentHostel = $request->get('hostel')
                 ? Hostel::find($request->get('hostel'))
                 : $hostels->first();
+            if (!$currentHostel) {
+                return redirect()->route('universities.index');
+            }
             $violations = $currentHostel->violations();
         }
+
         $q = $request->get('q');
         if ($q) {
             $violations = $violations->where('date', '=', $q);
@@ -52,6 +56,8 @@ class ViolationController extends Controller
         foreach ($request->input('livers') as $id) {
             $liver = Liver::find($id);
             $liver->violations()->attach($violation, $pivot);
+            $liver->balance -= $pivot['price'];
+            $liver->save();
         }
         return redirect()->route('violations.index');
     }

@@ -19,9 +19,10 @@ class PaymentSeeder extends Seeder
             foreach ($hostel->livers as $liver) {
                 $pivot = [
                     'price' => $liver->room->price,
-                    'paid' => rand(0, 1) > 0.5 ? null : date('Y-m-d')
                 ];
                 $liver->payments()->attach($payment, $pivot);
+                $liver->balance -= $pivot['price'];
+                $liver->save();
             }
         }
     }

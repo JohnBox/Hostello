@@ -22,8 +22,12 @@ class EjectionController extends Controller
             $currentHostel = $request->get('hostel')
                 ? Hostel::find($request->get('hostel'))
                 : $hostels->first();
+            if (!$currentHostel) {
+                return redirect()->route('universities.index');
+            }
             $ejections = $currentHostel->ejections();
         }
+
         if ($request->get('q')) {
             $ejections = $ejections->where('room_id','=', $request->get('q'));
         }

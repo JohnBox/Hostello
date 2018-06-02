@@ -40,6 +40,9 @@ class PaymentController extends Controller
         $currentHostel = $request->get('hostel')
             ? Hostel::find($request->get('hostel'))
             : $hostels->first();
+        if (!$currentHostel) {
+            return redirect()->route('universities.index');
+        }
         $payments = $currentHostel->payments();
         $q = $request->get('q');
         if ($q) {

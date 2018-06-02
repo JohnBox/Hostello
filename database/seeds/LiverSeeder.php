@@ -24,9 +24,9 @@ class LiverSeeder extends Seeder
                     'hostel_id' => $room->block->floor->hostel->id
                 ]);
                 $liver->user()->create([
-                    'name' => 'user'  ,
+                    'name' => 'user'.($i+1),
                     'email' => 'user' . $liver->id . '@gmail.com',
-                    'password' => Hash::make('user'),
+                    'password' => Hash::make('user'.($i+1)),
                 ]);
         }
     }

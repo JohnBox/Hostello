@@ -44,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('profile/violations', 'ProfileController@violations')->name('profile.violations');
     Route::get('profile/injections', 'ProfileController@injections')->name('profile.injections');
     Route::get('profile/ejections', 'ProfileController@ejections')->name('profile.ejections');
+    Route::get('profile/pay', 'ProfileController@pay')->name('profile.pay');
     Route::resource('profile', 'ProfileController');
 
 

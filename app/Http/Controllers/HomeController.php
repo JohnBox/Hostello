@@ -24,6 +24,8 @@ class HomeController extends Controller
         $profile = Auth::user()->profile;
         if ($profile && get_class($profile) == 'App\Models\Liver') {
             return redirect()->route('profile.index');
+        } elseif (true) {
+
         }
         return redirect()->route('livers.index');
     }

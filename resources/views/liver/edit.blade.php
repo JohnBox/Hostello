@@ -9,7 +9,7 @@
       </ol>
     </div>
     <div class="panel-body">
-      <form method="POST" action="{{ route('livers.update', ['liver' => $liver]) }}">
+      <form action="{{ route('livers.update', ['liver' => $liver]) }}">
         @method('PUT')
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="col-md-12">
@@ -63,7 +63,7 @@
             <input type="tel" class="form-control" name="phone" id="phone" value="{{ $liver->phone }}" required>
           </div>
         </div>
-        @if($liver->is_student)
+        @if($liver->group)
           <div class="col-md-12" id="select-group">
             <div class="form-group col-md-4">
               <label for="faculty_id">Факультет</label>
@@ -142,6 +142,14 @@
           group.find('option[class!="s' + specialty_id + '"]').hide();
           group.val('-');
           group.attr('disabled', false);
+      });
+      student.change(function (e) {
+          let is_student = e.target.value;
+          if (is_student) {
+              select.show();
+          } else {
+              select.hide();
+          }
       })
   </script>
 @endsection
