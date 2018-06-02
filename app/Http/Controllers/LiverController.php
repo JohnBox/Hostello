@@ -56,6 +56,9 @@ class LiverController extends Controller
                 ? Hostel::find($request->get('hostel'))
                 : $hostels->first();
         }
+        if (!$currentHostel) {
+            return redirect()->route('universities.index');
+        }
         $state = $request->get('state');
         switch ($state) {
             case 'active':

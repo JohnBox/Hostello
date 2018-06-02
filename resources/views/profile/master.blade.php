@@ -1,35 +1,11 @@
 @extends('layouts.app')
 
 @section('nav')
-  <div class="navbar-header">
-    <a class="navbar-brand" href="{{ url('/') }}">{{ Auth::user()->profile->hostel->name}}</a>
-  </div>
-
-  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <div class="row">
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="{{ route('liver.profile') }}">Профіль</a></li>
-      <li class=""><a href="{{ route('liver.payments') }}">Нарахування</a></li>
-      <li class=""><a href="{{ route('liver.violations') }}">Порушення</a></li>
-      <li class=""><a href="{{ route('liver.injections') }}">Заселення</a></li>
-      <li class=""><a href="{{ route('liver.ejections') }}">Виселення</a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      @if (Auth::guest())
-        <li><a href="{{ url('/login') }}">Війти</a></li>
-      @else
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="{{ url('/logout') }}">Вийти</a></li>
-          </ul>
-        </li>
-      @endif
-    </ul>
-  </div>
-  </div>
-
-
+  <li @if($page == 'index') class="active"@endif><a href="{{ route('profile.index') }}">Профіль</a></li>
+  <li @if($page == 'payments') class="active"@endif><a href="{{ route('profile.payments') }}">Нарахування</a></li>
+  <li @if($page == 'violations') class="active"@endif><a href="{{ route('profile.violations') }}">Порушення</a></li>
+  <li @if($page == 'injections') class="active"@endif><a href="{{ route('profile.injections') }}">Заселення</a></li>
+  <li @if($page == 'ejections') class="active"@endif><a href="{{ route('profile.ejections') }}">Виселення</a></li>
 @endsection
 
 @section('content')
