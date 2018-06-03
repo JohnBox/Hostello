@@ -63,7 +63,11 @@
               <tr>
                 <td>{{$faculty->name}}</td>
                 <td><a href="{{ route('faculties.edit', ['$faculty' => $faculty]) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                <td><a href="{{ route('faculties.destroy', ['$faculty' => $faculty]) }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+                <td>
+                  {!! Form::open(['method' => 'Delete', 'route' => ['faculties.destroy', $faculty->id]]) !!}
+                  <button style="border: none; background-color: transparent;color: #428bca;" type="submit"><span class="glyphicon glyphicon-remove"></span></button>
+                  {!! Form::close() !!}
+                </td>
               </tr>
             @endforeach
           </table>
@@ -87,7 +91,11 @@
               <td>{{ $specialty->faculty->short_name() }}</td>
               <td>{{ $specialty->years_of_study }}</td>
               <td><a href="{{ route('specialties.edit', ['specialty' => $specialty]) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
-              <td><a href="{{ route('specialties.destroy', ['specialty' => $specialty]) }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+              <td>
+                {!! Form::open(['method' => 'Delete', 'route' => ['specialties.destroy', $specialty->id]]) !!}
+                <button style="border: none; background-color: transparent;color: #428bca;" type="submit"><span class="glyphicon glyphicon-remove"></span></button>
+                {!! Form::close() !!}
+              </td>
             </tr>
           @endforeach
         </table>
@@ -111,7 +119,10 @@
               <td>{{ $group->course->number }}</td>
               <td>{{ $group->course->specialty->name }}</td>
               <td><a href="{{ route('groups.edit', ['group' => $group]) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
-              <td><a href="{{ route('groups.destroy', ['group' => $group]) }}"><span class="glyphicon glyphicon-remove"></span></a>
+              <td>
+                {!! Form::open(['method' => 'Delete', 'route' => ['groups.destroy', $group->id]]) !!}
+                <button style="border: none; background-color: transparent;color: #428bca;" type="submit"><span class="glyphicon glyphicon-remove"></span></button>
+                {!! Form::close() !!}
               </td>
             </tr>
           @endforeach
