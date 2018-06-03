@@ -2,9 +2,7 @@
 
 @section('nav')
     <li class="active"><a href="{{ route('livers.index') }}">Проживаючі</a></li>
-    @if(Auth::user()->profile)
     <li><a href="{{ route('rooms.index') }}">Кімнати</a></li>
-    @endif
     @unless(Auth::user()->profile)
     <li><a href="{{ route('payments.index') }}">Нарахування</a></li>
     @endunless

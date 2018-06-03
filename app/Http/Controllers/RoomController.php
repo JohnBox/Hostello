@@ -35,13 +35,26 @@ class RoomController extends Controller
 
     public function index(Request $request)
     {
+        $profile = $request->user()->profile;
+        if ($profile) {
+            $hostels = null;
+            $currentHostel = $profile->hostel;
+        } else {
+            $hostels = Hostel::all();
+            $currentHostel = $request->get('hostel')
+                ? Hostel::find($request->get('hostel'))
+                : $hostels->first();
+        }
+        if (!$currentHostel) {
+            return redirect()->route('universities.index');
+        }
         $floor = Floor::find($request->get('floor'));
-        $hostel = $request->user()->profile->hostel;
-        $currentFloor = $floor ? $floor : (count($hostel->floors) ? $hostel->floors[0] : null);
-        return view('room.index', [
-            'hostel' => $hostel,
-            'current' => $currentFloor
-        ]);
+        $currentFloor = $floor
+            ? $floor
+            : (count($currentHostel->floors)
+                ? $currentHostel->floors[0]
+                : null);
+        return view('room.index', compact('hostels', 'currentHostel', 'currentFloor'));
     }
 
 

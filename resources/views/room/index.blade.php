@@ -4,14 +4,27 @@
   <div class="panel panel-default">
     <div class="panel-heading">Кімнати</div>
     <div class="panel-body">
+      @if($hostels)
+      <form class="form-inline" id="search_form" action="{{ route('rooms.index') }}" method="get">
+        <div class="form-group">
+            <label for="hostel" class="control-label">Гуртожиток</label>
+            <select name="hostel" id="hostel" class="form-control">
+              @foreach($hostels as $hostel)
+                <option value="{{ $hostel->id}}" @if($currentHostel->id == $hostel->id) selected @endif>{{ $hostel->name }}</option>
+              @endforeach
+            </select>
+        </div>
+      </form>
+      <br>
+      @endif
       <ul class="nav nav-tabs">
-        @foreach($hostel->floors as $floor)
-          <li role="presentation" @if ($current == $floor) class="active" @endif>
-            <a href="{{ route('rooms.index', ['floor' => $floor->id]) }}">Поверх {{$floor->number}}</a>
+        @foreach($currentHostel->floors as $floor)
+          <li role="presentation" @if ($currentFloor->id == $floor->id) class="active" @endif>
+            <a href="{{ route('rooms.index', ['hostel' => $currentHostel->id, 'floor' => $floor->id]) }}">Поверх {{$floor->number}}</a>
           </li>
         @endforeach
       </ul>
-      @foreach($current->blocks as $block)
+      @foreach($currentFloor->blocks as $block)
         <div class="block">
           <h3 class="text-left">Блок {{ $block->number }}</h3>
           <div class="room_container">
@@ -24,15 +37,15 @@
                   </span>
                 </a>
                 <div class='info'>
-                  <h3>
+                  <h4>
                     @foreach($room->livers as $liver)
                       {{ $liver->short_name() }}
-                      @if($liver->is_student && $liver->group)
+                      @if($liver->group)
                         {{ $liver->group->name }}
                       @endif
                       <br/>
                     @endforeach
-                  </h3>
+                  </h4>
                 </div>
               </li>
               @endforeach
@@ -43,7 +56,6 @@
         @endforeach
       </div>
     </div>
-  </div>
 @endsection
 
 @section('script')
@@ -110,6 +122,9 @@
       }, false);
     });
 
+    });
+    $('#hostel').change(function (e) {
+        $('#search_form').submit();
     });
   </script>
 @endsection
