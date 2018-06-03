@@ -48,7 +48,9 @@
 								@endif
 							</a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="{{ url('/logout') }}">Вийти</a></li>
+								<li><a href="{{ route('changePassword') }}">Змінити пароль</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="{{ route('logout') }}">Вийти</a></li>
 							</ul>
 						</li>
 				</ul>

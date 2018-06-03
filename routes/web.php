@@ -54,8 +54,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('profile', 'ProfileController');
 
     Route::get('', 'HomeController@index')->name('home');
+    Route::get('changePassword', 'HomeController@changePassword');
+    Route::post('changePassword', 'HomeController@changePassword')->name('changePassword');
 
-    Route::get('logout', 'Auth\LoginController@logout');
+    Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 });
 
 Auth::routes();
