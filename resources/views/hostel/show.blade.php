@@ -37,7 +37,11 @@
               <td>{{ count($room->livers) }}</td>
               <td>{{ $room->liver_max }}</td>
               <td><a href="{{ route('rooms.edit', ['rooms' => $room]) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
-              <td><a href="{{ route('rooms.destroy', ['rooms' => $room]) }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+              <td>
+                {!! Form::open(['method' => 'Delete', 'route' => ['rooms.destroy', $room->id]]) !!}
+                <button style="border: none; background-color: transparent;color: #428bca;" type="submit"><span class="glyphicon glyphicon-remove"></span></button>
+                {!! Form::close() !!}
+              </td>
             </tr>
           @endforeach
         </table>

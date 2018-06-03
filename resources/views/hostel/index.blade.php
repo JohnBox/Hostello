@@ -28,7 +28,11 @@
                 <td>{{$hostel->address}}</td>
                 <td>{{$hostel->phone}}</td>
                 <td><a href="{{ route('hostels.edit', ['hostel' => $hostel]) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                <td><a class="delete_hostel" rid="{{$hostel->id}}"><span class="glyphicon glyphicon-remove"></span></a></td>
+                <td>
+                  {!! Form::open(['method' => 'Delete', 'route' => ['hostels.destroy', $hostel->id]]) !!}
+                  <button style="border: none; background-color: transparent;color: #428bca;" type="submit"><span class="glyphicon glyphicon-remove"></span></button>
+                  {!! Form::close() !!}
+                </td>
               </tr>
             @endforeach
           </table>
@@ -52,21 +56,15 @@
               <td>{{ $watchman->hostel->name }}</td>
               <td>{{ $watchman->phone }}</td>
               <td><a href="{{ route('watchmen.edit', ['watchman' => $watchman]) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
-              <td><a href="{{ route('watchmen.destroy', ['watchman' => $watchman]) }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+              <td>
+                {!! Form::open(['method' => 'Delete', 'route' => ['watchmen.destroy', $watchman->id]]) !!}
+                <button style="border: none; background-color: transparent;color: #428bca;" type="submit"><span class="glyphicon glyphicon-remove"></span></button>
+                {!! Form::close() !!}
+              </td>
             </tr>
           @endforeach
         </table>
         @endunless
       </div>
     </div>
-@endsection
-
-@section('script')
-  <script>
-    $('a.delete_hostel').click(function (e) {
-        alert($(e.target).attr('rid'));
-        $('#hostel_id').val();
-        $('#delete_hostel')
-    });
-  </script>
 @endsection

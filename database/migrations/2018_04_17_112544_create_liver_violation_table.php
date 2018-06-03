@@ -15,9 +15,11 @@ class CreateLiverViolationTable extends Migration
     {
         Schema::create('liver_violation', function (Blueprint $table) {
             $table->integer('liver_id')->unsigned();
-            $table->foreign('liver_id')->references('id')->on('livers');
+            $table->foreign('liver_id')->references('id')->on('livers')
+                ->onDelete('cascade');
             $table->integer('violation_id')->unsigned();
-            $table->foreign('violation_id')->references('id')->on('violations');
+            $table->foreign('violation_id')->references('id')->on('violations')
+                ->onDelete('cascade');
             $table->float('price');
             $table->date('paid')->nullable();
         });

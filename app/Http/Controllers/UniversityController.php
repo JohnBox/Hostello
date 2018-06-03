@@ -53,12 +53,5 @@ class UniversityController extends Controller
         $university->fill($input);
         $university->save();
         return redirect()->route('universities.index');
-
     }
-
-
-
-
-
-
 }
