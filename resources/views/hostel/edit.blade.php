@@ -36,10 +36,19 @@
 
         <div class="form-group required">
           <div class="col-md-4">
-            <label class="control-label" for="merchant">Мерчант</label>
+            <label class="control-label" for="merchant_id">Мерчант акаунт</label>
           </div>
           <div class="col-md-8">
-            <input type="text" class="form-control" id="merchant" name="merchant" value="{{ $hostel->merchant }}" required>
+            <input type="text" class="form-control" id="merchant_id" name="merchant_id" value="{{ $hostel->merchant_id }}" required>
+          </div>
+        </div>
+
+        <div class="form-group required">
+          <div class="col-md-4">
+            <label class="control-label" for="merchant_password">Мерчант пароль</label>
+          </div>
+          <div class="col-md-8">
+            <input type="text" class="form-control" id="merchant_password" name="merchant_password" value="{{ $hostel->merchant_password }}" required>
           </div>
         </div>
 

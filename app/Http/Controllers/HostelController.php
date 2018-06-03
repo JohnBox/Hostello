@@ -41,7 +41,7 @@ class HostelController extends Controller
         $liverCount = $input['liver_count'];
         $roomPrice = $input['room_price'];
         $roomPriceSummer = $input['room_price_summer'];
-        $input = $request->only(['name', 'address', 'phone', 'merchant']);
+        $input = $request->only(['name', 'address', 'phone', 'merchant_id', 'merchant_password']);
         $hostel = new Hostel($input);
         $university->hostels()->save($hostel);
         foreach (range(1, $floorCount) as $floorNumber) {
@@ -84,7 +84,7 @@ class HostelController extends Controller
 
     public function update(Request $request, Hostel $hostel)
     {
-        $input = $request->only(['name', 'address', 'phone', 'merchant']);
+        $input = $request->only(['name', 'address', 'phone', 'merchant_id', 'merchant_password']);
         $hostel->fill($input);
         $hostel->save();
         return redirect()->route('hostels.index');
