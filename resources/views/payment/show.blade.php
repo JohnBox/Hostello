@@ -32,7 +32,7 @@
           <th>Проживання</th>
           <th>Сплачено</th>
         </tr>
-        @foreach($payment->livers as $liver)
+        @foreach($livers as $liver)
           @if($paid && $liver->pivot->paid)
             <tr>
               <td><a href="{{ route('livers.show', ['liver' => $liver]) }}">{{ $liver->full_name() }}</a></td>
@@ -48,7 +48,13 @@
           @endif
         @endforeach
       </table>
-      {{ $livers->links() }}
+      @if($paid)
+        {{ $livers->appends(['paid' => 1])->links() }}
+      @elseif(!$paid)
+        {{ $livers->appends(['paid' => 0])->links() }}
+      @else
+        {{ $livers->links() }}
+      @endif
     </div>
   </div>
 @endsection
