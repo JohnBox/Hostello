@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFloorsTable extends Migration
+class CreateCoursesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateFloorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('floors', function (Blueprint $table) {
+        Schema::create('courses', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('hostel_id');
             $table->integer('number');
+            $table->integer('specialty_id')->unsigned();
+            $table->foreign('specialty_id')->references('id')->on('specialties')
+                ->onDelete('cascade');
         });
     }
 
@@ -27,6 +29,6 @@ class CreateFloorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('floors');
+        Schema::dropIfExists('courses');
     }
 }

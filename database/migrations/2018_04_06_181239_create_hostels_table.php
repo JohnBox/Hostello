@@ -15,12 +15,14 @@ class CreateHostelsTable extends Migration
     {
         Schema::create('hostels', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('university_id');
             $table->string('name');
             $table->string('address');
             $table->string('phone');
             $table->string('merchant_id');
             $table->string('merchant_password');
+            $table->integer('university_id')->unsigned();
+            $table->foreign('university_id')->references('id')->on('universities')
+                ->onDelete('cascade');
         });
     }
 

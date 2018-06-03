@@ -15,9 +15,12 @@ class CreateSpecialtiesTable extends Migration
     {
         Schema::create('specialties', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('faculty_id');
             $table->string('name');
             $table->integer('years_of_study');
+            $table->integer('faculty_id')->unsigned();
+            $table->foreign('faculty_id')->references('id')->on('faculties')
+                ->onDelete('cascade');
+
         });
     }
 

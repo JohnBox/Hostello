@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBlocksTable extends Migration
+class CreateFacultiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateBlocksTable extends Migration
      */
     public function up()
     {
-        Schema::create('blocks', function (Blueprint $table) {
+        Schema::create('faculties', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('floor_id');
-            $table->integer('number');
+            $table->string('name');
+            $table->integer('university_id')->unsigned();
+            $table->foreign('university_id')->references('id')->on('universities')
+                ->onDelete('cascade');
         });
     }
 
@@ -27,6 +29,6 @@ class CreateBlocksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blocks');
+        Schema::dropIfExists('faculties');
     }
 }

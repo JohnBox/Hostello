@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInjectionsTable extends Migration
+class CreateGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateInjectionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('injections', function (Blueprint $table) {
+        Schema::create('groups', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('hostel_id');
-            $table->integer('watchman_id');
-            $table->integer('liver_id');
-            $table->integer('room_id');
-            $table->date('date');
+            $table->string('name');
+            $table->string('leader');
+            $table->string('phone');
+            $table->integer('course_id')->unsigned();
+            $table->foreign('course_id')->references('id')->on('courses')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ class CreateInjectionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('injections');
+        Schema::dropIfExists('groups');
     }
 }
