@@ -114,9 +114,13 @@ class LiverController extends Controller
     }
     public function update(Request $request, Liver $liver)
     {
+        $student = (bool)$request->input('is_student');
         $input = $request->except(['specialty_id', 'faculty_id', 'group_id', 'is_student']);
-        if ($request->input('is_student') == '1')
+        if ($student) {
             $input['group_id'] = $request->input('group_id');
+        } else {
+            $liver->group()->dissociate();
+        }
         $liver->fill($input);
         $liver->save();
         return redirect()->route('livers.show', ['liver' => $liver]);

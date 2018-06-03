@@ -9,9 +9,9 @@
       </ol>
     </div>
     <div class="panel-body">
-      <form action="{{ route('livers.update', ['liver' => $liver]) }}">
-        @method('PUT')
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+      <form method="post" action="{{ route('livers.update', ['liver' => $liver]) }}">
+        {{ method_field('PUT') }}
+        {{ csrf_field() }}
         <div class="col-md-12">
           <div class="form-group col-md-4">
             <label for="last_name">Прізвище</label>
@@ -50,12 +50,12 @@
           <div class="form-group col-md-4">
             <label for="is_student">Студент</label>
             <div class="radio">
-              <label class="radio-inline"><input type="radio" class="is_student" name="is_student" value="1" @if($liver->is_student) checked @endif required>Так</label>
-              <label class="radio-inline"><input type="radio" class="is_student" name="is_student" value="0" @unless($liver->is_student) checked @endunless required>Ні</label>
+              <label class="radio-inline"><input type="radio" class="is_student" name="is_student" value="1" @if($liver->group) checked @endif required>Так</label>
+              <label class="radio-inline"><input type="radio" class="is_student" name="is_student" value="0" @unless($liver->group) checked @endunless required>Ні</label>
             </div>
           </div>
           <div class="form-group col-md-4">
-            <label for="doc_number" id="doc_number">Номер @if($liver->is_student) студентського квитка @else паспорта @endif</label>
+            <label for="doc_number" id="doc_number">Номер @if($liver->group) студентського квитка @else паспорта @endif</label>
             <input type="text" class="form-control" name="doc_number" id="doc_number" value="{{ $liver->doc_number }}" required>
           </div>
           <div class="form-group col-md-4">
@@ -64,7 +64,7 @@
           </div>
         </div>
         @if($liver->group)
-          <div class="col-md-12" id="select-group">
+          <div class="col-md-12" id="old-group">
             <div class="form-group col-md-4">
               <label for="faculty_id">Факультет</label>
               <select class="form-control" name="faculty_id" id="faculty_id">
@@ -100,6 +100,44 @@
               </select>
             </div>
           </div>
+        @else
+        <div class="col-md-12 hidden" id="new-group">
+          <div class="form-group col-md-4">
+            <label for="faculty_id">Факультет</label>
+            <select class="form-control" name="faculty_id" id="faculty_id">
+              <option value="-">-</option>
+              @foreach($university->faculties as $faculty)
+                <option value="{{ $faculty->id }}">{{ $faculty->name }}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="specialty_id">Спеціальність</label>
+            <select class="form-control" name="specialty_id" id="specialty_id">
+              <option value="-">-</option>
+              @foreach($university->faculties as $faculty)
+                @foreach($faculty->specialties as $specialty)
+                  <option class="f{{ $specialty->faculty->id }}" value="{{ $specialty->id }}">{{ $specialty->name }}</option>
+                @endforeach
+              @endforeach
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="group_id">Група</label>
+            <select class="form-control" name="group_id" id="group_id">
+              <option value="-">-</option>
+              @foreach($university->faculties as $faculty)
+                @foreach($faculty->specialties as $specialty)
+                  @foreach($specialty->courses as $course)
+                    @foreach($course->groups as $group)
+                      <option class="s{{ $group->course->specialty->id }}" value="{{ $group->id }}">{{ $group->name }}</option>
+                    @endforeach
+                  @endforeach
+                @endforeach
+              @endforeach
+            </select>
+          </div>
+        </div>
         @endif
         <div class="form-group col-md-12">
           <div class="col-md-12">
@@ -113,8 +151,10 @@
 
 @section('script')
   <script>
+      let edit_student = document.querySelector('input[name="is_student"]:checked').value;
+      let oldSelect = $('#old-group');
+      let newSelect = $('#new-group');
       let student = $('.is_student');
-      let select = $('#select-group');
       let doc = $('#doc_number');
       let faculty = $('#faculty_id');
       let faculty_id = faculty.val();
@@ -145,10 +185,22 @@
       });
       student.change(function (e) {
           let is_student = e.target.value;
-          if (is_student) {
-              select.show();
+          if (edit_student === '1') {
+              if (is_student === '1') {
+                  doc.text('Номер студентського квитка');
+                  oldSelect.show();
+              } else {
+                  doc.text('Номер паспорта');
+                  oldSelect.hide();
+              }
           } else {
-              select.hide();
+              if (is_student === '1') {
+                  doc.text('Номер студентського квитка');
+                  newSelect.removeClass('hidden');
+              } else {
+                  doc.text('Номер паспорта');
+                  newSelect.addClass('hidden');
+              }
           }
       })
   </script>
