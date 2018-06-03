@@ -13,7 +13,6 @@
             </div>
             <div class="col-md-9">
               <select name="floor_id" id="floor_id" class="form-control">
-                <option value="-">-</option>
                 @foreach($room->hostel->floors as $floor)
                   <option value="{{ $floor->id }}" @if($room->block->floor == $floor) selected @endif>{{ $floor->number }}</option>
                 @endforeach
@@ -26,7 +25,7 @@
               <label class="control-label" for="block_id">Блок</label>
             </div>
             <div class="col-md-9">
-              <select name="block_id" id="block_id" class="form-control" disabled>
+              <select name="block_id" id="block_id" class="form-control">
                 <option value="-">-</option>
                 @foreach($room->hostel->floors as $floor)
                   @foreach($floor->blocks as $block)
