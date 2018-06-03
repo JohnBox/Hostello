@@ -6,6 +6,7 @@
       <ol class="breadcrumb">
         <li><a href="{{ route('livers.index') }}">Проживаючі</a></li>
         <li class="active">{{ $liver->full_name() }}</li>
+        <li class="active" style="color: #a00;">{{ $liver->doc_number }}</li>
       </ol>
     </div>
     <div class="panel-body">
@@ -62,7 +63,7 @@
             <label for="is_student">Студент</label>
             <p class="form-control-static">@if($liver->group)Так @elseНі @endif</p>
           </div>
-          <div class="form-group col-md-4" style="background: #aaa;">
+          <div class="form-group col-md-4">
             <label for="doc_number">Номер @if($liver->group) студентського квитка @else паспорта @endif </label>
             <p class="form-control-static">{{ $liver->doc_number }}</p>
           </div>
@@ -104,11 +105,17 @@
           </div>
           <div class="form-group col-md-4">
             <label for="payments">Несплати за проживання</label>
-            <p class="form-control-static">{{ count($liver->payments) }}</p>
+            <p class="form-control-static">{{ $unpaidPayments }}</p>
           </div>
           <div class="form-group col-md-4">
             <label for="violations">Несплати на порушення</label>
-            <p class="form-control-static">{{ count($liver->violations)}}</p>
+            <p class="form-control-static">{{ $unpaidViolations }}</p>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group col-md-4">
+            <label for="faculty">Баланс</label>
+            <p class="form-control-static">{{ $liver->balance }}</p>
           </div>
         </div>
         @if(Auth::user()->profile)

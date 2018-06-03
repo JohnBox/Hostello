@@ -54,6 +54,7 @@
           <th>Дата народження</th>
           <th>Стать</th>
           <th>Студент</th>
+          <th>Баланс</th>
           @if(Auth::user()->profile)
           <th></th>
           <th></th>
@@ -66,6 +67,7 @@
             <td>{{ $liver->birth_date }}</td>
             <td>@if($liver->gender) Чоловіча @else Жіноча @endif</td>
             <td>@if($liver->group){{ $liver->group->name }}@else -@endif</td>
+            <td>{{ $liver->balance }}</td>
             @if(Auth::user()->profile)
             <td><a href="{{ route('livers.edit', ['liver' => $liver]) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
             <td>

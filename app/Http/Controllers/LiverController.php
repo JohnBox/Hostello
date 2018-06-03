@@ -104,7 +104,9 @@ class LiverController extends Controller
     public function show(Request $request, Liver $liver)
     {
         $page = $request->get('page') ?: 'profile';
-        return view('liver.show', ['liver' => $liver, 'page' => $page]);
+        $unpaidPayments = $liver->payments()->wherePivot('paid', null)->count();
+        $unpaidViolations = $liver->violations()->wherePivot('paid', null)->count();
+        return view('liver.show', compact('liver', 'page', 'unpaidPayments', 'unpaidViolations'));
     }
     public function edit(Liver $liver)
     {

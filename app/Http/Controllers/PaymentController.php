@@ -25,7 +25,7 @@ class PaymentController extends Controller
             ->where('last_name', 'LIKE', "%$term%")
             ->orWhere('first_name', 'LIKE', "%$term%")
             ->orWhere('second_name', 'LIKE', "%$term%")
-            ->get();
+            ->take(5)->get();
         $results = array();
         foreach ($livers as $liver)
         {
