@@ -123,6 +123,14 @@ class LiverController extends Controller
     }
     public function destroy(Liver $liver)
     {
+        foreach ($liver->payments as $payment) {
+            $payment->livers()->detach($liver);
+            $payment->save();
+        }
+        foreach ($liver->violations as $violation) {
+            $violation->livers()->detach($liver);
+            $violation->save();
+        }
         $liver->delete();
         return redirect()->route('livers.index');
     }

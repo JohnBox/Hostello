@@ -71,11 +71,9 @@
             @if(Auth::user()->profile)
             <td><a href="{{ route('livers.edit', ['liver' => $liver]) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
             <td>
-              <form id="destroy{{ $liver->id }}" method="post" action="{{ route('livers.destroy', ['liver' => $liver]) }}">
-                {{ method_field('DELETE') }}
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <a onclick="document.getElementById('destroy{{$liver->id}}').submit()"><span class="glyphicon glyphicon-remove"></span></a>
-              </form>
+              {!! Form::open(['method' => 'Delete', 'route' => ['livers.destroy', $liver->id]]) !!}
+              <button style="border: none; background-color: transparent;color: #428bca;" type="submit"><span class="glyphicon glyphicon-remove"></span></button>
+              {!! Form::close() !!}
             </td>
             @endif
           </tr>
