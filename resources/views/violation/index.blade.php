@@ -39,14 +39,18 @@
         </tr>
         @foreach($violations as $violation)
           <tr>
-            <td><a href="{{ route('violations.show', ['$violation' => $violation]) }}">{{ $violation->description }}</a></td>
+            <td><a href="{{ route('violations.show', ['violation' => $violation]) }}">{{ $violation->description }}</a></td>
             <td>{{ $violation->date }}</td>
             @unless(Auth::user()->profile)
             <td>{{ $violation->watchman->short_name() }}</td>
             @endunless
             @if(Auth::user()->profile)
             <td><a href="{{ route('violations.edit', ['violation' => $violation]) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
-            <td><a href="{{ route('violations.destroy', ['violation' => $violation]) }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+            <td>
+              {!! Form::open(['method' => 'Delete', 'route' => ['violations.destroy', $violation->id]]) !!}
+              <button style="border: none; background-color: transparent;color: #428bca;" type="submit"><span class="glyphicon glyphicon-remove"></span></button>
+              {!! Form::close() !!}
+            </td>
             @endif
           </tr>
         @endforeach

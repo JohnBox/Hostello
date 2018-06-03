@@ -82,6 +82,11 @@ class ViolationController extends Controller
     }
     public function destroy(Violation $violation)
     {
+        foreach($violation->livers as $liver) {
+            $liver->violations()->detach($violation);
+            $liver->balance += $liver->pivot->price;
+            $liver->save();
+        }
         $violation->delete();
         return redirect()->route('violations.index');
     }
