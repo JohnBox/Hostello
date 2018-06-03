@@ -19,6 +19,7 @@ class CreateBlocksTable extends Migration
             $table->integer('floor_id')->unsigned();
             $table->foreign('floor_id')->references('id')->on('floors')
                 ->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

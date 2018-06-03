@@ -19,6 +19,7 @@ class CreateFloorsTable extends Migration
             $table->integer('hostel_id')->unsigned();
             $table->foreign('hostel_id')->references('id')->on('hostels')
                 ->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

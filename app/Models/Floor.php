@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Floor extends Model
 {
     protected $fillable = ['number', 'hostel_id'];
-    public $timestamps = false;
+    public $timestamps = true;
 
     function hostel()
     {

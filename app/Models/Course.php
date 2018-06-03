@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     protected $fillable = ['number', 'specialty_id'];
-    public $timestamps = false;
+    public $timestamps = true;
 
     function specialty()
     {

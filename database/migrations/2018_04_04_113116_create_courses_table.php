@@ -19,6 +19,7 @@ class CreateCoursesTable extends Migration
             $table->integer('specialty_id')->unsigned();
             $table->foreign('specialty_id')->references('id')->on('specialties')
                 ->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

@@ -20,6 +20,7 @@ class CreateUniversitiesTable extends Migration
             $table->string('phone');
             $table->string('merchant_id');
             $table->string('merchant_password');
+            $table->timestamps();
         });
     }
 

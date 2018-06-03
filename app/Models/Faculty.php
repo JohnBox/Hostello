@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Faculty extends Model
 {
     protected $fillable = ['name', 'university_id'];
-    public $timestamps = false;
+    public $timestamps = true;
 
     function university()
     {

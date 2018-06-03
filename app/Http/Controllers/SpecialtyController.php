@@ -26,8 +26,7 @@ class SpecialtyController extends Controller
         $input = $request->only(['name', 'years_of_study', 'faculty_id']);
         $specialty = Specialty::create($input);
         $courses = [];
-        foreach (range(1, $specialty->years_of_study) as $number)
-        {
+        foreach (range(1, $specialty->years_of_study) as $number) {
             $courses[] = new Course(['number' => $number]);
         }
         $specialty->courses()->saveMany($courses);
@@ -49,9 +48,21 @@ class SpecialtyController extends Controller
 
     public function update(Request $request, Specialty $specialty)
     {
+        $years_of_study = $specialty->years_of_study;
         $input = $request->only(['name', 'years_of_study', 'faculty_id']);
         $specialty->fill($input);
         $specialty->save();
+        if ($specialty->years_of_study > $years_of_study) {
+            $number = $specialty->years_of_study - $years_of_study;
+            while ($number <= $specialty->years_of_study) {
+                $specialty->courses()->create(['number' => $number++]);
+            }
+        } elseif ($specialty->years_of_study < $years_of_study) {
+            $number = $years_of_study;
+            while ($number > $specialty->years_of_study) {
+                $specialty->courses()->whereNumber($number--)->delete();
+            }
+        }
         return redirect()->route('universities.index');
     }
 

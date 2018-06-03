@@ -20,7 +20,7 @@ class CreateSpecialtiesTable extends Migration
             $table->integer('faculty_id')->unsigned();
             $table->foreign('faculty_id')->references('id')->on('faculties')
                 ->onDelete('cascade');
-
+            $table->timestamps();
         });
     }
 
