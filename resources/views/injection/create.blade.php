@@ -24,7 +24,7 @@
                   </span>
                   </div>
                   <div class='info'>
-                    <h3>
+                    <h4>
                       @foreach($room->livers as $room_liver)
                         {{ $room_liver->short_name() }}
                         @if($room_liver->group)
@@ -32,7 +32,7 @@
                         @endif
                         <br/>
                       @endforeach
-                    </h3>
+                    </h4>
                   </div>
                 </li>
               @endforeach

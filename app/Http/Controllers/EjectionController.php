@@ -41,6 +41,7 @@ class EjectionController extends Controller
         $room = $liver->room;
         $watchman = $request->user()->profile;
         $ejection = new Ejection(['date' => date('Y-m-d')]);
+        $ejection->hostel()->associate($watchman->hostel);
         $ejection->watchman()->associate($watchman);
         $ejection->liver()->associate($liver);
         $ejection->room()->associate($room);
