@@ -40,7 +40,15 @@
               <label class="control-label" for="merchant">Мерчант акаунт</label>
             </div>
             <div class="col-md-10">
-              <input type="text" class="form-control" id="merchant" name="merchant" value="{{ $university->merchant }}" required>
+              <input type="text" class="form-control" id="merchant_id" name="merchant_id" value="{{ $university->merchant_id }}" required>
+            </div>
+          </div>
+          <div class="form-group required">
+            <div class="col-md-2">
+              <label class="control-label" for="merchant">Мерчант пароль</label>
+            </div>
+            <div class="col-md-10">
+              <input type="text" class="form-control" id="merchant_password" name="merchant_password" value="{{ $university->merchant_password }}" required>
             </div>
           </div>
           <button type="submit" class="btn btn-default">Оновити</button>

@@ -18,7 +18,7 @@ class UniversitySeeder extends Seeder
             'address' => 'вул. Соломянська 7',
             'phone' => '1234576',
             'merchant_id' => 'DEADBEEF',
-            'merchant_password' => 'DEADBEEF',
+            'merchant_password' => 'BEEFDEAD',
         ]);
     }
 }

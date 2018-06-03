@@ -27,7 +27,13 @@
           <div class="form-group required">
             <label class="control-label col-md-2" for="merchant">Мерчант акаунт</label>
             <div class="col-md-10">
-              <input type="text" class="form-control" id="merchant" name="merchant" required>
+              <input type="text" class="form-control" id="merchant_id" name="merchant_id" required>
+            </div>
+          </div>
+          <div class="form-group required">
+            <label class="control-label col-md-2" for="merchant">Мерчант пароль</label>
+            <div class="col-md-10">
+              <input type="text" class="form-control" id="merchant_password" name="merchant_password" required>
             </div>
           </div>
           <button type="submit" class="btn btn-default">Зберегти</button>

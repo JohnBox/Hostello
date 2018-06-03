@@ -34,7 +34,7 @@ class UniversityController extends Controller
 
     function store(Request $request)
     {
-        $input = $request->only(['name', 'address', 'phone', 'merchant']);
+        $input = $request->only(['name', 'address', 'phone', 'merchant_id', 'merchant_password']);
         $university = University::first();
         if (!$university) {
             University::create($input);
@@ -49,7 +49,7 @@ class UniversityController extends Controller
 
     function update(Request $request, University $university)
     {
-        $input = $request->only(['name', 'address', 'phone', 'merchant']);
+        $input = $request->only(['name', 'address', 'phone', 'merchant_id', 'merchant_password']);
         $university->fill($input);
         $university->save();
         return redirect()->route('universities.index');

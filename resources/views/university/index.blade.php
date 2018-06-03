@@ -41,7 +41,7 @@
               <label class="control-label" for="merchant">Мерчант акаунт</label>
             </div>
             <div class="col-md-10">
-              <p class="form-control-static">{{ $university->merchant }}</p>
+              <p class="form-control-static">{{ $university->merchant_id }}</p>
             </div>
           </div>
           <a class="btn btn-default" href="{{ route('universities.edit', ['university' => $university]) }}" role="button">Редагувати</a>
