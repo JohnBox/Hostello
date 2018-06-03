@@ -15,10 +15,14 @@ class CreateViolationsTable extends Migration
     {
         Schema::create('violations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('hostel_id');
-            $table->integer('watchman_id');
             $table->date('date');
             $table->string('description');
+            $table->integer('watchman_id')->unsigned()->nullable();
+            $table->foreign('watchman_id')->references('id')->on('watchmen')
+                ->onDelete('set null');
+            $table->integer('hostel_id')->unsigned();
+            $table->foreign('hostel_id')->references('id')->on('hostels')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

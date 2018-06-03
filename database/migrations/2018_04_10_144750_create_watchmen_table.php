@@ -19,7 +19,9 @@ class CreateWatchmenTable extends Migration
             $table->string('last_name');
             $table->string('second_name');
             $table->string('phone');
-            $table->integer('hostel_id');
+            $table->integer('hostel_id')->unsigned();
+            $table->foreign('hostel_id')->references('id')->on('hostels')
+                ->onDelete('cascade');
         });
     }
 

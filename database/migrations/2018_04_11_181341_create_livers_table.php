@@ -24,9 +24,15 @@ class CreateLiversTable extends Migration
             $table->string('phone');
             $table->float('balance')->default(0);
             $table->boolean('bad_habit')->default(false);
-            $table->integer('group_id')->nullable();
-            $table->integer('room_id')->nullable();
-            $table->integer('hostel_id')->nullable();
+            $table->integer('group_id')->unsigned()->nullable();
+            $table->foreign('group_id')->references('id')->on('groups')
+                ->onDelete('set null');
+            $table->integer('room_id')->unsigned()->nullable();
+            $table->foreign('room_id')->references('id')->on('rooms')
+                ->onDelete('set null');
+            $table->integer('hostel_id')->unsigned()->nullable(); //TODO: make not nullable
+            $table->foreign('hostel_id')->references('id')->on('hostels')
+                ->onDelete('set null');
             $table->timestamps();
         });
     }
