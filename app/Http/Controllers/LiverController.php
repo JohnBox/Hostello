@@ -92,6 +92,11 @@ class LiverController extends Controller
             $input['group_id'] = $request->input('group_id');
         $input['hostel_id'] = $request->user()->profile->hostel->id;
         $liver = Liver::create($input);
+        $liver->user()->create([
+            'name' => $input['phone']  ,
+            'email' => 'watchman' . $liver->id . '@gmail.com',
+            'password' => Hash::make($input['phone']),
+        ]);
         return redirect()->route('livers.show', ['liver' => $liver]);
     }
 
