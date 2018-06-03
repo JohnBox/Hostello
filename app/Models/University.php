@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class University extends Model
 {
-    protected $fillable = ['name', 'address', 'phone', 'merchant'];
+    protected $fillable = ['name', 'address', 'phone', 'merchant_id', 'merchant_password'];
     public $timestamps = false;
 
     function faculties()

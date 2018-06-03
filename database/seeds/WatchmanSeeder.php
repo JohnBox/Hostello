@@ -19,9 +19,9 @@ class WatchmanSeeder extends Seeder
                 'phone' => '+380661111111',
             ]);
             $watchman->user()->create([
-                'name' => 'watchman'  ,
+                'name' => 'admin2'  ,
                 'email' => 'watchman' . $watchman->id . '@gmail.com',
-                'password' => Hash::make('watchman'),
+                'password' => Hash::make('admin2'),
             ]);
         }
     }

@@ -41,12 +41,17 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('rooms', 'RoomController');
 
     Route::get('profile/payments', 'ProfileController@payments')->name('profile.payments');
+    Route::get('profile/payments/pay', 'ProfileController@payPayment')->name('profile.payments.pay');
+    Route::get('profile/payments/pay_all', 'ProfileController@payAllPayments')->name('profile.payments.pay_all');
+
     Route::get('profile/violations', 'ProfileController@violations')->name('profile.violations');
+    Route::get('profile/violations/pay', 'ProfileController@payViolation')->name('profile.violations.pay');
+    Route::get('profile/violations/pay_all', 'ProfileController@payAllViolations')->name('profile.violations.pay_all');
+
     Route::get('profile/injections', 'ProfileController@injections')->name('profile.injections');
     Route::get('profile/ejections', 'ProfileController@ejections')->name('profile.ejections');
-    Route::get('profile/pay', 'ProfileController@pay')->name('profile.pay');
-    Route::resource('profile', 'ProfileController');
 
+    Route::resource('profile', 'ProfileController');
 
     Route::get('', 'HomeController@index')->name('home');
 

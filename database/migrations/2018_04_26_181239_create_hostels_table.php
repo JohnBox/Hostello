@@ -19,7 +19,8 @@ class CreateHostelsTable extends Migration
             $table->string('name');
             $table->string('address');
             $table->string('phone');
-            $table->string('merchant');
+            $table->string('merchant_id');
+            $table->string('merchant_password');
         });
     }
 

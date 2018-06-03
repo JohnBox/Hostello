@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request as GuzzleRequest;
 
 
 class ProfileController extends Controller
@@ -12,22 +10,26 @@ class ProfileController extends Controller
     function index(Request $request)
     {
         $profile = $request->user()->profile;
+        $unpaidPayments = $profile->payments()->wherePivot('paid', null)->count();
+        $unpaidViolations = $profile->violations()->wherePivot('paid', null)->count();
         $page = 'index';
-        return view('profile.index', compact('profile', 'page'));
+        return view('profile.index', compact('profile', 'page', 'unpaidPayments', 'unpaidViolations'));
     }
 
     function payments(Request $request)
     {
         $profile = $request->user()->profile;
         $page = 'payments';
-        return view('profile.payments', compact('profile', 'page'));
+        $unpaid = (boolean)count($profile->payments()->wherePivot('paid', null)->get());
+        return view('profile.payments', compact('profile', 'page', 'unpaid'));
     }
 
     function violations(Request $request)
     {
         $profile = $request->user()->profile;
         $page = 'violations';
-        return view('profile.violations', compact('profile', 'page'));
+        $unpaid = (boolean)count($profile->violations()->wherePivot('paid', null)->get());
+        return view('profile.violations', compact('profile', 'page', 'unpaid'));
     }
 
     function injections(Request $request)
@@ -44,40 +46,53 @@ class ProfileController extends Controller
         return view('profile.ejections', compact('profile', 'page'));
     }
 
-    function pay()
+    function payPayment(Request $request)
     {
+        $liver = $request->user()->profile;
+        $pivot = $liver->payments->find($request->get('payment'))->pivot;
+        $pivot->paid = date('Y-m-d');
+        $pivot->save();
+        $liver->balance += $pivot->price;
+        $liver->save();
+        return redirect()->route('profile.payments');
+    }
 
-        $data = <<<DATA
-<oper>cmt</oper>
-<wait>0</wait>
-<test>1</test>
-<payment id="1234567">
-<prop name="b_card_or_acc" value="5158755620903928" />
-<prop name="amt" value="1" />
-<prop name="ccy" value="UAH" />
-<prop name="details" value="test%20merch%20not%20active" />
-</payment>
-DATA;
+    function payAllPayments(Request $request)
+    {
+        $liver = $request->user()->profile;
+        foreach($liver->payments as $payment) {
+            if (!$payment->pivot->paid) {
+                $payment->pivot->paid = date('Y-m-d');
+                $payment->pivot->save();
+                $liver->balance += $payment->pivot->price;
+                $liver->save();
+            }
+        };
+        return redirect()->route('profile.payments');
+    }
 
-        $password = '5ULqSVyyBNpv78552krrQainPiGo118w';
-        $sign = sha1(md5($data.$password));
+    function payViolation(Request $request)
+    {
+        $liver = $request->user()->profile;
+        $pivot = $liver->violations->find($request->get('violation'))->pivot;
+        $pivot->paid = date('Y-m-d');
+        $pivot->save();
+        $liver->balance += $pivot->price;
+        $liver->save();
+        return redirect()->route('profile.violations');
+    }
 
-        $xml = <<<REQ
-<?xml version="1.0" encoding="UTF-8"?>
-<request version="1.0">
-<merchant>
-<id>136038</id>
-<signature>$sign</signature>
-</merchant>
-<data>
-$data
-</data>
-</request>
-REQ;
-        $url = 'https://api.privatbank.ua/p24api/pay_pb';
-        $client = new Client();
-        $req = new GuzzleRequest('POST', $url, ['Content-Type' => 'text/xml; charset=UTF8'], $xml);
-        $res = $client->send($req);
-        var_dump($res);
+    function payAllViolations(Request $request)
+    {
+        $liver = $request->user()->profile;
+        foreach($liver->violations as $violation) {
+            if (!$violation->pivot->paid) {
+                $violation->pivot->paid = date('Y-m-d');
+                $violation->pivot->save();
+                $liver->balance += $violation->pivot->price;
+                $liver->save();
+            }
+        };
+        return redirect()->route('profile.violations');
     }
 }

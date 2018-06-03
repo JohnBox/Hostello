@@ -17,7 +17,8 @@ class UniversitySeeder extends Seeder
             'name' => 'Державний Університет Телекомунікацій',
             'address' => 'вул. Соломянська 7',
             'phone' => '1234576',
-            'merchant' => 'DEADBEEF'
+            'merchant_id' => 'DEADBEEF',
+            'merchant_password' => 'DEADBEEF',
         ]);
     }
 }

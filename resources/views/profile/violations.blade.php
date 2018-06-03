@@ -4,9 +4,11 @@
   <div class="panel panel-default">
     <div class="panel-heading">Порушення</div>
     <div class="panel-body">
-      <a href="" class="btn btn-default">Сплатити всі</a>
-      <br>
-      <br>
+      @if($unpaid)
+        <a href="{{ route('profile.violations.pay_all') }}" class="btn btn-default">Сплатити всі</a>
+        <br>
+        <br>
+      @endif
       <table class="table table-striped">
         <tr>
           <th>Опис</th>
@@ -25,7 +27,7 @@
               @if($violation->pivot->paid)
                 {{ $violation->pivot->paid }}
               @else
-                <a href="" class="btn btn-xs btn-default">Сплатити</a>
+                <a href="{{ route('profile.violations.pay', ['violation' => $violation]) }}" class="btn btn-xs btn-default">Сплатити</a>
               @endif
             </td>
           </tr>

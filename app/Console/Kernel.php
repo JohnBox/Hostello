@@ -36,9 +36,8 @@ class Kernel extends ConsoleKernel
                     'hostel_id' => $hostel->id,
                 ]);
                 foreach ($hostel->livers as $liver) {
-                    $pivot = [
-                        'price' => $liver->room->price,
-                    ];
+                    $pivot = ['price' => $liver->room->price];
+                    $payment->livers()->attach($liver, $pivot);
                     $payment->save();
                     $liver->payments()->attach($payment, $pivot);
                     $liver->balance -= $pivot['price'];

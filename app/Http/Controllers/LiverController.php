@@ -6,6 +6,7 @@ use App\Models\Hostel;
 use App\Models\University;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Interverntion;
 

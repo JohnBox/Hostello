@@ -17,16 +17,14 @@ class ViolationSeeder extends Seeder
                 'date' => date('Y-m-d'),
                 'hostel_id' => $watchman->hostel->id
             ]);
-            $pivot = [
-                'price' => 100,
-            ];
+            $pivot = ['price' => 100];
             $liver->violations()->attach($violation, $pivot);
             $liver->balance -= $pivot['price'];
             $liver->save();
             $rand_liver = Liver::inRandomOrder()->first();
+            $rand_liver->violations()->attach($violation, $pivot);
             $rand_liver->balance -= $pivot['price'];
             $rand_liver->save();
-            $rand_liver->violations()->attach($violation, $pivot);
             $violation->save();
         };
     }

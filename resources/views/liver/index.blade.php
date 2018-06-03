@@ -68,7 +68,13 @@
             <td>@if($liver->group){{ $liver->group->name }}@else -@endif</td>
             @if(Auth::user()->profile)
             <td><a href="{{ route('livers.edit', ['liver' => $liver]) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
-            <td><a href="{{ route('livers.destroy', ['liver' => $liver]) }}"><span class="glyphicon glyphicon-remove"></span></a></td>
+            <td>
+              <form id="destroy{{ $liver->id }}" method="post" action="{{ route('livers.destroy', ['liver' => $liver]) }}">
+                {{ method_field('DELETE') }}
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <a onclick="document.getElementById('destroy{{$liver->id}}').submit()"><span class="glyphicon glyphicon-remove"></span></a>
+              </form>
+            </td>
             @endif
           </tr>
         @endforeach

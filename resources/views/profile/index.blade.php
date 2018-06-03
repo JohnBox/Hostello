@@ -37,7 +37,7 @@
           <label for="is_student">Студент</label>
           <p class="form-control-static">@if($profile->group)Так @elseНі @endif</p>
         </div>
-        <div class="form-group col-md-4" style="background: #aaa;">
+        <div class="form-group col-md-4">
           <label for="doc_number">Номер @if($profile->group) студентського квитка @else паспорта @endif </label>
           <p class="form-control-static">{{ $profile->doc_number }}</p>
         </div>
@@ -73,11 +73,11 @@
         </div>
         <div class="form-group col-md-4">
           <label for="payments">Несплати за проживання</label>
-          <p class="form-control-static">{{ count($profile->payments) }}</p>
+          <p class="form-control-static">{{ $unpaidPayments }}</p>
         </div>
         <div class="form-group col-md-4">
           <label for="violations">Несплати на порушення</label>
-          <p class="form-control-static">{{ count($profile->violations)}}</p>
+          <p class="form-control-static">{{ $unpaidViolations }}</p>
         </div>
       </div>
       <div class="col-md-12">
