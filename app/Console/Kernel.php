@@ -31,20 +31,17 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
 
             foreach (Hostel::all() as $hostel) {
-                $payment = new Payment([
+                $payment = $hostel->payments()->create([
                     'date' => date('Y-m-d'),
-                    'hostel_id' => $hostel->id,
                 ]);
                 foreach ($hostel->livers as $liver) {
                     $pivot = ['price' => $liver->room->price];
-                    $payment->livers()->attach($liver, $pivot);
-                    $payment->save();
                     $liver->payments()->attach($payment, $pivot);
                     $liver->balance -= $pivot['price'];
                     $liver->save();
                 }
             }
-        })->everyFiveMinutes();
+        })->everyMinute();
     }
 
     /**

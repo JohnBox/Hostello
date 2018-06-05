@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(WatchmanSeeder::class);
         $this->call(LiverSeeder::class);
-        $this->call(PaymentSeeder::class);
+//        $this->call(PaymentSeeder::class);
         $this->call(ViolationSeeder::class);
         $this->call(EjectionSeeder::class);
         $this->call(InjectionSeeder::class);

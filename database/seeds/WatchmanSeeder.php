@@ -11,7 +11,7 @@ class WatchmanSeeder extends Seeder
 {
     public function run()
     {
-        foreach (Hostel::all() as $hostel) {
+        foreach (Hostel::all() as $i => $hostel) {
             $watchman = $hostel->watchmen()->create([
                 'first_name' => 'Lol',
                 'last_name' => 'Kek',
@@ -19,9 +19,9 @@ class WatchmanSeeder extends Seeder
                 'phone' => '+380661111111',
             ]);
             $watchman->user()->create([
-                'name' => 'admin2'  ,
-                'email' => 'watchman' . $watchman->id . '@gmail.com',
-                'password' => Hash::make('admin2'),
+                'name' => 'watchman'.($i+1),
+                'email' => 'watchman',
+                'password' => Hash::make('watchman'.($i+1)),
             ]);
         }
     }

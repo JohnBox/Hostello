@@ -21,7 +21,6 @@ class PaymentSeeder extends Seeder
                 $liver->payments()->attach($payment, $pivot);
                 $liver->balance -= $pivot['price'];
                 $liver->save();
-                $payment->save();
             }
         }
     }
