@@ -35,10 +35,12 @@ class Kernel extends ConsoleKernel
                     'date' => date('Y-m-d'),
                 ]);
                 foreach ($hostel->livers as $liver) {
-                    $pivot = ['price' => $liver->room->price];
-                    $liver->payments()->attach($payment, $pivot);
-                    $liver->balance -= $pivot['price'];
-                    $liver->save();
+                    if ($liver->room) {
+                        $pivot = ['price' => $liver->room->price];
+                        $liver->payments()->attach($payment, $pivot);
+                        $liver->balance -= $pivot['price'];
+                        $liver->save();
+                    }
                 }
             }
         })->everyMinute();
